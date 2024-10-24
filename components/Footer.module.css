@@ -1,0 +1,33 @@
+/* components/Footer.module.css */
+
+.footer {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 20px 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.socialMedia {
+  margin-bottom: 10px;
+}
+
+.socialMedia a {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.socialMedia img {
+  width: 24px;
+  height: 24px;
+  filter: invert(100%); /* Make icons white */
+}
+
+.copyRight {
+  font-size: 0.9rem;
+}

@@ -1,0 +1,15 @@
+/* components/Paragraph.module.css */
+
+.paragraph {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 1rem;
+}
+
+/* Optional: Adjust color or font weight for emphasis */
+.paragraphStrong {
+  color: #3a7ca5; /* Primary color */
+  font-weight: 600;
+}

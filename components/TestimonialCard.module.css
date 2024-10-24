@@ -1,0 +1,27 @@
+/* components/TestimonialCard.module.css */
+
+.card {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 1.5rem;
+  border-radius: 0.375rem; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.quote {
+  font-style: italic;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.author {
+  text-align: right;
+  font-weight: 600;
+  color: #3a7ca5; /* Primary color */
+}

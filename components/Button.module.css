@@ -1,0 +1,43 @@
+/* components/Button.module.css */
+
+.button {
+  display: inline-block; /* Ensures button doesn't take full width */
+  background-color: #e63946; /* Accent color */
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.375rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Central Alignment Without Full Width */
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Optional Left Alignment */
+.left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Optional Right Alignment */
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button:hover {
+  background-color: #d62828; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+.button:active {
+  background-color: #b71c1c; /* Even darker on click */
+  transform: translateY(0);
+}

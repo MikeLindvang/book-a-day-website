@@ -1,0 +1,86 @@
+/* components/CardComponent.module.css */
+
+.card {
+  padding: 1.5rem;
+  border-radius: 0.375rem;
+  margin: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Default Variant */
+.default {
+  background-color: #f8f9fa; /* Light gray background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.default:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Variant: Primary Color Border */
+.primaryBorder {
+  background-color: #ffffff; /* White background */
+  border: 1px solid #3a7ca5; /* Primary color border */
+  box-shadow: none;
+}
+
+.primaryBorder:hover {
+  border-color: #1d3557; /* Darker shade on hover */
+}
+
+/* Variant: Accent Color Background */
+.accentBackground {
+  background-color: #e63946; /* Accent color */
+  color: #ffffff; /* White text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accentBackground a {
+  color: #ffffff; /* Links inside the card */
+}
+
+.accentBackground:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Variant: Outline */
+.outline {
+  background-color: transparent;
+  border: 1px solid #cccccc;
+  box-shadow: none;
+}
+
+.outline:hover {
+  border-color: #aaaaaa;
+}
+
+/* Variant: Shadow Emphasis */
+.shadow {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+}
+
+.shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+}
+/* Variant: Product Card */
+.productCard {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

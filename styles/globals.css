@@ -1,0 +1,140 @@
+/* styles/globals.css */
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set base font and background color */
+html,
+body {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #e0f7fa;
+  color: #333333;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for the main content area */
+main {
+  flex: 1;
+  max-width: 800px;
+  min-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Typography */
+main h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+main p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  color: #555555;
+}
+
+/* Reset default list styles */
+.content ul,
+.content ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Unordered List Styles */
+.content ul {
+  margin: 16px 0;
+  padding-left: 20px;
+}
+
+.content ul li {
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 24px;
+}
+
+.content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  background-color: #3a7ca5; /* Primary color */
+  border-radius: 50%;
+}
+
+/* Ordered List Styles */
+.content ol {
+  margin: 16px 0;
+  padding-left: 20px;
+  counter-reset: list-counter;
+}
+
+.content ol li {
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 24px;
+}
+
+.content ol li::before {
+  counter-increment: list-counter;
+  content: counter(list-counter) '.';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #3a7ca5; /* Primary color */
+  font-weight: bold;
+}
+
+/* Hover Effects */
+.content ul li:hover,
+.content ol li:hover {
+  color: #e63946; /* Accent color */
+  cursor: default;
+}
+
+/* Nested Lists */
+.content ul ul,
+.content ol ul,
+.content ul ol,
+.content ol ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.content ul ul li::before,
+.content ol ul li::before {
+  background-color: #e63946; /* Accent color for nested bullets */
+}
+
+.content ol ol li::before {
+  color: #e63946; /* Accent color for nested numbers */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  main {
+    margin: 20px auto;
+    padding: 16px;
+  }
+
+  main h1 {
+    font-size: 1.5rem;
+  }
+}

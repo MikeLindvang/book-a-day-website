@@ -1,0 +1,64 @@
+/* components/Heading.module.css */
+
+.heading {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Primary Color Variant */
+.primary {
+  color: #3a7ca5; /* Primary color */
+}
+
+/* Modernized Red Variant */
+.red {
+  color: #e63946; /* Modernized red */
+}
+
+/* Blue Variant */
+.blue {
+  color: #1d3557; /* Secondary blue */
+}
+
+.white {
+  color: #ffffff; /* Secondary blue */
+}
+
+/* Heading Levels */
+
+/* Level 1 */
+.heading1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Level 2 */
+.heading2 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Level 3 */
+.heading3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .heading1 {
+    font-size: 2rem;
+  }
+
+  .heading2 {
+    font-size: 1.75rem;
+  }
+
+  .heading3 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,120 @@
+/* components/Header.module.css */
+
+.header {
+  background-color: #ffffff;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3a7ca5; /* Primary color */
+  text-decoration: none;
+}
+
+.nav {
+  /* Additional styling if needed */
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navList li a {
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navList li a:hover {
+  color: #e63946; /* Accent color */
+}
+/* components/Header.module.css */
+
+/* Existing styles... */
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.logoContent {
+  display: flex;
+  align-items: center;
+  color: #3a7ca5; /* Primary color */
+}
+
+.logoIcon {
+  margin-right: 4px;
+  /* Adjust icon size if needed */
+  height: 1.5rem;
+  color: #3a7ca5;
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+/* components/Header.module.css */
+
+/* Existing styles... */
+
+.logoContent {
+  display: flex;
+  align-items: center;
+  color: #3a7ca5; /* Primary color */
+}
+
+.logoIcon {
+  margin-right: 8px;
+  font-size: 1.5rem;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333333;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navIcon {
+  margin-right: 2px;
+  height: 10%;
+  display: inline;
+}
+
+.navItem:hover {
+  color: #e63946; /* Accent color on hover */
+}
+
+.active {
+  color: #e63946;
+  border-bottom: 2px solid #e63946;
+}
+
+.navList li a {
+  text-decoration: none;
+}
+
+/* Adjust other styles as necessary */

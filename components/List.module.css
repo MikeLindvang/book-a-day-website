@@ -1,0 +1,60 @@
+/* components/List.module.css */
+
+.list {
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+
+.list li {
+  position: relative;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  color: #555555;
+}
+
+/* Bold styling for alternating items */
+.bold {
+  font-weight: bold;
+}
+
+/* Optional: Add hover effects */
+.list li:hover {
+  color: #e63946; /* Accent color */
+}
+
+/* Ordered List Styles */
+.list.ol {
+  counter-reset: list-counter;
+}
+
+.list.ol li {
+  padding-left: 1.75rem;
+}
+
+.list.ol li::before {
+  counter-increment: list-counter;
+  content: counter(list-counter) '.';
+  font-weight: bold;
+  color: #3a7ca5; /* Primary color */
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Nested Lists */
+.list ul,
+.list ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.list ul li::before {
+  background-color: #e63946; /* Accent color for nested bullets */
+}
+
+.list ol li::before {
+  color: #e63946; /* Accent color for nested numbers */
+}

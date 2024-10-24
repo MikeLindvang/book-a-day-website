@@ -1,0 +1,10 @@
+/* components/ProductGrid.module.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Optional: Adjust card styling inside the grid if needed */
