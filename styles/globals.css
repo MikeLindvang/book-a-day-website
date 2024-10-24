@@ -12,7 +12,7 @@ html,
 body {
   height: 100%;
   font-family: 'Open Sans', sans-serif;
-  background-color: #e0f7fa;
+  /* background-color: #e0f7fa; */
   color: #333333;
   scroll-behavior: smooth;
 }
@@ -20,6 +20,22 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  background: linear-gradient(0deg, #f6fdfe, #e0f7fa, #e0f7fa, #f6fdfe);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Style for the main content area */
