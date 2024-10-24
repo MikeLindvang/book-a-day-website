@@ -1,0 +1,22 @@
+/* styles/HeroSection.module.css */
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.heroSection {
+  background: linear-gradient(-45deg, #3a7ca5, #e63946, #1d3557, #f8f9fa);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #ffffff;
+}

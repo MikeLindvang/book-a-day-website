@@ -9,8 +9,10 @@ export default function Header() {
       <div className={styles.container}>
         {/* Logo or Site Name */}
         <div className={styles.logo}>
-          <FontAwesomeIcon icon="book" className={styles.logoIcon} />
-          <Link href="/">Book-A-Day</Link>
+          <h1>
+            <FontAwesomeIcon icon="book" className={styles.logoIcon} />
+            <Link href="/">Book-A-Day</Link>
+          </h1>
         </div>
         {/* Navigation Menu */}
         <nav className={styles.nav}>

@@ -2,6 +2,7 @@
 import Main from '../../components/Main';
 import Heading from '../../components/Heading';
 import ProductGrid from '../../components/ProductGrid';
+import Header from '../../components/Header';
 
 export default function ProductsPage() {
   const products = [
@@ -37,11 +38,14 @@ export default function ProductsPage() {
   });
 
   return (
-    <Main>
-      <Heading level={1} color="primary">
-        Our Products
-      </Heading>
-      <ProductGrid products={sortedProducts} />
-    </Main>
+    <>
+      <Header />
+      <Main>
+        <Heading level={1} color="primary">
+          Our Products
+        </Heading>
+        <ProductGrid products={sortedProducts} />
+      </Main>
+    </>
   );
 }

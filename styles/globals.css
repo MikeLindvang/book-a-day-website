@@ -14,6 +14,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: #e0f7fa;
   color: #333333;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -34,6 +35,14 @@ main {
 }
 
 /* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Merriweather', serif;
+}
 main h1 {
   font-size: 2rem;
   font-weight: bold;
