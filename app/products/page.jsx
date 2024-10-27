@@ -14,11 +14,11 @@ export default function ProductsPage() {
       link: '/products/kindle-short-reads',
     },
     {
-      name: 'Mastering Self-Publishing',
+      name: 'Book-A-Day Problem Busters',
       description:
-        'A comprehensive guide to self-publishing your own books and reaching a global audience.',
-      launchDate: '2023-09-01',
-      link: '/products/mastering-self-publishing',
+        'How to solve your readers problems one at a time and make bank in the process.',
+      launchDate: '2017-10-03',
+      link: '/products/problembuster',
     },
     {
       name: 'Creative Writing Bootcamp',

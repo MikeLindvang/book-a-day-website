@@ -359,9 +359,14 @@ export default function ConnectTheDotsPage() {
         alt="Mike Nielsen"
         width={200}
         height={200}
+        style={{ borderRadius: '10px' }}
       />
 
-      <Paragraph>Contact info: master[at]kdmastery.com</Paragraph>
+      <Paragraph>
+        <a href="https://netscribepro.ladesk.com/" target="_blank">
+          Need Support
+        </a>
+      </Paragraph>
 
       {/* No Thanks Link */}
       <Paragraph align="center">
