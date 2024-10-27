@@ -1,10 +1,10 @@
-import Main from '../../components/Main'; // Assuming you have a Main component
-import Heading from '../../components/Heading';
-import Paragraph from '../../components/Paragraph';
-import Button from '../../components/Button';
-import List from '../../components/List';
-import CardComponent from '../../components/CardComponent';
-import EmbedCodeComponent from '../../components/EmbedCodeComponent';
+import Main from '../../../components/Main'; // Assuming you have a Main component
+import Heading from '../../../components/Heading';
+import Paragraph from '../../../components/Paragraph';
+import Button from '../../../components/Button';
+import List from '../../../components/List';
+import CardComponent from '../../../components/CardComponent';
+import EmbedCodeComponent from '../../../components/EmbedCodeComponent';
 
 export default function KindleShortReadsPage() {
   const struggle = [

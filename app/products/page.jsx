@@ -21,11 +21,10 @@ export default function ProductsPage() {
       link: '/products/problembuster',
     },
     {
-      name: 'Creative Writing Bootcamp',
-      description:
-        'An intensive program to boost your creativity and improve your writing skills.',
-      launchDate: '2023-10-12',
-      link: '/products/creative-writing-bootcamp',
+      name: 'Book-A-Day Template Torrent',
+      description: 'How to earn royalties with digital and physical templates.',
+      launchDate: '2020-01-16',
+      link: '/products/templatetorrent',
     },
     // Add more products as needed
   ];
