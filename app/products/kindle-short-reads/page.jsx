@@ -5,6 +5,8 @@ import Button from '../../../components/Button';
 import List from '../../../components/List';
 import CardComponent from '../../../components/CardComponent';
 import EmbedCodeComponent from '../../../components/EmbedCodeComponent';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function KindleShortReadsPage() {
   const struggle = [
@@ -712,6 +714,12 @@ export default function KindleShortReadsPage() {
           <br />
           Mike Nielsen
         </Paragraph>
+        <Image
+          src="/officialmike.jpg"
+          alt="Mike Nielsen"
+          width={200}
+          height={200}
+        />
 
         <Paragraph>Contact info: master[at]kdmastery.com</Paragraph>
       </Main>

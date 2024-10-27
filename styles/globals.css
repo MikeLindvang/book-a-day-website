@@ -20,7 +20,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(0deg, #f6fdfe, #e0f7fa, #e0f7fa, #f6fdfe);
+  background: linear-gradient(0deg, #f6fdfe, #caf1f6, #caf1f6, #f6fdfe);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   height: 100vh;
