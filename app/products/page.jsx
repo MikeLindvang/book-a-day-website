@@ -26,6 +26,13 @@ export default function ProductsPage() {
       launchDate: '2020-01-16',
       link: '/templatetorrent',
     },
+    {
+      name: 'Book-A-Day Lists Unlimited',
+      description:
+        'They say the money is in the list. With these books you can take that to the next level.',
+      launchDate: '2020-03-30',
+      link: '/listsunlimited',
+    },
     // Add more products as needed
   ];
 
