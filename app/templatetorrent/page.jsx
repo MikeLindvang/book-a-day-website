@@ -1,10 +1,10 @@
 // pages/book-a-day-template-torrent/page.js
 
-import Main from '../../../components/Main';
-import Heading from '../../../components/Heading';
-import Paragraph from '../../../components/Paragraph';
-import CardComponent from '../../../components/CardComponent';
-import EmbedCodeComponent from '../../../components/EmbedCodeComponent';
+import Main from '../../components/Main';
+import Heading from '../../components/Heading';
+import Paragraph from '../../components/Paragraph';
+import CardComponent from '../../components/CardComponent';
+import EmbedCodeComponent from '../../components/EmbedCodeComponent';
 import Image from 'next/image';
 import Link from 'next/link';
 
