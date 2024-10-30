@@ -1,33 +1,84 @@
 /* components/Footer.module.css */
 
+/* Main footer styles */
 .footer {
-  background-color: #333333;
-  color: #ffffff;
-  padding: 20px 0;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  padding: 20px 0 40px; /* Less padding on top, more at the bottom */
+  font-family: 'Arial', sans-serif;
+}
+
+.stickyFooter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.topBar {
+  width: 100%;
+  background-color: #1a1a1a;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.topBar a {
+  margin: 0 15px;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.topBar a:hover {
+  color: #ffcc00; /* Highlight on hover */
 }
 
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 10px; /* This will push down the rest of the footer content slightly */
   text-align: center;
 }
 
-.socialMedia {
-  margin-bottom: 10px;
-}
-
-.socialMedia a {
-  margin: 0 10px;
-  display: inline-block;
-}
-
-.socialMedia img {
-  width: 24px;
-  height: 24px;
-  filter: invert(100%); /* Make icons white */
-}
-
 .copyRight {
+  font-size: 0.85rem;
+  margin-top: 10px;
+  color: #b0b0b0;
+}
+
+/* Cookie consent banner */
+.cookieConsent {
+  position: fixed;
+  bottom: 60px; /* Just above the footer links */
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  z-index: 1001;
   font-size: 0.9rem;
+}
+
+.cookieConsent p {
+  margin: 0;
+}
+
+.acceptButton {
+  background-color: #ffcc00;
+  color: #000;
+  border: none;
+  padding: 5px 10px;
+  font-weight: 600;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.acceptButton:hover {
+  background-color: #e6b800;
 }
