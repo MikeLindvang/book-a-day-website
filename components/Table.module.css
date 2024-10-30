@@ -1,0 +1,10 @@
+/* components/Table.module.css */
+.tableWrapper {
+  overflow-x: auto; /* To ensure responsiveness on smaller screens */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
