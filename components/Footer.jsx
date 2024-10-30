@@ -32,8 +32,9 @@ export default function Footer() {
         <div className={styles.container}>
           <div className={styles.copyRight}>
             <p>
-              &copy; {new Date().getFullYear()} <Link href="/">MySite</Link>.
-              All Rights Reserved.
+              &copy; {new Date().getFullYear()}{' '}
+              <Link href="/">Book-A-Day & NetScribePro</Link>. All Rights
+              Reserved.
             </p>
           </div>
         </div>
