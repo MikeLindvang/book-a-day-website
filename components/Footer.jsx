@@ -22,7 +22,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className={`${styles.footer} ${styles.stickyFooter}`}>
+      <footer className={`${styles.footer} `}>
         <div className={`${styles.topBar}`}>
           <Link href="/privacy-policy">Privacy Policy</Link>
           <Link href="/disclaimer">Disclaimer</Link>

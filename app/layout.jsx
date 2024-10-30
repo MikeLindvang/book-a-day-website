@@ -4,8 +4,8 @@ import '../lib/icons'; // Import the icon library
 import Footer from '../components/Footer';
 
 export const metadata = {
-  title: 'My App',
-  description: 'A modern Next.js app',
+  title: 'Book-A-Day',
+  description: 'Everything you need to become a publisher TODAY!',
 };
 
 export default function RootLayout({ children }) {
