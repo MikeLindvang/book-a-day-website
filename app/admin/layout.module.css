@@ -11,5 +11,10 @@
 
 .children {
   flex: 1;
-  padding: 1rem;
+  margin: 0 auto;
+  margin-top: 4em;
+  padding: 6em;
+  background-color: #EEE;
+  border: 1px solid black;
+  text-align: left;
 }
