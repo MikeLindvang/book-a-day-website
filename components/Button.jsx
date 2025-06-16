@@ -4,9 +4,11 @@
 import PropTypes from 'prop-types';
 import styles from './Button.module.css';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Button({
   label,
+  icon,
   onClick,
   type = 'button',
   href,
@@ -25,6 +27,7 @@ export default function Button({
     return (
       <div className={containerClasses}>
         <a href={href} className={buttonClasses}>
+          {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
           {label}
         </a>
       </div>
@@ -34,6 +37,7 @@ export default function Button({
   return (
     <span className={containerClasses}>
       <button type={type} onClick={onClick} className={buttonClasses}>
+        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
         {label}
       </button>
     </span>

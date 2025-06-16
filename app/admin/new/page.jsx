@@ -6,6 +6,9 @@ import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import styles from './page.module.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
+
 export default function NewPage() {
   const router = useRouter();
   const [slug, setSlug] = useState('');
@@ -55,11 +58,23 @@ export default function NewPage() {
     if (w) w.focus();
   }
 
+  // Ctrl+S to save (prevent browser save dialog)
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [slug, title, description, heroImage, published, blocks]);
+
   return (
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>New Page</h1>
-        <Button href="/admin" label="← Back to List" />
+        <Button href="/admin" icon={faArrowLeft} label="← Back to List" />
       </div>
       <div className={styles.container}>
         <div className={styles.editor}>
@@ -94,7 +109,7 @@ export default function NewPage() {
               <PageBuilder blocks={blocks} setBlocks={setBlocks} />
             </div>
             {error && <p className={styles.error}>{error}</p>}
-            <Button type="submit" label="Create Page" />
+            <Button type="submit" icon={faSave} label="Create Page" />
           </form>
         </div>
         <div className={styles.preview}>

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { FaTrash, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
 import styles from './PageBuilder.module.css';
 
@@ -43,7 +45,10 @@ export default function PageBuilder({ blocks, setBlocks }) {
       <div className={styles.palette}>
         <h3>Add Block</h3>
         {BLOCK_TYPES.map((type) => (
-          <button key={type} onClick={() => addBlock(type)}>{type}</button>
+          <button key={type} onClick={() => addBlock(type)}>
+            <FontAwesomeIcon icon={faPlus} className={styles.icon} />
+            {type}
+          </button>
         ))}
       </div>
       <div className={styles.blocks}>
