@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.error {
+  color: #e63946;
+}
+
+.container {
+  display: flex;
+  gap: 2rem;
+}
+
+.editor {
+  flex: 1;
+}
+
+.preview {
+  flex: 1;
+  border-left: 1px solid #e5e7eb;
+  padding-left: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .preview {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 2rem;
+  }
+}

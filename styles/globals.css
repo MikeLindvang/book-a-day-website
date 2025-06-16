@@ -59,7 +59,6 @@ body {
 main {
   flex: 1;
   max-width: 800px;
-  min-width: 600px;
   margin: 40px auto;
   padding: 20px;
   background-color: #ffffff;

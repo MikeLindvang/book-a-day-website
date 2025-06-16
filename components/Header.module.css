@@ -15,15 +15,17 @@
   justify-content: space-between;
 }
 
-.logo a {
+.logoContent {
+  display: flex;
+  align-items: center;
+  color: #3a7ca5;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #3a7ca5; /* Primary color */
-  text-decoration: none;
 }
 
-.nav {
-  /* Additional styling if needed */
+.logoIcon {
+  margin-right: 8px;
+  font-size: 1.5rem;
 }
 
 .navList {
@@ -40,81 +42,5 @@
 }
 
 .navList li a:hover {
-  color: #e63946; /* Accent color */
-}
-/* components/Header.module.css */
-
-/* Existing styles... */
-
-.logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.logoContent {
-  display: flex;
-  align-items: center;
-  color: #3a7ca5; /* Primary color */
-}
-
-.logoIcon {
-  margin-right: 4px;
-  /* Adjust icon size if needed */
-  height: 1.5rem;
-  color: #3a7ca5;
-}
-
-.logo a {
-  text-decoration: none;
-}
-
-/* components/Header.module.css */
-
-/* Existing styles... */
-
-.logoContent {
-  display: flex;
-  align-items: center;
-  color: #3a7ca5; /* Primary color */
-}
-
-.logoIcon {
-  margin-right: 8px;
-  font-size: 1.5rem;
-}
-
-.navList {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.navItem {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #333333;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.navIcon {
-  margin-right: 2px;
-  height: 10%;
-  display: inline;
-}
-
-.navItem:hover {
-  color: #e63946; /* Accent color on hover */
-}
-
-.active {
   color: #e63946;
-  border-bottom: 2px solid #e63946;
 }
-
-.navList li a {
-  text-decoration: none;
-}
-
-/* Adjust other styles as necessary */
