@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import styles from './page.module.css';
@@ -15,6 +15,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
   const [published, setPublished] = useState(false);
   const [blocks, setBlocks] = useState([]);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const channelRef = useRef(null);
 
   useEffect(() => {
@@ -32,20 +33,36 @@ export default function EditPage({ params: { slug: initialSlug } }) {
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    setSuccess('');
     const payload = { slug, title, description, heroImage, published, blocks };
     const res = await fetch(`/api/pages?slug=${encodeURIComponent(initialSlug)}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (res.ok) router.push('/admin');
-    else setError('Failed to update page');
+    if (res.ok) {
+      if (slug !== initialSlug) {
+        window.history.replaceState(null, '', `/admin/${encodeURIComponent(slug)}`);
+      }
+      setSuccess('Page updated successfully.');
+    } else {
+      setError('Failed to update page');
+    }
   }
 
   useEffect(() => {
     channelRef.current = new BroadcastChannel('sales-preview');
     return () => channelRef.current.close();
   }, []);
+
+  // show creation success if redirected from new page
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    if (searchParams.get('status') === 'created') {
+      setSuccess('Page created successfully.');
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (channelRef.current) {
@@ -66,9 +83,11 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>Edit Page</h1>
+        <Button href="/admin" label="← Back to List" />
       </div>
       <div className={styles.container}>
         <div className={styles.editor}>
+          {success && <p className={styles.success}>{success}</p>}
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fields}>
               <label>
