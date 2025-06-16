@@ -11,10 +11,20 @@
 
 .children {
   flex: 1;
-  margin: 0 auto;
-  margin-top: 4em;
-  padding: 6em;
+  /* center content & constrain max width */
+  margin: 4rem auto 0;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
   background-color: #EEE;
   border: 1px solid black;
   text-align: left;
+}
+
+/* mobile: tighter gutters so it never overflows */
+@media (max-width: 768px) {
+  .children {
+    margin-top: 2rem;
+    padding: 1rem;
+  }
 }
