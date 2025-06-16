@@ -68,6 +68,10 @@
   gap: 0.25rem;
 }
 
+.icon {
+  margin-right: 0.5rem;
+}
+
 .fullWidth {
   grid-column: 1 / -1;
 }

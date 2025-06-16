@@ -6,6 +6,9 @@ import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import styles from './page.module.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
+
 export default function EditPage({ params: { slug: initialSlug } }) {
   const router = useRouter();
   const [slug, setSlug] = useState(initialSlug);
@@ -50,6 +53,18 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     }
   }
 
+  // Ctrl+S to save (prevent browser save dialog)
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [slug, title, description, heroImage, published, blocks]);
+
   useEffect(() => {
     channelRef.current = new BroadcastChannel('sales-preview');
     return () => channelRef.current.close();
@@ -83,7 +98,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>Edit Page</h1>
-        <Button href="/admin" label="← Back to List" />
+        <Button href="/admin" icon={faArrowLeft} label="← Back to List" />
       </div>
       <div className={styles.container}>
         <div className={styles.editor}>
@@ -118,11 +133,11 @@ export default function EditPage({ params: { slug: initialSlug } }) {
               <PageBuilder blocks={blocks} setBlocks={setBlocks} />
             </div>
             {error && <p className={styles.error}>{error}</p>}
-            <Button type="submit" label="Update Page" />
+            <Button type="submit" icon={faSave} label="Update Page" />
           </form>
         </div>
         <div className={styles.preview}>
-          <Button label="Open Live Preview" onClick={openLivePreview} />
+          <Button icon={faEye} label="Open Live Preview" onClick={openLivePreview} />
         </div>
       </div>
     </>
