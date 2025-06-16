@@ -51,4 +51,6 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser. Admin routes are under `/admin` and require authentication.
+Open http://localhost:3000 in your browser.
+
+To sign in, visit http://localhost:3000/api/auth/signin and log in with your admin credentials. Admin routes are under `/admin` and require authentication.
