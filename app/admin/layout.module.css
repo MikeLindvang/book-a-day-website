@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  border-right: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+.children {
+  flex: 1;
+  padding: 1rem;
+}
