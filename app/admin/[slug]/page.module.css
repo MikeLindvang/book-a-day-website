@@ -36,6 +36,10 @@
   color: #e63946;
 }
 
+.success {
+  color: #2a9d8f;
+}
+
 .container {
   display: flex;
   gap: 2rem;

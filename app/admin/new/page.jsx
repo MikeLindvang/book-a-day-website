@@ -15,19 +15,24 @@ export default function NewPage() {
   const [published, setPublished] = useState(false);
   const [blocks, setBlocks] = useState([]);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const channelRef = useRef(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+    setSuccess('');
     const payload = { slug, title, description, heroImage, published, blocks };
     const res = await fetch('/api/pages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (res.ok) router.push('/admin');
-    else setError('Failed to create page');
+    if (res.ok) {
+      router.replace(`/admin/${encodeURIComponent(slug)}?status=created`);
+    } else {
+      setError('Failed to create page');
+    }
   }
 
   useEffect(() => {
@@ -54,9 +59,11 @@ export default function NewPage() {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>New Page</h1>
+        <Button href="/admin" label="← Back to List" />
       </div>
       <div className={styles.container}>
         <div className={styles.editor}>
+          {success && <p className={styles.success}>{success}</p>}
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.fields}>
               <label>
