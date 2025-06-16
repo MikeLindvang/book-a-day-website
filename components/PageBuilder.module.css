@@ -68,6 +68,10 @@
   gap: 0.25rem;
 }
 
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
 .blockPreview {
   padding: 1rem;
   background-color: #fafafa;
