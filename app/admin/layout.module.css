@@ -1,3 +1,4 @@
+
 .container {
   display: flex;
   height: 100vh;
@@ -5,26 +6,27 @@
 
 .sidebar {
   width: 200px;
-  border-right: 1px solid #e5e7eb;
   padding: 1rem;
 }
 
 .children {
   flex: 1;
   /* center content & constrain max width */
-  margin: 4rem auto 0;
-  padding: 2rem;
+  margin: 3rem auto 0;
+  padding: 1.5rem;
   width: 100%;
   max-width: 1200px;
-  background-color: #EEE;
-  border: 1px solid black;
   text-align: left;
+  background-color: #eee;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* mobile: tighter gutters so it never overflows */
 @media (max-width: 768px) {
   .children {
-    margin-top: 2rem;
-    padding: 1rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem;
   }
 }

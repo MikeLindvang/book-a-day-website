@@ -15,3 +15,25 @@
   display: flex;
   gap: 0.75rem;
 }
+
+/* Icon-only buttons for actions */
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  color: #374151;
+  transition: background-color 0.2s ease;
+}
+
+.iconButton:hover {
+  background-color: #f3f4f6;
+}
+
+.deleteIcon {
+  color: #e63946;
+}

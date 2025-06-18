@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Table from '../../components/Table';
 import Button from '../../components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faPencilAlt, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './page.module.css';
 
 export default function AdminPageList() {
@@ -26,9 +28,19 @@ export default function AdminPageList() {
       p.title,
       p.published ? 'Yes' : 'No',
       <div key="actions" className={styles.actions}>
-        <Button href={`/${p.slug}`} label="View" />
-        <Button href={`/admin/${p.slug}`} label="Edit" />
-        <Button onClick={() => handleDelete(p.slug)} label="Delete" />
+        <a href={`/${p.slug}`} title="View page" className={styles.iconButton}>
+          <FontAwesomeIcon icon={faEye} />
+        </a>
+        <a href={`/admin/${p.slug}`} title="Edit page" className={styles.iconButton}>
+          <FontAwesomeIcon icon={faPencilAlt} />
+        </a>
+        <button
+          onClick={() => handleDelete(p.slug)}
+          title="Delete page"
+          className={`${styles.iconButton} ${styles.deleteIcon}`}
+        >
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
       </div>,
     ],
   }));
@@ -37,7 +49,7 @@ export default function AdminPageList() {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>Pages</h1>
-        <Button href="/admin/new" label="New Page" />
+        <Button href="/admin/new" icon={faPlus} label="New Page" />
       </div>
       <Table headers={['Slug', 'Title', 'Published', 'Actions']} rows={rows} />
     </>
