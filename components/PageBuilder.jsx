@@ -79,13 +79,15 @@ export default function PageBuilder({ blocks, setBlocks }) {
                         <label>
                           Level
                           <select
-                            value={block.data.level || 'h2'}
-                            onChange={(e) => updateBlock(i, { ...block.data, level: e.target.value })}
+                            value={block.data.level || '2'}
+                            onChange={(e) =>
+                              updateBlock(i, { ...block.data, level: e.target.value })
+                            }
                           >
-                            <option value="h1">H1</option>
-                            <option value="h2">H2</option>
-                            <option value="h3">H3</option>
-                            <option value="h4">H4</option>
+                            <option value="1">H1</option>
+                            <option value="2">H2</option>
+                            <option value="3">H3</option>
+                            <option value="4">H4</option>
                           </select>
                         </label>
                         <label>

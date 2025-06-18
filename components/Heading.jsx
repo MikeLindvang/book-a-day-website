@@ -23,7 +23,12 @@ export default function Heading({
 
   return (
     <Tag
-      className={classNames(styles.heading, styles[headingColor], className)}
+      className={classNames(
+        styles.heading,
+        styles[headingColor],
+        styles[`heading${level}`],
+        className
+      )}
     >
       {children}
     </Tag>
