@@ -47,8 +47,8 @@ main {
   max-width: 800px;
   margin: 4em auto;
   padding: 6em;
-  background-color: #EEE;
-  border: 1px solid black;
+  background-color: #eee;
+  border: 1px solid #e5e7eb;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -169,10 +169,12 @@ main p {
 
 /* Core content wrapper (similar to .contentArea in 43tests.css) */
 .contentArea {
-  background-color: #EEE;
+  background-color: #eee;
   margin: 0 auto;
   margin-top: 4em;
   padding: 6em;
-  border: solid black 1px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
