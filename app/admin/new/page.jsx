@@ -79,6 +79,13 @@ export default function NewPage() {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>New Page</h1>
+        <div className={styles.preview}>
+          <Button
+            icon={faEye}
+            label="Open Live Preview"
+            onClick={openLivePreview}
+          />
+        </div>
         <Button href="/admin" icon={faArrowLeft} label="Back to List" />
       </div>
       <div className={styles.container}>
@@ -134,13 +141,6 @@ export default function NewPage() {
             {error && <p className={styles.error}>{error}</p>}
             <Button type="submit" icon={faSave} label="Create Page" />
           </form>
-        </div>
-        <div className={styles.preview}>
-          <Button
-            icon={faEye}
-            label="Open Live Preview"
-            onClick={openLivePreview}
-          />
         </div>
       </div>
     </>

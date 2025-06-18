@@ -30,7 +30,7 @@
 .error {
   color: #e63946;
 }
- 
+
 .success {
   color: #2a9d8f;
 }
@@ -44,7 +44,7 @@
 
 .editor {
   flex: 7;
-  border-left: 1px solid #e5e7eb;
+
   padding-left: 2rem;
 }
 
