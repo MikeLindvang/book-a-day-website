@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import dbConnect from '../../lib/dbConnect';
 import Page from '../../lib/models/Page';
-import Header from '../../components/Header';
+// Header intentionally removed for standalone sales pages
 import Main from '../../components/Main';
 import SalesPagePreview from '../../components/SalesPagePreview';
 
@@ -23,9 +23,7 @@ export default async function CMSPage({ params }) {
   }
 
   return (
-    <>
-      <Header />
-      <Main>
+    <Main>
         <SalesPagePreview
           title={pageDoc.title}
           description={pageDoc.description}
@@ -34,6 +32,5 @@ export default async function CMSPage({ params }) {
           published={pageDoc.published}
         />
       </Main>
-    </>
   );
 }
