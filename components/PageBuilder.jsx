@@ -5,6 +5,7 @@ import { FaTrash, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
+import { ALLOWED_COLORS } from './Heading';
 import styles from './PageBuilder.module.css';
 
 const BLOCK_TYPES = [
@@ -89,11 +90,16 @@ export default function PageBuilder({ blocks, setBlocks }) {
                         </label>
                         <label>
                           Color
-                          <input
-                            type="color"
-                            value={block.data.color || '#000000'}
+                          <select
+                            value={block.data.color || 'primary'}
                             onChange={(e) => updateBlock(i, { ...block.data, color: e.target.value })}
-                          />
+                          >
+                            {ALLOWED_COLORS.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
                         </label>
                       </>
                     );
