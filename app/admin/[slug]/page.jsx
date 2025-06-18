@@ -6,7 +6,6 @@ import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import styles from './page.module.css';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
 
 export default function EditPage({ params: { slug: initialSlug } }) {
@@ -38,14 +37,21 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     setError('');
     setSuccess('');
     const payload = { slug, title, description, heroImage, published, blocks };
-    const res = await fetch(`/api/pages?slug=${encodeURIComponent(initialSlug)}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    const res = await fetch(
+      `/api/pages?slug=${encodeURIComponent(initialSlug)}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
     if (res.ok) {
       if (slug !== initialSlug) {
-        window.history.replaceState(null, '', `/admin/${encodeURIComponent(slug)}`);
+        window.history.replaceState(
+          null,
+          '',
+          `/admin/${encodeURIComponent(slug)}`
+        );
       }
       setSuccess('Page updated successfully.');
     } else {
@@ -81,7 +87,13 @@ export default function EditPage({ params: { slug: initialSlug } }) {
 
   useEffect(() => {
     if (channelRef.current) {
-      channelRef.current.postMessage({ title, description, heroImage, blocks, published });
+      channelRef.current.postMessage({
+        title,
+        description,
+        heroImage,
+        blocks,
+        published,
+      });
     }
   }, [title, description, heroImage, blocks, published]);
 
@@ -98,7 +110,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>Edit Page</h1>
-        <Button href="/admin" icon={faArrowLeft} label="← Back to List" />
+        <Button href="/admin" icon={faArrowLeft} label="Back to List" />
       </div>
       <div className={styles.container}>
         <div className={styles.editor}>
@@ -107,25 +119,43 @@ export default function EditPage({ params: { slug: initialSlug } }) {
             <div className={styles.fields}>
               <label>
                 Slug
-                <input value={slug} onChange={(e) => setSlug(e.target.value)} required />
+                <input
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  required
+                />
               </label>
               <label>
                 Title
-                <input value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
               </label>
               <div className={styles.fullWidth}>
                 <label>
                   Description
-                  <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                  <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                 </label>
               </div>
               <label>
                 Hero Image URL
-                <input value={heroImage} onChange={(e) => setHeroImage(e.target.value)} />
+                <input
+                  value={heroImage}
+                  onChange={(e) => setHeroImage(e.target.value)}
+                />
               </label>
               <label>
                 Published
-                <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  checked={published}
+                  onChange={(e) => setPublished(e.target.checked)}
+                />
               </label>
             </div>
             <div>
@@ -137,7 +167,11 @@ export default function EditPage({ params: { slug: initialSlug } }) {
           </form>
         </div>
         <div className={styles.preview}>
-          <Button icon={faEye} label="Open Live Preview" onClick={openLivePreview} />
+          <Button
+            icon={faEye}
+            label="Open Live Preview"
+            onClick={openLivePreview}
+          />
         </div>
       </div>
     </>
