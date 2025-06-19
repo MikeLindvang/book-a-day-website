@@ -9,7 +9,7 @@ import Button from './Button';
 import EmbedCodeComponent from './EmbedCodeComponent';
 import ProductGrid from './ProductGrid';
 import List from './List';
-import RichText from './RichText';
+import MarkdownRenderer from './MarkdownRenderer';
 
 export default function BlockRenderer({ block }) {
   const { type, data } = block;
@@ -34,8 +34,8 @@ export default function BlockRenderer({ block }) {
       const alternate = Boolean(data.alternate);
       return <List items={items} alternate={alternate} ordered={ordered} />;
     }
-    case 'richText':
-      return <RichText html={data.html || ''} />;
+    case 'markdown':
+      return <MarkdownRenderer markdown={data.markdown || ''} />;
     default:
       return null;
   }
