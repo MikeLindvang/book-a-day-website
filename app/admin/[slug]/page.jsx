@@ -28,7 +28,12 @@ export default function EditPage({ params: { slug: initialSlug } }) {
         setDescription(data.description || '');
         setHeroImage(data.heroImage || '');
         setPublished(data.published || false);
-        setBlocks(data.blocks || []);
+        setBlocks(
+          (data.blocks || []).map((blk) => ({
+            ...blk,
+            data: { ...blk.data, collapsed: blk.data?.collapsed ?? true },
+          }))
+        );
       });
   }, [initialSlug]);
 
@@ -56,6 +61,24 @@ export default function EditPage({ params: { slug: initialSlug } }) {
       setSuccess('Page updated successfully.');
     } else {
       setError('Failed to update page');
+    }
+  }
+
+  /**
+   * Auto-save blocks when a block is collapsed/expanded.
+   */
+  async function handleCollapseToggle(newBlocks) {
+    try {
+      await fetch(
+        `/api/pages?slug=${encodeURIComponent(initialSlug)}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, title, description, heroImage, published, blocks: newBlocks }),
+        }
+      );
+    } catch (err) {
+      setError('Failed to save collapse state');
     }
   }
 
@@ -167,7 +190,11 @@ export default function EditPage({ params: { slug: initialSlug } }) {
             </div>
             <div>
               <h2>Content Blocks</h2>
-              <PageBuilder blocks={blocks} setBlocks={setBlocks} />
+              <PageBuilder
+                blocks={blocks}
+                setBlocks={setBlocks}
+                onCollapseToggle={handleCollapseToggle}
+              />
             </div>
             {error && <p className={styles.error}>{error}</p>}
             <Button type="submit" icon={faSave} label="Update Page" />
@@ -177,3 +204,4 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     </>
   );
 }
+

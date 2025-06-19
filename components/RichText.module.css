@@ -1,0 +1,8 @@
+.richText {
+  /* match existing paragraph typography */
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 1rem;
+}
