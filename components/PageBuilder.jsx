@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaTrash, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { FaTrash, FaChevronUp, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
@@ -11,6 +11,7 @@ import styles from './PageBuilder.module.css';
 const BLOCK_TYPES = [
   'heading',
   'paragraph',
+  'richText',
   'image',
   'testimonial',
   'button',
@@ -19,9 +20,9 @@ const BLOCK_TYPES = [
   'list',
 ];
 
-export default function PageBuilder({ blocks, setBlocks }) {
+export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
   function addBlock(type) {
-    setBlocks([...blocks, { type, data: {} }]);
+    setBlocks([...blocks, { type, data: { collapsed: true } }]);
   }
 
   function removeBlock(index) {
@@ -41,6 +42,17 @@ export default function PageBuilder({ blocks, setBlocks }) {
     setBlocks(newBlocks);
   }
 
+  function toggleCollapse(index) {
+    const newBlocks = [...blocks];
+    const prev = newBlocks[index].data.collapsed || false;
+    newBlocks[index] = {
+      ...newBlocks[index],
+      data: { ...newBlocks[index].data, collapsed: !prev },
+    };
+    setBlocks(newBlocks);
+    if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
+  }
+
   return (
     <div className={styles.builder}>
       <div className={styles.palette}>
@@ -53,19 +65,30 @@ export default function PageBuilder({ blocks, setBlocks }) {
         ))}
       </div>
       <div className={styles.blocks}>
-        {blocks.map((block, i) => (
-          <div key={i} className={styles.block}>
-            <div className={styles.blockHeader}>
-              <span>{block.type}</span>
-              <div>
-                <button onClick={() => moveBlock(i, -1)}><FaChevronUp /></button>
-                <button onClick={() => moveBlock(i, 1)}><FaChevronDown /></button>
-                <button onClick={() => removeBlock(i)}><FaTrash /></button>
+        {blocks.map((block, i) => {
+          const collapsed = block.data.collapsed || false;
+          return (
+            <div key={i} className={styles.block}>
+              <div className={styles.blockHeader}>
+                <span>{block.type}</span>
+                <div>
+                  <button onClick={() => moveBlock(i, -1)}><FaChevronUp /></button>
+                  <button onClick={() => moveBlock(i, 1)}><FaChevronDown /></button>
+                  <button onClick={() => removeBlock(i)}><FaTrash /></button>
+                  <button
+                    onClick={() => toggleCollapse(i)}
+                    className={styles.collapseButton}
+                    title={collapsed ? 'Expand block' : 'Collapse block'}
+                  >
+                    {collapsed ? <FaChevronRight /> : <FaChevronDown />}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className={styles.blockEditor}>
-              {(() => {
-                switch (block.type) {
+              {!collapsed && (
+                <>
+                  <div className={styles.blockEditor}>
+                    {(() => {
+                      switch (block.type) {
                   case 'heading':
                     return (
                       <>
@@ -112,6 +135,16 @@ export default function PageBuilder({ blocks, setBlocks }) {
                         <textarea
                           value={block.data.text || ''}
                           onChange={(e) => updateBlock(i, { ...block.data, text: e.target.value })}
+                        />
+                      </label>
+                    );
+                  case 'richText':
+                    return (
+                      <label className={styles.fullWidth}>
+                        HTML
+                        <textarea
+                          value={block.data.html || ''}
+                          onChange={(e) => updateBlock(i, { ...block.data, html: e.target.value })}
                         />
                       </label>
                     );
@@ -267,12 +300,15 @@ export default function PageBuilder({ blocks, setBlocks }) {
                     return null;
                 }
               })()}
-            </div>
-            <div className={styles.blockPreview}>
-              <BlockRenderer block={block} />
-            </div>
-          </div>
-        ))}
+              </div>
+              <div className={styles.blockPreview}>
+                <BlockRenderer block={block} />
+              </div>
+            </>
+          )}
+        </div>
+      );
+    })}
       </div>
     </div>
   );

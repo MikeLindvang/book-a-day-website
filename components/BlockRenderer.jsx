@@ -9,6 +9,7 @@ import Button from './Button';
 import EmbedCodeComponent from './EmbedCodeComponent';
 import ProductGrid from './ProductGrid';
 import List from './List';
+import RichText from './RichText';
 
 export default function BlockRenderer({ block }) {
   const { type, data } = block;
@@ -27,8 +28,14 @@ export default function BlockRenderer({ block }) {
       return <EmbedCodeComponent code={data.code} align={data.align} />;
     case 'productGrid':
       return <ProductGrid products={data.products} />;
-    case 'list':
-      return <List items={data.items} alternate={data.alternate} ordered={data.ordered} />;
+    case 'list': {
+      const items = Array.isArray(data.items) ? data.items : [];
+      const ordered = Boolean(data.ordered);
+      const alternate = Boolean(data.alternate);
+      return <List items={items} alternate={alternate} ordered={ordered} />;
+    }
+    case 'richText':
+      return <RichText html={data.html || ''} />;
     default:
       return null;
   }
