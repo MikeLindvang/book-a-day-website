@@ -211,15 +211,36 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
                     );
                   case 'markdown':
                     return (
-                      <label className={styles.fullWidth}>
-                        Markdown
-                        <textarea
-                          value={block.data.markdown || ''}
-                          onChange={(e) =>
-                            updateBlock(i, { ...block.data, markdown: e.target.value })
-                          }
-                        />
-                      </label>
+                      <>
+                        <label className={styles.fullWidth}>
+                          Markdown
+                          <textarea
+                            value={block.data.markdown || ''}
+                            onChange={(e) =>
+                              updateBlock(i, { ...block.data, markdown: e.target.value })
+                            }
+                          />
+                        </label>
+                        <label className={styles.fullWidth}>
+                          Card style
+                          <select
+                            value={block.data.cardVariant || ''}
+                            onChange={(e) =>
+                              updateBlock(i, {
+                                ...block.data,
+                                cardVariant: e.target.value || undefined,
+                              })
+                            }
+                          >
+                            <option value="">None</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="accent">Accent</option>
+                            <option value="info">Info</option>
+                            <option value="success">Success</option>
+                          </select>
+                        </label>
+                      </>
                     );
                   case 'image':
                     return (

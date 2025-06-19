@@ -35,7 +35,12 @@ export default function BlockRenderer({ block }) {
       return <List items={items} alternate={alternate} ordered={ordered} />;
     }
     case 'markdown':
-      return <MarkdownRenderer markdown={data.markdown || ''} />;
+      return (
+        <MarkdownRenderer
+          markdown={data.markdown || ''}
+          cardVariant={data.cardVariant}
+        />
+      );
     default:
       return null;
   }

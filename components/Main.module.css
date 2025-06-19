@@ -3,8 +3,8 @@
 .main {
   max-width: 800px;
   margin: 4em auto;
-  padding: 6em;
-  background-color: #EEE;
+  padding: 3em;
+  background-color: #eee;
   border: 1px solid black;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
