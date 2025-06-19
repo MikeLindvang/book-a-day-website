@@ -42,6 +42,16 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
     setBlocks(newBlocks);
   }
 
+  const [menuOpenFor, setMenuOpenFor] = useState(null);
+
+  function insertBlockBelow(index, type) {
+    const newBlocks = [...blocks];
+    newBlocks.splice(index + 1, 0, { type, data: { collapsed: false } });
+    setBlocks(newBlocks);
+    setMenuOpenFor(null);
+    if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
+  }
+
   function toggleCollapse(index) {
     const newBlocks = [...blocks];
     const prev = newBlocks[index].data.collapsed || false;
@@ -122,6 +132,27 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
                   >
                     {collapsed ? <FaChevronRight /> : <FaChevronDown />}
                   </button>
+                  <button
+                    onClick={() => setMenuOpenFor(i)}
+                    className={styles.insertButton}
+                    title="Insert block below"
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </button>
+                  {menuOpenFor === i && (
+                    <div className={styles.insertMenu}>
+                      {BLOCK_TYPES.map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => insertBlockBelow(i, type)}
+                          className={styles.insertMenuItem}
+                        >
+                          <FontAwesomeIcon icon={faPlus} className={styles.icon} />
+                          {type}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               {!collapsed && (
