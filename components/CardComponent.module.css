@@ -1,10 +1,17 @@
 /* components/CardComponent.module.css */
 
 .card {
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 0.375rem;
   margin: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ensure text inside cards inherits the card's color for readability */
+.card .paragraph,
+.card li,
+.card a {
+  color: inherit;
 }
 
 /* Default Variant */
@@ -70,7 +77,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card {
-    padding: 1rem;
+    padding: 1.5rem;
     margin: 1.5rem 0;
   }
 }
@@ -83,4 +90,63 @@
 .productCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* New variants: light, dark, accent, info, success */
+
+/* light card */
+.light {
+  background-color: #ffffff;
+  color: #333333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.light:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* dark card */
+.dark {
+  background-color: #333333;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dark:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* accent card (alias for existing accentBackground) */
+.accent,
+.accentBackground {
+  background-color: #e63946;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.accent:hover,
+.accentBackground:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* info card */
+.info {
+  background-color: #3a7ca5;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* success card */
+.success {
+  background-color: #2a9d8f;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.success:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

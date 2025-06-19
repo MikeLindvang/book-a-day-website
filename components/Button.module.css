@@ -41,3 +41,7 @@
   background-color: #b71c1c; /* Even darker on click */
   transform: translateY(0);
 }
+
+.icon {
+  margin-right: 0.5rem;
+}

@@ -1,0 +1,31 @@
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 1rem;
+}
+
+.children {
+  flex: 1;
+  /* center content & constrain max width */
+  margin: 3rem auto 0;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  text-align: left;
+  background-color: #eee;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* mobile: tighter gutters so it never overflows */
+@media (max-width: 768px) {
+  .children {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+  }
+}

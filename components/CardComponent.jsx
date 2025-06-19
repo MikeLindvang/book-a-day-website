@@ -20,8 +20,13 @@ CardComponent.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.oneOf([
     'default',
+    'light',
+    'dark',
     'primaryBorder',
+    'accent',
     'accentBackground',
+    'info',
+    'success',
     'outline',
     'shadow',
     'productCard',
