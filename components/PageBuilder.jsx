@@ -53,6 +53,43 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
     if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
   }
 
+  /**
+   * Auto-generate a short snippet for collapsed block headers.
+   */
+  function getSnippet(block) {
+    const d = block.data || {};
+    let text = '';
+    switch (block.type) {
+      case 'heading':
+        text = d.text;
+        break;
+      case 'paragraph':
+        text = d.text;
+        break;
+      case 'markdown':
+        text = d.markdown;
+        break;
+      case 'testimonial':
+        text = d.quote;
+        break;
+      case 'button':
+        text = d.label;
+        break;
+      case 'list':
+        text = Array.isArray(d.items) && d.items.length ? d.items[0] : '';
+        break;
+      case 'image':
+        text = d.alt || d.src;
+        break;
+      default:
+        text = '';
+    }
+    if (!text) return '';
+    // collapse whitespace and truncate
+    const normalized = text.replace(/\s+/g, ' ').trim();
+    return normalized.length > 30 ? normalized.slice(0, 30) + '…' : normalized;
+  }
+
   return (
     <div className={styles.builder}>
       <div className={styles.palette}>
@@ -68,9 +105,12 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
         {blocks.map((block, i) => {
           const collapsed = block.data.collapsed || false;
           return (
-            <div key={i} className={styles.block}>
+          <div key={i} className={styles.block}>
               <div className={styles.blockHeader}>
-                <span>{block.type}</span>
+                <span>
+                  {block.type}
+                  {getSnippet(block) && ` — ${getSnippet(block)}`}
+                </span>
                 <div>
                   <button onClick={() => moveBlock(i, -1)}><FaChevronUp /></button>
                   <button onClick={() => moveBlock(i, 1)}><FaChevronDown /></button>
