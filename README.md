@@ -26,16 +26,6 @@ This repository contains a Next.js sales landing page and simple admin editor fo
 
 2. **Add Vercel Environment Variables**
 
-   In your Vercel dashboard (for both Preview and Production), add the following env vars and/or secrets:
-
-   | Key              | Value / Secret Reference           |
-   | ---------------- | ---------------------------------- |
-   | MONGODB_URI      | your MongoDB connection string     |
-   | ADMIN_EMAIL      | your admin email address           |
-   | ADMIN_PASSWORD   | your admin password                |
-   | NEXTAUTH_URL     | https://<your-domain>.vercel.app  |
-   | NEXTAUTH_SECRET  | a strong random string             |
-
 3. **Deploy**
 
    ```bash
