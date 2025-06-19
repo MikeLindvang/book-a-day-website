@@ -11,7 +11,7 @@ import styles from './PageBuilder.module.css';
 const BLOCK_TYPES = [
   'heading',
   'paragraph',
-  'richText',
+  'markdown',
   'image',
   'testimonial',
   'button',
@@ -138,13 +138,15 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
                         />
                       </label>
                     );
-                  case 'richText':
+                  case 'markdown':
                     return (
                       <label className={styles.fullWidth}>
-                        HTML
+                        Markdown
                         <textarea
-                          value={block.data.html || ''}
-                          onChange={(e) => updateBlock(i, { ...block.data, html: e.target.value })}
+                          value={block.data.markdown || ''}
+                          onChange={(e) =>
+                            updateBlock(i, { ...block.data, markdown: e.target.value })
+                          }
                         />
                       </label>
                     );
