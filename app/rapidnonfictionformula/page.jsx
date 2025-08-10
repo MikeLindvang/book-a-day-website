@@ -149,75 +149,209 @@ export default function BookADayRapidNonfictionFormulaPage() {
       </div>
 
       {/* Customer Review Section */}
+      {/* PAIN SECTION — Upgraded “Twist the Knife” */}
+      <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+        {/* Short, visceral story snippet */}
+        <Paragraph>
+          You wake up with big plans to write. Coffee’s hot, doc is open… and
+          somehow, by bedtime, you’ve opened it twice and closed it twice. The
+          cursor stared. Your motivation cooled. Another day gone.
+        </Paragraph>
+        <Paragraph>
+          Meanwhile, someone with fewer ideas and less experience than you just
+          published. Again.
+        </Paragraph>
+      </div>
+
+      <Heading level={3} align="center">
+        Sound Familiar? You’re Not Alone.
+      </Heading>
+
       <CardComponent
         variant="primaryBorder"
         style={{ marginTop: '2rem', marginBottom: '2rem' }}
       >
-        <Heading level={3} align="center">
-          Sound Familiar? You're Not Alone.
-        </Heading>
         <ul style={{ marginTop: '1rem' }}>
           <li style={{ marginBottom: '1rem' }}>
-            <strong>The Maze of Publishing:</strong>
+            <strong>The Maze of Publishing</strong> — So many “paths,” no
+            signposts.
             <br />
-            Feeling lost in the wilderness of publishing options and advice
-            that's as clear as fog.
+            <em>Result:</em> Weeks of “research,” zero progress, momentum gone.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Racing Against Time:</strong>
+            <strong>Racing Against Time</strong> — Life doesn’t pause for your
+            book.
             <br />
-            Juggling life's demands and trying to find a moment to write—let
-            alone publish.
+            <em>Result:</em> Another month slips by; your idea gets stale and
+            someone else ships first.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>The Blank Page Stare-Down:</strong>
+            <strong>The Blank Page Stare‑Down</strong> — The cursor blinks, your
+            coffee goes cold.
             <br />
-            When inspiration runs dry and every word feels like pulling teeth.
+            <em>Result:</em> You burn energy on doubt instead of pages, and
+            writing starts to feel heavy.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Technical Tangles:</strong>
+            <strong>Technical Tangles</strong> — Formatting, covers, metadata…
+            ugh.
             <br />
-            Wrestling with the nitty-gritty of formatting and design, wishing
-            you had a magic wand.
+            <em>Result:</em> You stall before you even start, convinced you need
+            a “perfect” setup.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Marketing Mayhem:</strong>
+            <strong>Marketing Mayhem</strong> — You write the book… then
+            crickets.
             <br />
-            The daunting task of shouting loud enough in a crowded room to get
-            your book noticed.
+            <em>Result:</em> Great content dies in silence, and you swear off
+            publishing “for now.”
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>The Doubt Monster:</strong>
+            <strong>The Doubt Monster</strong> — “Who am I to write this?”
             <br />
-            The little voice questioning if your ideas are good enough or if
-            anyone will even care.
+            <em>Result:</em> You bump it to “next month,” while someone else
+            turns your idea into their royalties.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Squeezing Pennies:</strong>
+            <strong>Squeezing Pennies</strong> — Editors, covers, tools add up
+            fast.
             <br />
-            Stretching your budget to cover the costs of editing, cover design,
-            and getting the word out.
+            <em>Result:</em> You assume it’s too expensive to start… and never
+            discover faster, leaner paths.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Platform Puzzle:</strong>
+            <strong>Platform Puzzle</strong> — Kindle? Paperback? Wide? Where to
+            begin?
             <br />
-            Deciphering the best place to share your work where it'll shine the
-            brightest.
+            <em>Result:</em> Analysis paralysis—zero publishing, zero momentum,
+            zero audience growth.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Keeping the Pace:</strong>
+            <strong>Keeping the Pace</strong> — Consistency feels impossible.
             <br />
-            The challenge of consistently creating and sharing your work to
-            build a following.
+            <em>Result:</em> You publish once (maybe), then vanish… along with
+            your income potential.
           </li>
+
           <li style={{ marginBottom: '1rem' }}>
-            <strong>Growth Through Grit:</strong>
+            <strong>Growth Through Grit</strong> — Feedback stings, so you avoid
+            it.
             <br />
-            Craving constructive criticism that helps you grow, even when it
-            stings.
+            <em>Result:</em> The book that could’ve been great stays “okay”—and
+            okay doesn’t sell.
           </li>
         </ul>
       </CardComponent>
+
+      <Heading level={3} align="center">
+        The Real‑Life Stakes: What Waiting Costs You
+      </Heading>
+
+      {/* REAL-LIFE STAKES — Anchor the Pain in Consequences */}
+
+      <Paragraph>
+        It’s not just frustration. Every week you delay has a price — in time,
+        money, and momentum.
+      </Paragraph>
+
+      <ul>
+        <li style={{ marginBottom: '0.75rem' }}>
+          <strong>Time Drift → No Pages</strong>
+          <br />
+          Another week of “research” = 0 pages. One focused 4–5 hour session
+          with the Formula = a complete draft.
+        </li>
+
+        <li style={{ marginBottom: '0.75rem' }}>
+          <strong>Opportunity Cost → Lost Royalties</strong>
+          <br />
+          Even a modest short guide that averages <em>$3–$10/day</em> after
+          launch can mean <em>$90–$300/month</em> you don’t capture when you
+          don’t publish. (No guarantees — just simple math on low‑end outcomes.)
+        </li>
+
+        <li style={{ marginBottom: '0.75rem' }}>
+          <strong>First‑Mover Loss → Someone Else Ships First</strong>
+          <br />
+          Trends reward speed. If you wait, the angle gets crowded and your hook
+          loses punch.
+        </li>
+
+        <li style={{ marginBottom: '0.75rem' }}>
+          <strong>Confidence Erosion → Harder Starts</strong>
+          <br />
+          Each missed session reinforces the “I’ll do it later” loop — momentum
+          shrinks, doubt grows.
+        </li>
+
+        <li style={{ marginBottom: '0.75rem' }}>
+          <strong>Compounding Delayed → Smaller Platform</strong>
+          <br />
+          Every book is an asset: more keywords, more readers, more reviews.
+          Delay one book and you delay the flywheel.
+        </li>
+      </ul>
+
+      <Paragraph>
+        <strong>Flip the math:</strong> outline today, draft tomorrow, publish
+        this week. The sooner you ship, the sooner your book can start working
+        for you — building authority, email subscribers, reviews, and revenue.
+      </Paragraph>
+
+      <Heading level={3} align="center">
+        Imagine 24 Hours From Now...
+      </Heading>
+
+      <Paragraph>
+        You wake up tomorrow, coffee in hand, and your book outline is already
+        DONE — crisp, clear, and ready to write. The dread is gone. You know
+        exactly what to do next.
+      </Paragraph>
+
+      <Paragraph>
+        By the weekend, your book isn’t just a file on your laptop — it’s
+        published, with a live sales page and a buy button you can send to
+        anyone.
+      </Paragraph>
+
+      <Paragraph>
+        A week later, you check your email: first sales notification. First
+        review. First DM from someone who read it and got value. You smile —
+        this is why you started.
+      </Paragraph>
+
+      <ul>
+        <li>
+          <strong>Time Freedom:</strong> Write, publish, and promote in less
+          than the time you’d spend binge-watching a show this week.
+        </li>
+        <li>
+          <strong>Recognition:</strong> Drop “I’m a published author” into
+          conversations and watch the eyebrows raise.
+        </li>
+        <li>
+          <strong>Income:</strong> Even modest daily royalties start adding up —
+          a steady drip that grows with every new book.
+        </li>
+        <li>
+          <strong>Creative Momentum:</strong> No more stalled projects. You can
+          repeat this process whenever inspiration strikes.
+        </li>
+      </ul>
+
+      <Paragraph>
+        The <strong>Book-A-Day Rapid Nonfiction Formula</strong> is built for
+        exactly this — instant clarity, zero fluff, and the kind of speed that
+        turns ideas into assets before the excitement fades.
+      </Paragraph>
 
       {/* More Content Sections */}
       {/* ... (Continue converting the rest of the HTML content into React components) ... */}
@@ -228,49 +362,77 @@ export default function BookADayRapidNonfictionFormulaPage() {
       </div>
 
       {/* Subheadline */}
+      {/* BENEFITS — Emotional + Financial Payoff with Bonus Tie-In */}
       <Heading
         level={2}
         align="center"
         style={{ marginTop: '1rem', marginBottom: '1rem' }}
       >
-        Unlock Your Triple Threat:
+        Unlock Your Author’s Triple Threat:
         <br />
-        Write, Publish, Thrive!
+        Write, Publish, Profit — Fast
       </Heading>
+
       <Paragraph>
-        Imagine if writing wasn't just about crossing the finish line; it's
-        about how you soar past it.
+        This isn’t just about finishing a book. It’s about{' '}
+        <strong>finishing the right book, fast</strong> — and putting it to work
+        for you immediately.
       </Paragraph>
-      <Paragraph>
-        The Book-A-Day Rapid Nonfiction Formula isn't just a game-changer—it's
-        your playbook for success. Ready to see how?
-      </Paragraph>
+
       <ul>
         <li>
-          <strong>Turn Words into Wealth:</strong> Picture this: Your writing
-          doesn't just fill pages; it fills your pockets. Dive into a world
-          where every chapter you write adds to your income, giving you the
-          freedom to live, play, and create on your terms.
+          <strong>Turn Ideas Into Income:</strong> Even a lean, 30–50 page
+          nonfiction book can pull in <em>$90–$300/month</em> in royalties on
+          the low end. With the Formula, you can publish multiple in a fraction
+          of the time it used to take.
         </li>
         <li>
-          <strong>Confidence at Your Core:</strong> Say goodbye to
-          second-guessing. Armed with crystal-clear steps and insider insights,
-          you'll hit 'publish' with unwavering confidence, ready to take on the
-          world one book at a time.
+          <strong>Authority on Demand:</strong> Being a published author changes
+          how people see you. It opens doors to interviews, speaking gigs,
+          collaborations, and new clients — often faster than any other
+          credibility move you can make.
         </li>
         <li>
-          <strong>Speed Without Sacrifice:</strong> Who said quality takes time?
-          Slash your writing schedule without cutting corners. More output, more
-          impact, more accolades—get ready to multiply your authorial
-          achievements without the wait.
+          <strong>Time Freedom:</strong> Our step-by-step system means you can
+          outline and draft in a single focused day, freeing up the rest of your
+          week for work, family, or creative play.
         </li>
         <li>
-          <strong>Creativity Unchained:</strong> Free yourself from the mire of
-          'how-to's and 'should-do's. With the shackles of complexity gone, your
-          creativity isn't just alive; it's unleashed. Write with freedom,
-          knowing every word paves the path to your publishing dreams.
+          <strong>Confidence Without Guesswork:</strong> No more “Am I doing
+          this right?” The path is laid out for you — just follow the steps and
+          publish.
         </li>
       </ul>
+
+      <Paragraph>And here’s where it gets even better:</Paragraph>
+
+      <CardComponent
+        variant="primaryBorder"
+        style={{ background: '#f9fff9', padding: '1rem' }}
+      >
+        <Heading level={4} align="center">
+          Bonus Power: Rapid Research Shortcuts
+        </Heading>
+        <Paragraph>
+          Your copy of the{' '}
+          <strong>Rapid Research Shortcuts for Nonfiction Authors</strong> is
+          the perfect accelerator — cutting your prep time in half and giving
+          you niche-specific prompts, instant validation methods, and creative
+          angles on tap.
+        </Paragraph>
+        <Paragraph>
+          That means you’re not just writing fast — you’re writing the right
+          book for the right audience at the right time.
+        </Paragraph>
+      </CardComponent>
+
+      <Paragraph>
+        Put the Formula and the Bonus together, and you’re looking at a
+        repeatable, scalable system for creating publishing assets that earn,
+        build your brand, and expand your reach — without burning out or
+        stalling.
+      </Paragraph>
+
       <Paragraph>
         Behind every sentence, there's a strategy; behind every paragraph, a
         path to prosperity.
@@ -322,6 +484,34 @@ export default function BookADayRapidNonfictionFormulaPage() {
           Why dream of tomorrow when the finish line could be today?
         </strong>
       </Paragraph>
+      {/* URGENCY — Tie to Immediate Action */}
+      <Paragraph>
+        The truth? Every day you delay is another day your ideas sit idle — and
+        someone else’s book fills the space yours could have claimed.
+      </Paragraph>
+
+      <CardComponent
+        variant="primaryBorder"
+        style={{
+          marginTop: '1rem',
+          marginBottom: '2rem',
+          background: '#fff5f5',
+        }}
+      >
+        <Heading level={4} align="center">
+          Act While the Excitement Is Hot
+        </Heading>
+        <Paragraph>
+          Momentum fades fast. If you start this process today, you can have
+          your outline done <strong>by tomorrow</strong> and your book earning{' '}
+          <strong>within days</strong>.
+        </Paragraph>
+        <Paragraph>
+          Wait a week, and that spark might be gone — along with the chance to
+          ride your current wave of motivation.
+        </Paragraph>
+      </CardComponent>
+
       {/* Buy Button */}
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
         <EmbedCodeComponent code={buyButtonCode} />
@@ -497,24 +687,215 @@ export default function BookADayRapidNonfictionFormulaPage() {
         <strong>Your next chapter starts now.</strong>
       </Paragraph>
       <EmbedCodeComponent code={buyButtonCode} />
+      {/* Bonus Highlight + Value Anchor CTA */}
+      <section style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+        <Heading
+          level={2}
+          align="center"
+          style={{ marginTop: '1rem', marginBottom: '1rem', color: 'red' }}
+        >
+          Limited-Time Bonus: Rapid Research Shortcuts for Nonfiction Authors
+        </Heading>
+
+        <Paragraph align="center">
+          For a short time, when you grab the{' '}
+          <strong>Book-A-Day Rapid Nonfiction Formula</strong>, you’ll also get
+          my brand-new <em>Rapid Research Shortcuts</em> guide —{' '}
+          <strong>FREE</strong>.
+        </Paragraph>
+
+        <Paragraph>
+          The Formula gives you the proven path from blank page to published in
+          5 hours or less. The bonus hands you the{' '}
+          <strong>research superpowers</strong> to get there faster, with less
+          stress, and even more confidence.
+        </Paragraph>
+
+        <Paragraph>Inside this high-impact guide, you’ll discover:</Paragraph>
+        <ul>
+          <li>
+            <strong>Advanced Prompt Layering</strong> – pull richer, more
+            targeted results from ChatGPT in minutes.
+          </li>
+          <li>
+            <strong>Niche-Specific Prompt Bank</strong> – proven, copy-and-paste
+            ideas for health, business, self-help, hobbies, and more.
+          </li>
+          <li>
+            <strong>10-Minute Book Idea Test</strong> – validate your topic
+            before you write a single word.
+          </li>
+          <li>
+            <strong>Off-Label Uses</strong> – turn your book prompts into blog
+            posts, emails, webinars, or social content instantly.
+          </li>
+        </ul>
+
+        <Paragraph>
+          <strong>What This Means for You:</strong>
+        </Paragraph>
+        <ul>
+          <li>
+            Shave hours — even days — off your research and outlining process.
+          </li>
+          <li>
+            Skip the “blank page” panic by starting with proven ideas and
+            ready-to-use prompts.
+          </li>
+          <li>
+            Validate your book before writing so you only invest time in
+            winners.
+          </li>
+          <li>
+            Create spin-off content to build your audience and income streams
+            faster.
+          </li>
+        </ul>
+
+        <Paragraph>
+          If I sold this bonus on its own, it would be <strong>$47</strong> —
+          and it would be worth every penny for the time and frustration it
+          saves. But right now, it’s yours <strong>free</strong> when you grab
+          the Rapid Nonfiction Formula.
+        </Paragraph>
+
+        <Paragraph>
+          That’s a total real-world value of <strong>$94+</strong> for less than
+          the cost of a dinner out — and it could pay you back for years in book
+          sales, authority, and opportunities.
+        </Paragraph>
+
+        <Paragraph align="center" style={{ fontWeight: 'bold' }}>
+          Lock in the Formula + Bonus combo today and you could start — and
+          finish — your next book before the weekend.
+        </Paragraph>
+
+        {/* URGENCY — Bonus Scarcity */}
+        <Paragraph>
+          Here’s the catch — this bonus isn’t guaranteed to stick around.
+        </Paragraph>
+
+        <CardComponent
+          variant="primaryBorder"
+          style={{
+            marginTop: '1rem',
+            marginBottom: '2rem',
+            background: '#fff5f9',
+          }}
+        >
+          <Heading level={4} align="center">
+            Limited-Time Bonus Access
+          </Heading>
+          <Paragraph>
+            The <strong>Rapid Research Shortcuts</strong> bonus is currently
+            included free — but it’s valued at <strong>$47</strong> on its own,
+            and I reserve the right to pull it at any time.
+          </Paragraph>
+          <Paragraph>
+            If you’re reading this now, you’re one of the lucky ones. Don’t
+            assume it’ll still be here tomorrow — grab it while it’s included at
+            no extra cost.
+          </Paragraph>
+        </CardComponent>
+
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <EmbedCodeComponent code={buyButtonCode} />
+        </div>
+      </section>
+
       <CardComponent variant="primaryBorder">
         <Heading level={1} color="red">
           ALL SALES ARE FINAL!
         </Heading>
       </CardComponent>
+      {/* FINAL CTA STACK */}
+      <Heading
+        level={2}
+        align="center"
+        style={{ marginTop: '2rem', marginBottom: '1rem', color: 'red' }}
+      >
+        This Is Your Moment — Don’t Let It Pass
+      </Heading>
 
       <Paragraph>
-        <strong>P.S.</strong> Dive into the Book-A-Day Rapid Nonfiction Formula
-        today and start seeing the world of publishing in a new light. Remember,
-        the sooner you begin, the faster you'll transform your ideas into
-        published works that can start generating income.
+        You’ve seen how the <strong>Book-A-Day Rapid Nonfiction Formula</strong>{' '}
+        takes you from blank page to published book in just hours — not weeks,
+        not months.
       </Paragraph>
       <Paragraph>
-        <strong>P.P.S.</strong> Still wondering if this is right for you? Think
-        about where you could be a month from now with the Book-A-Day Rapid
-        Nonfiction Formula in your toolkit. More than just a guide, it's the
-        first step towards turning your passion for writing into a fruitful
-        venture.
+        You’ve seen how the <strong>Rapid Research Shortcuts</strong> bonus
+        supercharges your speed, removes guesswork, and gives you the kind of
+        professional polish most authors spend years figuring out.
+      </Paragraph>
+      <Paragraph>
+        Together, they’re worth well over <strong>$80</strong> — but right now,
+        you’re getting the entire package for a fraction of that… and the bonus{' '}
+        <strong>free</strong>.
+      </Paragraph>
+
+      <CardComponent
+        variant="primaryBorder"
+        style={{
+          marginTop: '1rem',
+          marginBottom: '2rem',
+          background: '#f0fff4',
+        }}
+      >
+        <Heading level={4} align="center">
+          By This Time Tomorrow…
+        </Heading>
+        <ul>
+          <li>Your next book could be fully outlined.</li>
+          <li>You could have the research locked, ready to write.</li>
+          <li>
+            You could be on the fast track to seeing it published by the
+            weekend.
+          </li>
+        </ul>
+        <Paragraph align="center">
+          And in a week? You could be telling people,{' '}
+          <strong>“I’m a published author.”</strong>
+        </Paragraph>
+      </CardComponent>
+
+      <Paragraph>
+        But here’s the thing — once you click away, the motivation you feel
+        right now will fade. The bonus might be gone. The price might be higher.
+        And you’ll be right back where you started.
+      </Paragraph>
+      <Paragraph>
+        Or you can take the leap today, follow the exact steps I’ve laid out,
+        and join the growing list of authors who stopped waiting and started
+        winning.
+      </Paragraph>
+
+      {/* Buy Button */}
+      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+        <EmbedCodeComponent code={buyButtonCode} />
+      </div>
+
+      {/* Updated P.S. Block */}
+      <Paragraph>
+        <strong>P.S.</strong> If you take action today, you’re not just getting
+        the <strong>Book-A-Day Rapid Nonfiction Formula</strong> — you’re also
+        getting the <strong>$47 Rapid Research Shortcuts</strong> bonus{' '}
+        <em>free</em>. That’s like having me hand you the map AND the shortcut,
+        so you reach “published” in record time.
+      </Paragraph>
+
+      <Paragraph>
+        <strong>P.P.S.</strong> This isn’t just about saving money — it’s about
+        saving months (or years) of frustration. By this time tomorrow, your
+        book could be outlined. By the weekend, published. By next week,
+        earning. That’s the difference between “thinking about it” and “doing
+        it.”
+      </Paragraph>
+
+      <Paragraph>
+        <strong>P.P.P.S.</strong> If you leave this page and come back later,
+        the bonus might be gone or the price could be higher. Why risk it? Click
+        the button, start the process, and let’s get your book out into the
+        world — fast.
       </Paragraph>
 
       {/* Signature */}

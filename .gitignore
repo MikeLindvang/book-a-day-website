@@ -1,4 +1,11 @@
-/.next/
+# Next.js build output
+.next/
+
+# Node modules
 node_modules/
-/.env.local
-/.env.localvercel.json
+
+# Local environment variables
+.env.local
+
+# Vercel config (if you don’t want it tracked)
+vercel.json
