@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
 import { BLOCK_TYPES } from './PageBuilder';
+import { ALLOWED_COLORS } from './Heading';
 import styles from './SectionView.module.css';
 
 // Section templates for quick adding
@@ -101,6 +102,7 @@ const SECTION_TEMPLATES = {
 
 export default function SectionView({ blocks, setBlocks }) {
   const [collapsedSections, setCollapsedSections] = useState(new Set());
+  const [collapsedBlocks, setCollapsedBlocks] = useState(new Set());
   const [showAddMenu, setShowAddMenu] = useState(false);
   const [draggedSection, setDraggedSection] = useState(null);
   const [draggedBlock, setDraggedBlock] = useState(null);
@@ -131,6 +133,32 @@ export default function SectionView({ blocks, setBlocks }) {
       newCollapsed.add(sectionName);
     }
     setCollapsedSections(newCollapsed);
+  }
+
+  function collapseAllSections() {
+    setCollapsedSections(new Set(sectionOrder));
+  }
+
+  function expandAllSections() {
+    setCollapsedSections(new Set());
+  }
+
+  function collapseAllBlocksInSection(sectionName) {
+    const sectionBlocks = sections[sectionName] || [];
+    const newCollapsedBlocks = new Set(collapsedBlocks);
+    sectionBlocks.forEach(block => {
+      newCollapsedBlocks.add(block.originalIndex);
+    });
+    setCollapsedBlocks(newCollapsedBlocks);
+  }
+
+  function expandAllBlocksInSection(sectionName) {
+    const sectionBlocks = sections[sectionName] || [];
+    const newCollapsedBlocks = new Set(collapsedBlocks);
+    sectionBlocks.forEach(block => {
+      newCollapsedBlocks.delete(block.originalIndex);
+    });
+    setCollapsedBlocks(newCollapsedBlocks);
   }
 
   function addSection(templateKey) {
@@ -306,6 +334,22 @@ export default function SectionView({ blocks, setBlocks }) {
         <h3>📋 Section View</h3>
         <div className={styles.sectionControls}>
           <button 
+            className={styles.collapseBtn}
+            onClick={expandAllSections}
+            title="Expand all sections"
+          >
+            <FontAwesomeIcon icon={faChevronDown} />
+            Expand All
+          </button>
+          <button 
+            className={styles.collapseBtn}
+            onClick={collapseAllSections}
+            title="Collapse all sections"
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+            Collapse All
+          </button>
+          <button 
             onClick={() => setPreviewMode(true)}
             className={styles.previewBtn}
             title="Preview entire page"
@@ -384,6 +428,18 @@ export default function SectionView({ blocks, setBlocks }) {
                   
                   <div className={styles.sectionMenu}>
                     <button
+                      onClick={() => expandAllBlocksInSection(sectionName)}
+                      title="Expand all blocks in section"
+                    >
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                    <button
+                      onClick={() => collapseAllBlocksInSection(sectionName)}
+                      title="Collapse all blocks in section"
+                    >
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+                    <button
                       onClick={() => moveSection(sectionName, -1)}
                       disabled={sectionIndex === 0}
                       title="Move section up"
@@ -422,6 +478,16 @@ export default function SectionView({ blocks, setBlocks }) {
                         block={block}
                         blockIndex={blockIndex}
                         sectionName={sectionName}
+                        isCollapsed={collapsedBlocks.has(block.originalIndex)}
+                        onToggleCollapse={() => {
+                          const newCollapsedBlocks = new Set(collapsedBlocks);
+                          if (newCollapsedBlocks.has(block.originalIndex)) {
+                            newCollapsedBlocks.delete(block.originalIndex);
+                          } else {
+                            newCollapsedBlocks.add(block.originalIndex);
+                          }
+                          setCollapsedBlocks(newCollapsedBlocks);
+                        }}
                         onUpdate={(newData) => updateBlock(block.originalIndex, newData)}
                         onDelete={() => removeBlock(block.originalIndex)}
                       />
@@ -469,8 +535,7 @@ export default function SectionView({ blocks, setBlocks }) {
 }
 
 // Simplified block editor for section view
-function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
-  const [collapsed, setCollapsed] = useState(block.data.collapsed || false);
+function BlockEditor({ block, blockIndex, sectionName, isCollapsed, onToggleCollapse, onUpdate, onDelete }) {
   const isTemplate = block.metadata?.placeholder;
 
   function updateField(field, value) {
@@ -486,10 +551,10 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
         </span>
         <div className={styles.blockActions}>
           <button
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={onToggleCollapse}
             className={styles.toggleBtn}
           >
-            <FontAwesomeIcon icon={collapsed ? faChevronRight : faChevronDown} />
+            <FontAwesomeIcon icon={isCollapsed ? faChevronRight : faChevronDown} />
           </button>
           <button
             onClick={onDelete}
@@ -500,7 +565,7 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
         </div>
       </div>
 
-      {!collapsed && (
+      {!isCollapsed && (
         <div className={styles.blockContent}>
           {/* Simplified editors for common block types */}
           {block.type === 'heading' && (
@@ -525,10 +590,11 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
                   value={block.data.color || 'primary'}
                   onChange={(e) => updateField('color', e.target.value)}
                 >
-                  <option value="primary">Primary</option>
-                  <option value="red">Red</option>
-                  <option value="blue">Blue</option>
-                  <option value="green">Green</option>
+                  {ALLOWED_COLORS.map((color) => (
+                    <option key={color} value={color}>
+                      {color.charAt(0).toUpperCase() + color.slice(1)}
+                    </option>
+                  ))}
                 </select>
               </div>
             </>
@@ -545,13 +611,58 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
           )}
 
           {block.type === 'list' && (
-            <textarea
-              value={(block.data.items || []).join('\n')}
-              onChange={(e) => updateField('items', e.target.value.split('\n').filter(Boolean))}
-              placeholder="One item per line..."
-              className={styles.listInput}
-              rows={4}
-            />
+            <>
+              <textarea
+                value={(block.data.items || []).join('\n')}
+                onChange={(e) => updateField('items', e.target.value.split('\n').filter(Boolean))}
+                placeholder="One item per line..."
+                className={styles.listInput}
+                rows={4}
+              />
+              <div className={styles.blockOptions}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={block.data.ordered || false}
+                    onChange={(e) => updateField('ordered', e.target.checked)}
+                  />
+                  Numbered list
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={block.data.alternate || false}
+                    onChange={(e) => updateField('alternate', e.target.checked)}
+                  />
+                  Alternate styling
+                </label>
+              </div>
+            </>
+          )}
+
+          {block.type === 'markdown' && (
+            <>
+              <textarea
+                value={block.data.markdown || ''}
+                onChange={(e) => updateField('markdown', e.target.value)}
+                placeholder="Markdown content..."
+                className={styles.markdownInput}
+                rows={6}
+              />
+              <div className={styles.blockOptions}>
+                <select
+                  value={block.data.cardVariant || ''}
+                  onChange={(e) => updateField('cardVariant', e.target.value || undefined)}
+                >
+                  <option value="">No Card Style</option>
+                  <option value="light">Light Card</option>
+                  <option value="dark">Dark Card</option>
+                  <option value="accent">Accent Card</option>
+                  <option value="info">Info Card</option>
+                  <option value="success">Success Card</option>
+                </select>
+              </div>
+            </>
           )}
 
           {block.type === 'testimonial' && (
@@ -573,12 +684,50 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
           )}
 
           {block.type === 'embedCode' && (
-            <textarea
-              value={block.data.code || ''}
-              onChange={(e) => updateField('code', e.target.value)}
-              placeholder="Embed code (buy buttons, tracking, etc.)..."
-              className={styles.embedInput}
-              rows={4}
+            <>
+              <textarea
+                value={block.data.code || ''}
+                onChange={(e) => updateField('code', e.target.value)}
+                placeholder="Embed code (buy buttons, tracking, etc.)..."
+                className={styles.embedInput}
+                rows={4}
+              />
+              <div className={styles.blockOptions}>
+                <select
+                  value={block.data.align || 'left'}
+                  onChange={(e) => updateField('align', e.target.value)}
+                >
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+            </>
+          )}
+
+          {block.type === 'image' && (
+            <>
+              <input
+                value={block.data.src || ''}
+                onChange={(e) => updateField('src', e.target.value)}
+                placeholder="Image URL..."
+                className={styles.imageInput}
+              />
+              <input
+                value={block.data.alt || ''}
+                onChange={(e) => updateField('alt', e.target.value)}
+                placeholder="Alt text (for accessibility)..."
+                className={styles.imageAlt}
+              />
+            </>
+          )}
+
+          {block.type === 'productGrid' && (
+            <input
+              value={(block.data.products || []).join(', ')}
+              onChange={(e) => updateField('products', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+              placeholder="Product slugs (comma-separated)..."
+              className={styles.productGridInput}
             />
           )}
 
@@ -596,6 +745,16 @@ function BlockEditor({ block, blockIndex, sectionName, onUpdate, onDelete }) {
                 placeholder="Button link..."
                 className={styles.buttonHref}
               />
+              <div className={styles.blockOptions}>
+                <select
+                  value={block.data.align || 'left'}
+                  onChange={(e) => updateField('align', e.target.value)}
+                >
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
             </>
           )}
 

@@ -26,7 +26,8 @@
 }
 
 .previewBtn,
-.addSectionBtn {
+.addSectionBtn,
+.collapseBtn {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -58,6 +59,18 @@
   background: linear-gradient(135deg, #218838, #1ea080);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.collapseBtn {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.collapseBtn:hover {
+  background: #e9ecef;
+  color: #495057;
+  border-color: #adb5bd;
 }
 
 /* Add Section Menu */
@@ -363,6 +376,18 @@
   font-size: 0.85rem;
 }
 
+.blockOptions label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.blockOptions input[type="checkbox"] {
+  margin: 0;
+}
+
 /* Input Styles */
 .headingInput {
   width: 100%;
@@ -375,6 +400,7 @@
 
 .paragraphInput,
 .listInput,
+.markdownInput,
 .testimonialQuote,
 .embedInput {
   width: 100%;
@@ -388,7 +414,10 @@
 
 .testimonialAuthor,
 .buttonLabel,
-.buttonHref {
+.buttonHref,
+.imageInput,
+.imageAlt,
+.productGridInput {
   width: 100%;
   padding: 6px 10px;
   border: 1px solid #ced4da;
