@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
+import SaveTemplateModal from '../../../components/SaveTemplateModal';
 import styles from './page.module.css';
 
-import { faSave, faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faArrowLeft, faEye, faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 export default function EditPage({ params: { slug: initialSlug } }) {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
   const [blocks, setBlocks] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showSaveTemplate, setShowSaveTemplate] = useState(false);
   const channelRef = useRef(null);
 
   useEffect(() => {
@@ -129,15 +131,24 @@ export default function EditPage({ params: { slug: initialSlug } }) {
     if (w) w.focus();
   }
 
+  function handleTemplateSaved(template) {
+    setSuccess(`Template "${template.name}" saved successfully! You can now use it when creating new pages.`);
+  }
+
   return (
     <>
       <div className={styles.header}>
         <h1 className={styles.title}>Edit Page</h1>
-        <div className={styles.preview}>
+        <div className={styles.actions}>
           <Button
             icon={faEye}
             label="Open Live Preview"
             onClick={openLivePreview}
+          />
+          <Button
+            icon={faBookmark}
+            label="Save as Template"
+            onClick={() => setShowSaveTemplate(true)}
           />
         </div>
         <Button href="/admin" icon={faArrowLeft} label="Back to List" />
@@ -201,6 +212,16 @@ export default function EditPage({ params: { slug: initialSlug } }) {
           </form>
         </div>
       </div>
+
+      {showSaveTemplate && (
+        <SaveTemplateModal
+          blocks={blocks}
+          title={title}
+          description={description}
+          onSave={handleTemplateSaved}
+          onClose={() => setShowSaveTemplate(false)}
+        />
+      )}
     </>
   );
 }

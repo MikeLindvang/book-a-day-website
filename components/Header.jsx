@@ -1,6 +1,7 @@
 // components/Header.js
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -9,7 +10,7 @@ export default function Header() {
       <div className={styles.container}>
         {/* Logo or Site Name */}
         <h1 className={styles.logoContent}>
-          <FontAwesomeIcon icon="book" className={styles.logoIcon} />
+          <FontAwesomeIcon icon={faBook} className={styles.logoIcon} />
           <Link href="/">Book-A-Day</Link>
         </h1>
         {/* Navigation Menu */}

@@ -89,3 +89,106 @@
   border-color: #3a7ca5;
   box-shadow: 0 0 0 2px rgba(58, 124, 165, 0.2);
 }
+
+/* Template Integration Styles */
+.templateBadge {
+  display: inline-block;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.changeTemplateBtn {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  color: #495057;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.changeTemplateBtn:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+  color: #212529;
+}
+
+.templateInfo {
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  border: 1px solid #bbdefb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.templateInfo h3 {
+  margin: 0 0 8px 0;
+  color: #1565c0;
+  font-size: 1.1rem;
+}
+
+.templateInfo p {
+  margin: 0 0 12px 0;
+  color: #424242;
+  line-height: 1.5;
+}
+
+.templateInfo small {
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  display: block;
+}
+
+.templateInfo strong {
+  color: #1565c0;
+}
+
+.checkboxLabel {
+  margin-left: 8px;
+  font-weight: 400;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .headerActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .templateBadge {
+    display: block;
+    margin-left: 0;
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+  .changeTemplateBtn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+  
+  .templateInfo {
+    padding: 16px;
+  }
+}

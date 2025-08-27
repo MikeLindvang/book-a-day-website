@@ -1,6 +1,130 @@
 .builder {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.builderContent {
+  display: flex;
   gap: 2rem;
+}
+
+/* View Toggle */
+.viewToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.viewToggle h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+.toggleButtons {
+  display: flex;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6c757d;
+  transition: all 0.2s ease;
+  border-right: 1px solid #dee2e6;
+}
+
+.toggleBtn:last-child {
+  border-right: none;
+}
+
+.toggleBtn:hover {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+.toggleBtn.active {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggleBtn.active:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+}
+
+.toggleControls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bulkImportBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.bulkImportBtn:hover {
+  background: linear-gradient(135deg, #218838, #1ea080);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.analysisBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #6f42c1, #5a32a3);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(111, 66, 193, 0.2);
+}
+
+.analysisBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a32a3, #4c2a85);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(111, 66, 193, 0.3);
+}
+
+.analysisBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .palette {
@@ -133,4 +257,96 @@
   padding: 1rem;
   background-color: #fafafa;
   border-top: 1px solid #e5e7eb;
+}
+
+/* Template-related styles */
+.templateBlock {
+  border: 2px solid #3498db;
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  position: relative;
+}
+
+.templateBlock::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  border-radius: 6px;
+  z-index: -1;
+  animation: templateGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes templateGlow {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+.blockType {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.sectionBadge {
+  display: inline-block;
+  background: #e8f5e8;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.placeholderBadge {
+  display: inline-block;
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 4px;
+  border: 1px solid #f39c12;
+}
+
+.templateBlock input,
+.templateBlock textarea,
+.templateBlock select {
+  border: 1px solid #3498db;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.templateBlock input:focus,
+.templateBlock textarea:focus,
+.templateBlock select:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  background: white;
+}
+
+/* Template hints */
+.templateBlock input[value*="["],
+.templateBlock textarea[value*="["] {
+  background: #fff9c4;
+  border-color: #f39c12;
+}
+
+.templateBlock .blockPreview {
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #3498db;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sectionBadge,
+  .placeholderBadge {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+    text-align: center;
+    max-width: fit-content;
+  }
 }

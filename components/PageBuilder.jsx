@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { FaTrash, FaChevronUp, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faLayerGroup, faUpload, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
+import SectionView from './SectionView';
+import BulkImport from './BulkImport';
+import ContentSuggestions from './ContentSuggestions';
 import { ALLOWED_COLORS } from './Heading';
 import styles from './PageBuilder.module.css';
 
-const BLOCK_TYPES = [
+export const BLOCK_TYPES = [
   'heading',
   'paragraph',
   'markdown',
@@ -21,6 +24,14 @@ const BLOCK_TYPES = [
 ];
 
 export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
+  const [viewMode, setViewMode] = useState(() => {
+    // Auto-detect best view mode based on content
+    const hasSections = blocks.some(block => block.section);
+    return hasSections ? 'sections' : 'blocks';
+  });
+  const [showBulkImport, setShowBulkImport] = useState(false);
+  const [showContentSuggestions, setShowContentSuggestions] = useState(false);
+
   function addBlock(type) {
     setBlocks([...blocks, { type, data: { collapsed: true } }]);
   }
@@ -100,27 +111,85 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
     return normalized.length > 30 ? normalized.slice(0, 30) + '…' : normalized;
   }
 
+  function handleBulkImport(importedBlocks) {
+    setBlocks([...blocks, ...importedBlocks]);
+    setShowBulkImport(false);
+  }
+
   return (
     <div className={styles.builder}>
-      <div className={styles.palette}>
-        <h3>Add Block</h3>
-        {BLOCK_TYPES.map((type) => (
-          <button key={type} onClick={() => addBlock(type)}>
-            <FontAwesomeIcon icon={faPlus} className={styles.icon} />
-            {type}
+      <div className={styles.viewToggle}>
+        <h3>Content Editor</h3>
+        <div className={styles.toggleControls}>
+          <div className={styles.toggleButtons}>
+            <button 
+              className={`${styles.toggleBtn} ${viewMode === 'blocks' ? styles.active : ''}`}
+              onClick={() => setViewMode('blocks')}
+            >
+              <FontAwesomeIcon icon={faList} />
+              Block View
+            </button>
+            <button 
+              className={`${styles.toggleBtn} ${viewMode === 'sections' ? styles.active : ''}`}
+              onClick={() => setViewMode('sections')}
+            >
+              <FontAwesomeIcon icon={faLayerGroup} />
+              Section View
+            </button>
+          </div>
+          <button 
+            className={styles.bulkImportBtn}
+            onClick={() => setShowBulkImport(true)}
+          >
+            <FontAwesomeIcon icon={faUpload} />
+            Bulk Import
           </button>
-        ))}
+          <button 
+            className={styles.analysisBtn}
+            onClick={() => setShowContentSuggestions(true)}
+            disabled={blocks.length === 0}
+          >
+            <FontAwesomeIcon icon={faChartLine} />
+            AI Analysis
+          </button>
+        </div>
       </div>
-      <div className={styles.blocks}>
+
+      {viewMode === 'sections' ? (
+        <SectionView blocks={blocks} setBlocks={setBlocks} />
+      ) : (
+        <div className={styles.builderContent}>
+          <div className={styles.palette}>
+            <h3>Add Block</h3>
+            {BLOCK_TYPES.map((type) => (
+              <button key={type} onClick={() => addBlock(type)}>
+                <FontAwesomeIcon icon={faPlus} className={styles.icon} />
+                {type}
+              </button>
+            ))}
+          </div>
+          <div className={styles.blocks}>
         {blocks.map((block, i) => {
           const collapsed = block.data.collapsed || false;
+          const isTemplateBlock = block.metadata?.placeholder;
+          const sectionInfo = block.metadata?.sectionTitle;
           return (
-          <div key={i} className={styles.block}>
+          <div key={i} className={`${styles.block} ${isTemplateBlock ? styles.templateBlock : ''}`}>
               <div className={styles.blockHeader}>
-                <span>
+                <span className={styles.blockType}>
                   {block.type}
                   {getSnippet(block) && ` — ${getSnippet(block)}`}
                 </span>
+                {sectionInfo && (
+                  <span className={styles.sectionBadge}>
+                    📋 {sectionInfo}
+                  </span>
+                )}
+                {isTemplateBlock && (
+                  <span className={styles.placeholderBadge}>
+                    ✏️ Template
+                  </span>
+                )}
                 <div>
                   <button onClick={() => moveBlock(i, -1)}><FaChevronUp /></button>
                   <button onClick={() => moveBlock(i, 1)}><FaChevronDown /></button>
@@ -403,7 +472,25 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
         </div>
       );
     })}
-      </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modals - rendered at the top level to avoid duplication */}
+      {showBulkImport && (
+        <BulkImport 
+          onImport={handleBulkImport}
+          onClose={() => setShowBulkImport(false)}
+        />
+      )}
+      
+      {showContentSuggestions && (
+        <ContentSuggestions 
+          blocks={blocks}
+          onUpdateBlock={updateBlock}
+          onClose={() => setShowContentSuggestions(false)}
+        />
+      )}
     </div>
   );
 }
