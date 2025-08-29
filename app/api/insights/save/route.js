@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/dbConnect';
-import InsightSheet from '@/lib/models/InsightSheet';
+import dbConnect from '../../../../lib/dbConnect';
+import InsightSheet from '../../../../lib/models/InsightSheet';
 
 export async function PATCH(request) {
   try {

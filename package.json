@@ -2,7 +2,10 @@
   "name": "sales-boilerplate",
   "private": true,
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
