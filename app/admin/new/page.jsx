@@ -5,9 +5,23 @@ import { useRouter } from 'next/navigation';
 import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import TemplateSelector from '../../../components/TemplateSelector';
+import GenerateDraftPanel from '../../../components/GenerateDraftPanel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
 
-import { faSave, faArrowLeft, faEye } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faSave, 
+  faArrowLeft, 
+  faEye, 
+  faInfoCircle,
+  faCog,
+  faFileAlt,
+  faLayerGroup,
+  faQuestionCircle,
+  faLightbulb,
+  faRobot,
+  faWandMagicSparkles
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function NewPage() {
   const router = useRouter();
@@ -20,7 +34,12 @@ export default function NewPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showTemplateSelector, setShowTemplateSelector] = useState(true);
+  const [showDraftGenerator, setShowDraftGenerator] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [activeTab, setActiveTab] = useState('info');
+  const [userId] = useState('user-demo'); // TODO: Get from auth context
+  const [projectId] = useState('project-demo'); // TODO: Get from project context
+  const [insightSheet] = useState(null); // TODO: Load actual insight sheet
   const channelRef = useRef(null);
 
   async function handleSubmit(e) {
@@ -87,6 +106,31 @@ export default function NewPage() {
 
   function changeTemplate() {
     setShowTemplateSelector(true);
+    setShowDraftGenerator(false);
+  }
+
+  function handleShowDraftGenerator() {
+    setShowTemplateSelector(false);
+    setShowDraftGenerator(true);
+  }
+
+  function handleDraftGenerated(draftBlocks, draftMetadata) {
+    setBlocks(draftBlocks);
+    setShowDraftGenerator(false);
+    
+    // Auto-populate fields from draft metadata
+    if (draftMetadata?.templateName && !title) {
+      setTitle(`AI Generated ${draftMetadata.templateName} Sales Page`);
+    }
+    if (!description) {
+      setDescription(`AI-generated sales page using ${draftMetadata?.templateName || 'custom template'} with ${draftMetadata?.tone || 'professional'} tone`);
+    }
+    
+    // Set active tab to content to show generated blocks
+    setActiveTab('content');
+    
+    // Show success message
+    setSuccess(`🎉 AI draft generated successfully! ${draftBlocks.length} sections created.`);
   }
 
   // Ctrl+S to save (prevent browser save dialog)
@@ -107,11 +151,51 @@ export default function NewPage() {
       <>
         <div className={styles.header}>
           <h1 className={styles.title}>Create New Sales Page</h1>
+          <div className={styles.headerActions}>
+            <Button 
+              onClick={handleShowDraftGenerator}
+              icon={faWandMagicSparkles}
+              label="AI Generate"
+              className={styles.aiButton}
+            />
+          </div>
           <Button href="/admin" icon={faArrowLeft} label="Back to List" />
         </div>
         <TemplateSelector 
           onSelectTemplate={handleTemplateSelect}
           onSkip={handleSkipTemplate}
+        />
+      </>
+    );
+  }
+
+  // Show AI draft generator
+  if (showDraftGenerator) {
+    return (
+      <>
+        <div className={styles.header}>
+          <h1 className={styles.title}>AI Sales Copy Generator</h1>
+          <div className={styles.headerActions}>
+            <Button 
+              onClick={() => setShowTemplateSelector(true)}
+              icon={faFileAlt}
+              label="Templates"
+            />
+          </div>
+          <Button 
+            onClick={() => {
+              setShowDraftGenerator(false);
+              setShowTemplateSelector(true);
+            }}
+            icon={faArrowLeft} 
+            label="Back" 
+          />
+        </div>
+        <GenerateDraftPanel
+          userId={userId}
+          projectId={projectId}
+          insightSheet={insightSheet}
+          onDraftGenerated={handleDraftGenerated}
         />
       </>
     );
@@ -132,7 +216,7 @@ export default function NewPage() {
         <div className={styles.headerActions}>
           <Button
             icon={faEye}
-            label="Open Live Preview"
+            label="Preview"
             onClick={openLivePreview}
           />
           <button 
@@ -143,76 +227,152 @@ export default function NewPage() {
             📋 Change Template
           </button>
         </div>
-        <Button href="/admin" icon={faArrowLeft} label="Back to List" />
+        <Button href="/admin" icon={faArrowLeft} label="Back" />
       </div>
+      
       <div className={styles.container}>
+        {/* Clean Tab Navigation */}
+        <div className={styles.topNav}>
+          <button
+            className={`${styles.navTab} ${activeTab === 'info' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('info')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className={styles.navIcon} />
+            Page Info
+          </button>
+          <button
+            className={`${styles.navTab} ${activeTab === 'content' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('content')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faLayerGroup} className={styles.navIcon} />
+            Content
+          </button>
+          <button
+            className={`${styles.navTab} ${activeTab === 'settings' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('settings')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faCog} className={styles.navIcon} />
+            Settings
+          </button>
+        </div>
+
+        {/* Main Editor */}
         <div className={styles.editor}>
-          {success && <p className={styles.success}>{success}</p>}
-          {selectedTemplate && (
-            <div className={styles.templateInfo}>
-              <h3>🎯 Template: {selectedTemplate.name}</h3>
-              <p>{selectedTemplate.description}</p>
-              <small>
-                💡 <strong>Tip:</strong> Replace the placeholder text with your content. 
-                Sections marked with [brackets] need your specific information.
-              </small>
+          {/* Action Bar */}
+          <div className={styles.actionBar}>
+            <span className={styles.currentTab}>
+              {activeTab === 'info' && 'Page Information'}
+              {activeTab === 'content' && 'Content Blocks'}
+              {activeTab === 'settings' && 'Settings & Publishing'}
+            </span>
+            <div className={styles.quickActions}>
+              <button 
+                className={styles.quickAction}
+                onClick={openLivePreview}
+                type="button"
+              >
+                <FontAwesomeIcon icon={faEye} />
+                Preview
+              </button>
+              {selectedTemplate && (
+                <button 
+                  className={styles.quickAction}
+                  onClick={changeTemplate}
+                  type="button"
+                >
+                  <FontAwesomeIcon icon={faFileAlt} />
+                  Change Template
+                </button>
+              )}
             </div>
-          )}
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.fields}>
-              <label>
-                Slug
-                <input
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  required
-                  placeholder="e.g., my-awesome-product"
-                />
-              </label>
-              <label>
-                Title
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                  placeholder="Page title for SEO and browser tab"
-                />
-              </label>
-              <div className={styles.fullWidth}>
-                <label>
-                  Description
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Meta description for search engines"
-                  />
-                </label>
+          </div>
+
+          <div className={styles.editorContent}>
+            {success && <p className={styles.success}>{success}</p>}
+            {selectedTemplate && activeTab === 'info' && (
+              <div className={styles.templateInfo}>
+                <h3>🎯 Using Template: {selectedTemplate.name}</h3>
+                <p>{selectedTemplate.description}</p>
+                <small>
+                  💡 <strong>Tip:</strong> Replace placeholder text with your content. Look for sections marked with [brackets].
+                </small>
               </div>
-              <label>
-                Hero Image URL
-                <input
-                  value={heroImage}
-                  onChange={(e) => setHeroImage(e.target.value)}
-                  placeholder="https://example.com/hero-image.jpg"
-                />
-              </label>
-              <label>
-                Published
-                <input
-                  type="checkbox"
-                  checked={published}
-                  onChange={(e) => setPublished(e.target.checked)}
-                />
-                <span className={styles.checkboxLabel}>Make page public</span>
-              </label>
-            </div>
-            <div>
-              <h2>Content Blocks</h2>
-              <PageBuilder blocks={blocks} setBlocks={setBlocks} />
-            </div>
-            {error && <p className={styles.error}>{error}</p>}
-            <Button type="submit" icon={faSave} label="Create Page" />
-          </form>
+            )}
+            
+            <form onSubmit={handleSubmit} className={styles.form}>
+              {activeTab === 'info' && (
+                <div className={styles.section}>
+                  <div className={styles.fields}>
+                    <label>
+                      Page Slug
+                      <input
+                        value={slug}
+                        onChange={(e) => setSlug(e.target.value)}
+                        required
+                        placeholder="e.g., my-awesome-product"
+                      />
+                    </label>
+                    <label>
+                      Page Title
+                      <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                        placeholder="Page title for SEO"
+                      />
+                    </label>
+                    <div className={styles.fullWidth}>
+                      <label>
+                        Meta Description
+                        <textarea
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder="Brief description for search engines (optional)"
+                        />
+                      </label>
+                    </div>
+                    <label>
+                      Hero Image URL
+                      <input
+                        value={heroImage}
+                        onChange={(e) => setHeroImage(e.target.value)}
+                        placeholder="https://example.com/image.jpg (optional)"
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'content' && (
+                <div className={styles.section}>
+                  <PageBuilder blocks={blocks} setBlocks={setBlocks} />
+                </div>
+              )}
+
+              {activeTab === 'settings' && (
+                <div className={styles.section}>
+                  <div className={styles.fields}>
+                    <label>
+                      <div className={styles.checkboxWrapper}>
+                        <input
+                          type="checkbox"
+                          checked={published}
+                          onChange={(e) => setPublished(e.target.checked)}
+                        />
+                        <span className={styles.checkboxLabel}>Publish immediately</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              )}
+              
+              {error && <p className={styles.error}>{error}</p>}
+              <Button type="submit" icon={faSave} label="Create Page" />
+            </form>
+          </div>
         </div>
       </div>
     </>

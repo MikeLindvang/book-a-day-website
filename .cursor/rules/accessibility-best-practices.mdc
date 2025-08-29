@@ -1,0 +1,596 @@
+---
+alwaysApply: true
+description: Accessibility guidelines and modern web development best practices
+---
+
+# Accessibility & Best Practices
+
+Ensure **inclusive, accessible, and high-quality** user experiences by following modern web standards and accessibility guidelines (WCAG 2.1 AA compliance).
+
+## Color & Contrast
+
+### Contrast Requirements
+- **Normal text**: 4.5:1 minimum contrast ratio
+- **Large text** (18pt+ or 14pt+ bold): 3:1 minimum
+- **UI components**: 3:1 minimum for borders, icons, focus indicators
+
+### Color Guidelines
+```css
+/* Ensure sufficient contrast with background colors */
+.lightBackground {
+  background: #ffffff;
+  color: #1a202c; /* High contrast dark text */
+}
+
+.darkBackground {
+  background: #2d3748;
+  color: #ffffff; /* High contrast light text */
+}
+
+/* Never rely on color alone for information */
+.errorState {
+  color: #dc3545;
+  border-left: 4px solid #dc3545; /* Visual indicator beyond color */
+}
+
+.errorState::before {
+  content: "⚠ "; /* Icon for additional context */
+}
+```
+
+### Color-Blind Considerations
+```css
+/* Use patterns, icons, or labels alongside color */
+.statusIndicator.success {
+  background: #28a745;
+  color: white;
+}
+
+.statusIndicator.success::before {
+  content: "✓ "; /* Icon for non-color identification */
+}
+
+.statusIndicator.error {
+  background: #dc3545;
+  color: white;
+}
+
+.statusIndicator.error::before {
+  content: "✗ "; /* Icon for non-color identification */
+}
+```
+
+## Focus Management
+
+### Visible Focus Indicators
+```css
+/* Consistent focus styles throughout the application */
+.interactive:focus-visible {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Remove focus outline for mouse users */
+.interactive:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Custom focus for specific components */
+.button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(58, 124, 165, 0.3);
+  outline: none;
+}
+
+.input:focus-visible {
+  border-color: #3a7ca5;
+  box-shadow: 0 0 0 2px rgba(58, 124, 165, 0.2);
+  outline: none;
+}
+```
+
+### Skip Links
+```css
+/* Skip to main content link */
+.skipLink {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #3a7ca5;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skipLink:focus {
+  top: 6px;
+}
+```
+
+### Focus Trapping (for modals)
+```css
+/* Ensure modal content is focusable */
+.modalContent {
+  position: relative;
+}
+
+.modalContent:focus {
+  outline: none;
+}
+
+/* Style for focus trap boundaries */
+.focusTrap {
+  position: relative;
+}
+```
+
+## Semantic HTML & ARIA
+
+### Proper Heading Hierarchy
+```html
+<!-- Always maintain logical heading order -->
+<h1>Main Page Title</h1>
+  <h2>Section Title</h2>
+    <h3>Subsection Title</h3>
+    <h3>Another Subsection</h3>
+  <h2>Next Section</h2>
+```
+
+### ARIA Labels & Descriptions
+```css
+/* Style elements with proper ARIA support */
+.button[aria-expanded="true"] .icon {
+  transform: rotate(180deg);
+}
+
+.button[aria-pressed="true"] {
+  background: #2c5f7a;
+  color: white;
+}
+
+/* Visually hidden content for screen readers */
+.visuallyHidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+```
+
+### Landmark Roles
+```css
+/* Style landmark elements appropriately */
+main {
+  min-height: 50vh;
+  padding: 2rem 0;
+}
+
+nav {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+aside {
+  border-left: 1px solid #e2e8f0;
+  padding-left: 2rem;
+}
+
+footer {
+  border-top: 1px solid #e2e8f0;
+  margin-top: 4rem;
+  padding-top: 2rem;
+}
+```
+
+## Keyboard Navigation
+
+### Tab Order Management
+```css
+/* Ensure logical tab order with proper focus styles */
+.interactive {
+  cursor: pointer;
+}
+
+.interactive:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none; /* Remove from tab order when disabled */
+}
+
+/* Custom tab order when needed */
+.customTabOrder {
+  /* Use tabindex in HTML: tabindex="0" for normal order, tabindex="-1" to remove from tab order */
+}
+```
+
+### Keyboard Shortcuts
+```css
+/* Style keyboard shortcut indicators */
+.shortcutKey {
+  display: inline-block;
+  padding: 0.125rem 0.375rem;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #4a5568;
+}
+```
+
+## Form Accessibility
+
+### Label Association
+```css
+/* Ensure all form inputs have associated labels */
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.formLabel {
+  font-weight: 600;
+  color: #2d3748;
+  cursor: pointer;
+}
+
+.formLabel.required::after {
+  content: " *";
+  color: #e53e3e;
+}
+```
+
+### Error Handling
+```css
+/* Clear error indication and messaging */
+.formField.error .formInput {
+  border-color: #e53e3e;
+  background: #fed7d7;
+}
+
+.formField.error .formLabel {
+  color: #e53e3e;
+}
+
+.errorMessage {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.errorMessage::before {
+  content: "⚠";
+  font-size: 1rem;
+}
+```
+
+### Form Validation States
+```css
+.formInput.valid {
+  border-color: #38a169;
+  background: #f0fff4;
+}
+
+.formInput.valid + .validIcon {
+  color: #38a169;
+  opacity: 1;
+}
+
+.validIcon {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+```
+
+## Touch & Mobile Accessibility
+
+### Touch Target Sizes
+```css
+/* Minimum touch target size: 44x44px */
+.touchTarget {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Increase spacing between touch targets */
+.buttonGroup .button {
+  margin: 0.25rem;
+}
+
+.buttonGroup .button + .button {
+  margin-left: 0.5rem;
+}
+```
+
+### Mobile-Specific Considerations
+```css
+/* Prevent zoom on input focus (iOS) */
+.input {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* Optimize for touch interactions */
+.mobileOptimized {
+  -webkit-tap-highlight-color: rgba(58, 124, 165, 0.2);
+  user-select: none;
+}
+
+/* Improve touch responsiveness */
+.touchResponsive {
+  touch-action: manipulation; /* Removes 300ms click delay */
+}
+```
+
+## Screen Reader Support
+
+### Alternative Text & Descriptions
+```css
+/* Style decorative images appropriately */
+.decorativeImage {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Style informative images */
+.informativeImage {
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.informativeImage:focus {
+  border-color: #3a7ca5;
+  outline: none;
+}
+```
+
+### Live Regions
+```css
+/* Style live region announcements */
+.liveRegion {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.statusMessage {
+  padding: 1rem;
+  border-radius: 0.375rem;
+  margin: 1rem 0;
+}
+
+.statusMessage.success {
+  background: #f0fff4;
+  border: 1px solid #9ae6b4;
+  color: #276749;
+}
+
+.statusMessage.error {
+  background: #fed7d7;
+  border: 1px solid #feb2b2;
+  color: #c53030;
+}
+```
+
+## Performance & Core Web Vitals
+
+### Optimize for Largest Contentful Paint (LCP)
+```css
+/* Optimize hero images and content */
+.heroImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* Preload critical images in HTML */
+}
+
+.aboveFoldContent {
+  contain: layout; /* Optimize rendering */
+}
+```
+
+### Minimize Cumulative Layout Shift (CLS)
+```css
+/* Reserve space for images to prevent layout shift */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.imageContainer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Avoid animations that affect layout */
+.animateOpacity {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+```
+
+### First Input Delay (FID) Optimization
+```css
+/* Use CSS transforms instead of changing layout properties */
+.optimizedHover {
+  transform: translateY(0);
+  transition: transform 0.2s ease;
+}
+
+.optimizedHover:hover {
+  transform: translateY(-2px); /* No layout recalculation */
+}
+```
+
+## Progressive Enhancement
+
+### CSS-Only Fallbacks
+```css
+/* Provide fallbacks for modern CSS features */
+.modernGrid {
+  display: flex; /* Fallback for older browsers */
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@supports (display: grid) {
+  .modernGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Feature detection for custom properties */
+.component {
+  color: #333; /* Fallback color */
+  color: var(--text-primary, #333); /* Use custom property if supported */
+}
+```
+
+### Graceful Degradation
+```css
+/* Ensure components work without JavaScript */
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion:checked + .accordionContent {
+  max-height: 500px; /* CSS-only accordion */
+}
+
+/* Fallback for complex animations */
+@media (prefers-reduced-motion: reduce) {
+  .complexAnimation {
+    animation: none;
+  }
+  
+  .complexAnimation:hover {
+    opacity: 0.8; /* Simple fallback interaction */
+  }
+}
+```
+
+## Content & Typography Accessibility
+
+### Readable Text
+```css
+/* Ensure optimal reading experience */
+.readableText {
+  line-height: 1.6; /* Minimum 1.5 for body text */
+  max-width: 70ch; /* Optimal reading length */
+  color: #2d3748; /* High contrast */
+}
+
+.largeText {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+  .readableText {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+```
+
+### Language Support
+```css
+/* Support for different writing directions */
+.content {
+  direction: ltr; /* Default left-to-right */
+}
+
+.content[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Support for different scripts */
+.multiScript {
+  font-family: 'Open Sans', 'Noto Sans', sans-serif;
+  font-variant-numeric: lining-nums;
+}
+```
+
+## Testing & Validation
+
+### CSS for Testing
+```css
+/* Highlight accessibility issues during development */
+.a11yDebug img:not([alt]) {
+  border: 3px solid red !important;
+}
+
+.a11yDebug button:not([aria-label]):not([aria-labelledby]):empty {
+  background: yellow !important;
+}
+
+.a11yDebug input:not([id]):not([aria-label]):not([aria-labelledby]) {
+  outline: 3px solid orange !important;
+}
+```
+
+## Mandatory Accessibility Practices
+
+1. **Test with keyboard navigation** - Ensure all functionality is accessible via keyboard
+2. **Use semantic HTML** - Choose elements based on meaning, not appearance
+3. **Provide alternative text** for all informative images
+4. **Maintain proper heading hierarchy** (h1 → h2 → h3, etc.)
+5. **Ensure sufficient color contrast** (4.5:1 for normal text, 3:1 for large text)
+6. **Include focus indicators** for all interactive elements
+7. **Test with screen readers** (NVDA, JAWS, VoiceOver)
+8. **Validate markup** and check for accessibility errors
+9. **Respect user preferences** (prefers-reduced-motion, prefers-color-scheme)
+10. **Provide skip links** for navigation
+
+## Tools & Testing
+
+### Recommended Testing Tools
+- **axe-core**: Automated accessibility testing
+- **Lighthouse**: Performance and accessibility audit
+- **WAVE**: Web accessibility evaluation
+- **Keyboard navigation**: Manual testing
+- **Screen readers**: NVDA (free), VoiceOver (macOS)
+
+### Browser Extensions
+- axe DevTools
+- Lighthouse
+- WAVE
+- Colour Contrast Analyser
+
+## References
+
+- Form Accessibility: [styles/globals.css](mdc:styles/globals.css)
+- Button Patterns: [components/Button.module.css](mdc:components/Button.module.css)
+- Layout Accessibility: [app/admin/layout.module.css](mdc:app/admin/layout.module.css)
+- Navigation: [components/Header.module.css](mdc:components/Header.module.css)

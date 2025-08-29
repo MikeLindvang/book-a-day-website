@@ -1,16 +1,184 @@
 
 .container {
   display: flex;
+  min-height: 100vh;
 }
 
+/* Modern Sidebar Styling */
 .sidebar {
-  width: 200px;
-  padding: 1rem;
+  flex: 0 0 280px;
+  background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
 }
 
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(58, 124, 165, 0.1) 0%, rgba(230, 57, 70, 0.05) 100%);
+  pointer-events: none;
+}
+
+.sidebarContent {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+/* Admin Brand Section */
+.adminBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+.brandIcon {
+  font-size: 1.5rem;
+  color: #60a5fa;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.brandTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  font-family: 'Merriweather', serif;
+}
+
+/* Navigation Styling */
+.navigation {
+  flex: 1;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.navLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.navLink:hover::before {
+  left: 100%;
+}
+
+.navLinkActive {
+  background: linear-gradient(135deg, #3a7ca5, #2c5f7a);
+  color: white;
+  box-shadow: 0 4px 12px rgba(58, 124, 165, 0.3);
+  transform: translateX(4px);
+}
+
+.navLinkActive::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: #e63946;
+  border-radius: 0 2px 2px 0;
+}
+
+.navIcon {
+  font-size: 1.1rem;
+  min-width: 1.25rem;
+}
+
+.navLabel {
+  font-size: 0.9rem;
+}
+
+/* Sidebar Footer */
+.sidebarFooter {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.userIcon {
+  font-size: 1rem;
+  color: #94a3b8;
+}
+
+.userLabel {
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.signOutWrapper {
+  /* Override button styles for sidebar context */
+}
+
+/* Main Content Area */
 .children {
   flex: 1;
-  /* center content & constrain max width */
   margin: 3rem auto 0;
   padding: 1.5rem;
   width: 100%;
@@ -18,14 +186,84 @@
   text-align: left;
   background-color: #eee;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+  position: relative;
 }
 
-/* mobile: tighter gutters so it never overflows */
+.children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #3a7ca5, #e63946, #2a9d8f);
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .children {
-    margin-top: 1.5rem;
+  .container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    flex: none;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .sidebarContent {
+    padding: 1rem;
+  }
+  
+  .adminBrand {
+    padding: 0.75rem 0 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .brandTitle {
+    font-size: 1.1rem;
+  }
+  
+  .navigation {
+    margin-bottom: 1rem;
+  }
+  
+  .navList {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.25rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .navLink {
+    flex-shrink: 0;
     padding: 0.75rem;
+    min-width: auto;
+  }
+  
+  .navLabel {
+    display: none;
+  }
+  
+  .navIcon {
+    font-size: 1.25rem;
+  }
+  
+  .sidebarFooter {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    margin-top: 0;
+  }
+  
+  .children {
+    margin-top: 1rem;
+    padding: 1rem;
+    max-width: 100%;
   }
 }

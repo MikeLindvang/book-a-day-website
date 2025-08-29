@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { FaTrash, FaChevronUp, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faList, faLayerGroup, faUpload, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faLayerGroup, faUpload, faChartLine, faRobot } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
 import SectionView from './SectionView';
 import BulkImport from './BulkImport';
 import ContentSuggestions from './ContentSuggestions';
+import AICopyGenerator from './AICopyGenerator';
 import { ALLOWED_COLORS } from './Heading';
 import styles from './PageBuilder.module.css';
 
@@ -23,7 +24,7 @@ export const BLOCK_TYPES = [
   'list',
 ];
 
-export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
+export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userId = 'admin' }) {
   const [viewMode, setViewMode] = useState(() => {
     // Auto-detect best view mode based on content
     const hasSections = blocks.some(block => block.section);
@@ -31,6 +32,7 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
   });
   const [showBulkImport, setShowBulkImport] = useState(false);
   const [showContentSuggestions, setShowContentSuggestions] = useState(false);
+  const [showAICopyGenerator, setShowAICopyGenerator] = useState(false);
 
   function addBlock(type) {
     setBlocks([...blocks, { type, data: { collapsed: true } }]);
@@ -116,6 +118,11 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
     setShowBulkImport(false);
   }
 
+  function handleAICopyGenerated(generatedBlocks) {
+    setBlocks([...blocks, ...generatedBlocks]);
+    setShowAICopyGenerator(false);
+  }
+
   return (
     <div className={styles.builder}>
       <div className={styles.viewToggle}>
@@ -151,6 +158,13 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
           >
             <FontAwesomeIcon icon={faChartLine} />
             AI Analysis
+          </button>
+          <button 
+            className={styles.aiCopyBtn}
+            onClick={() => setShowAICopyGenerator(true)}
+          >
+            <FontAwesomeIcon icon={faRobot} />
+            AI Copy Generator
           </button>
         </div>
       </div>
@@ -490,6 +504,23 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle }) {
           onUpdateBlock={updateBlock}
           onClose={() => setShowContentSuggestions(false)}
         />
+      )}
+      
+      {showAICopyGenerator && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <AICopyGenerator 
+              userId={userId}
+              onDraftGenerated={handleAICopyGenerated}
+            />
+            <button 
+              className={styles.modalCloseBtn}
+              onClick={() => setShowAICopyGenerator(false)}
+            >
+              ×
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

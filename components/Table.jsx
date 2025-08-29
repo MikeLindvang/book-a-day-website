@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import styles from './Table.module.css'; // Import custom styling if needed
 
-export default function Table({ headers, rows }) {
+export default function Table({ headers = [], rows = [] }) {
   return (
     <div className={styles.tableWrapper}>
       <table className={styles.table}>
@@ -29,16 +29,10 @@ export default function Table({ headers, rows }) {
 
 // Define PropTypes to make sure the data passed is correct
 Table.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.string),
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       cells: PropTypes.arrayOf(PropTypes.node).isRequired,
     })
-  ).isRequired,
-};
-
-// Define default props for basic flexibility
-Table.defaultProps = {
-  headers: [],
-  rows: [],
+  ),
 };

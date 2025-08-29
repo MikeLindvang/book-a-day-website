@@ -5,9 +5,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import SaveTemplateModal from '../../../components/SaveTemplateModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
 
-import { faSave, faArrowLeft, faEye, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faSave, 
+  faArrowLeft, 
+  faEye, 
+  faBookmark,
+  faInfoCircle,
+  faCog,
+  faLayerGroup,
+  faLightbulb,
+  faHistory,
+  faShareAlt
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function EditPage({ params: { slug: initialSlug } }) {
   const router = useRouter();
@@ -20,6 +32,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showSaveTemplate, setShowSaveTemplate] = useState(false);
+  const [activeTab, setActiveTab] = useState('info');
   const channelRef = useRef(null);
 
   useEffect(() => {
@@ -142,7 +155,7 @@ export default function EditPage({ params: { slug: initialSlug } }) {
         <div className={styles.actions}>
           <Button
             icon={faEye}
-            label="Open Live Preview"
+            label="Preview"
             onClick={openLivePreview}
           />
           <Button
@@ -151,65 +164,152 @@ export default function EditPage({ params: { slug: initialSlug } }) {
             onClick={() => setShowSaveTemplate(true)}
           />
         </div>
-        <Button href="/admin" icon={faArrowLeft} label="Back to List" />
+        <Button href="/admin" icon={faArrowLeft} label="Back" />
       </div>
+      
       <div className={styles.container}>
+        {/* Clean Tab Navigation */}
+        <div className={styles.topNav}>
+          <button
+            className={`${styles.navTab} ${activeTab === 'info' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('info')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faInfoCircle} className={styles.navIcon} />
+            Page Info
+          </button>
+          <button
+            className={`${styles.navTab} ${activeTab === 'content' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('content')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faLayerGroup} className={styles.navIcon} />
+            Content
+          </button>
+          <button
+            className={`${styles.navTab} ${activeTab === 'settings' ? styles.navTabActive : ''}`}
+            onClick={() => setActiveTab('settings')}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faCog} className={styles.navIcon} />
+            Settings
+          </button>
+        </div>
+
+        {/* Main Editor */}
         <div className={styles.editor}>
-          {success && <p className={styles.success}>{success}</p>}
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.fields}>
-              <label>
-                Slug
-                <input
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  required
-                />
-              </label>
-              <label>
-                Title
-                <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </label>
-              <div className={styles.fullWidth}>
-                <label>
-                  Description
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+          {/* Action Bar */}
+          <div className={styles.actionBar}>
+            <span className={styles.currentTab}>
+              {activeTab === 'info' && 'Page Information'}
+              {activeTab === 'content' && 'Content Blocks'}
+              {activeTab === 'settings' && 'Settings & Publishing'}
+            </span>
+            <div className={styles.quickActions}>
+              <button 
+                className={styles.quickAction}
+                onClick={openLivePreview}
+                type="button"
+              >
+                <FontAwesomeIcon icon={faEye} />
+                Preview
+              </button>
+              <a 
+                href={`/${initialSlug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.quickAction}
+              >
+                <FontAwesomeIcon icon={faShareAlt} />
+                View Live
+              </a>
+              <button 
+                className={styles.quickAction}
+                onClick={() => setShowSaveTemplate(true)}
+                type="button"
+              >
+                <FontAwesomeIcon icon={faBookmark} />
+                Save Template
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.editorContent}>
+            {success && <p className={styles.success}>{success}</p>}
+            
+            <form onSubmit={handleSubmit} className={styles.form}>
+              {activeTab === 'info' && (
+                <div className={styles.section}>
+                  <div className={styles.fields}>
+                    <label>
+                      Page Slug
+                      <input
+                        value={slug}
+                        onChange={(e) => setSlug(e.target.value)}
+                        required
+                      />
+                    </label>
+                    <label>
+                      Page Title
+                      <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                      />
+                    </label>
+                    <div className={styles.fullWidth}>
+                      <label>
+                        Meta Description
+                        <textarea
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder="Brief description for search engines (optional)"
+                        />
+                      </label>
+                    </div>
+                    <label>
+                      Hero Image URL
+                      <input
+                        value={heroImage}
+                        onChange={(e) => setHeroImage(e.target.value)}
+                        placeholder="https://example.com/image.jpg (optional)"
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'content' && (
+                <div className={styles.section}>
+                  <PageBuilder
+                    blocks={blocks}
+                    setBlocks={setBlocks}
+                    onCollapseToggle={handleCollapseToggle}
                   />
-                </label>
-              </div>
-              <label>
-                Hero Image URL
-                <input
-                  value={heroImage}
-                  onChange={(e) => setHeroImage(e.target.value)}
-                />
-              </label>
-              <label>
-                Published
-                <input
-                  type="checkbox"
-                  checked={published}
-                  onChange={(e) => setPublished(e.target.checked)}
-                />
-              </label>
-            </div>
-            <div>
-              <h2>Content Blocks</h2>
-              <PageBuilder
-                blocks={blocks}
-                setBlocks={setBlocks}
-                onCollapseToggle={handleCollapseToggle}
-              />
-            </div>
-            {error && <p className={styles.error}>{error}</p>}
-            <Button type="submit" icon={faSave} label="Update Page" />
-          </form>
+                </div>
+              )}
+
+              {activeTab === 'settings' && (
+                <div className={styles.section}>
+                  <div className={styles.fields}>
+                    <label>
+                      <div className={styles.checkboxWrapper}>
+                        <input
+                          type="checkbox"
+                          checked={published}
+                          onChange={(e) => setPublished(e.target.checked)}
+                        />
+                        <span className={styles.checkboxLabel}>Published - Make page public</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              )}
+              
+              {error && <p className={styles.error}>{error}</p>}
+              <Button type="submit" icon={faSave} label="Update Page" />
+            </form>
+          </div>
         </div>
       </div>
 

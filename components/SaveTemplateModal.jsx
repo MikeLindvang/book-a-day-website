@@ -77,9 +77,9 @@ export default function SaveTemplateModal({ blocks, title, description, onSave, 
       
       if (!sectionMap.has(sectionName)) {
         sectionMap.set(sectionName, {
-          name: sectionName,
-          title: sectionTitle,
-          description: `Section containing ${sectionName} content`,
+          key: sectionName,
+          label: sectionTitle,
+          purpose: `Section containing ${sectionName} content`,
           blocks: []
         });
       }

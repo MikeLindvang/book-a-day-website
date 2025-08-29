@@ -1,19 +1,25 @@
 /* components/Main.module.css */
 
 .main {
-  max-width: 800px;
-  margin: 4em auto;
-  padding: 3em;
+  max-width: 1200px; /* Increase max-width for modern standards */
+  margin: 4rem auto;
+  padding: 2rem; /* More reasonable padding */
   background-color: #eee;
-  border: 1px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border: 1px solid #e5e7eb; /* Softer border color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Modern shadow */
+  border-radius: 0.5rem; /* Standard border radius */
   flex: 1;
+  transition: box-shadow 0.2s ease; /* Smooth shadow transitions */
+}
+
+.main:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Elevated shadow on hover */
 }
 
 @media (max-width: 768px) {
   .main {
-    margin: 20px auto;
-    padding: 16px;
+    margin: 1.25rem auto;
+    padding: 1rem;
+    max-width: 95%; /* Ensure proper mobile sizing */
   }
 }

@@ -1,0 +1,608 @@
+---
+globs: *.module.css,*.css,*.jsx,*.js
+description: Modern interactions, animations, and micro-interactions for sleek UX
+---
+
+# Interactions & Animations
+
+Create **smooth, purposeful, and delightful** user interactions that enhance the experience while maintaining performance and accessibility.
+
+## Animation Principles
+
+### Performance-First Animations
+**Always animate these properties for optimal performance:**
+- `transform` (translate, scale, rotate)
+- `opacity`
+- `filter` (blur, brightness, etc.)
+
+**Avoid animating these expensive properties:**
+- `width`, `height`, `top`, `left`
+- `background-color` (use opacity overlays instead)
+- `box-shadow` (use transform: translateY() for hover effects)
+
+### Duration & Easing Standards
+```css
+/* Standard durations */
+--duration-fast: 0.15s;      /* Quick feedback */
+--duration-normal: 0.2s;     /* Standard transitions */
+--duration-slow: 0.3s;       /* Layout changes */
+--duration-slower: 0.5s;     /* Page transitions */
+
+/* Standard easing functions */
+--ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+--ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+--ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+--ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+```
+
+## Button Interactions
+
+### Standard Button Hover (Based on existing patterns)
+```css
+.button {
+  background-color: #e63946;
+  transform: translateY(0);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  background-color: #d62828;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+```
+
+### Modern Gradient Button Interactions
+```css
+.gradientButton {
+  background: linear-gradient(135deg, #3a7ca5, #2c5f7a);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.gradientButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.gradientButton:hover::before {
+  left: 100%;
+}
+
+.gradientButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(58, 124, 165, 0.3);
+}
+```
+
+### Pulse Effect for CTAs
+```css
+.pulseButton {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+  }
+}
+```
+
+## Card Interactions
+
+### Sophisticated Card Hover (Based on existing pattern)
+```css
+.card {
+  transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Add subtle scale for premium feel */
+.premiumCard:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+```
+
+### Tilt Effect for Interactive Cards
+```css
+.tiltCard {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.tiltCard:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+}
+```
+
+## Loading States
+
+### Modern Skeleton Loaders
+```css
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 0.375rem;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton variants */
+.skeletonText {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonTitle {
+  height: 1.5rem;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+.skeletonAvatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+```
+
+### Spinner Animations
+```css
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3a7ca5;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pulsing dots loader */
+.dotsLoader {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dotsLoader span {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #3a7ca5;
+  border-radius: 50%;
+  animation: pulse-dots 1.4s infinite ease-in-out both;
+}
+
+.dotsLoader span:nth-child(1) { animation-delay: -0.32s; }
+.dotsLoader span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes pulse-dots {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+```
+
+## Modal & Overlay Animations
+
+### Modal Entrance/Exit
+```css
+.modalOverlay {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modalOverlay.open {
+  opacity: 1;
+}
+
+.modalContent {
+  transform: scale(0.9) translateY(-50px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modalContent.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+```
+
+### Slide-in Panels
+```css
+.slidePanel {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.slidePanel.open {
+  transform: translateX(0);
+}
+
+/* Slide from different directions */
+.slideLeft { transform: translateX(-100%); }
+.slideUp { transform: translateY(100%); }
+.slideDown { transform: translateY(-100%); }
+```
+
+## Form Interactions
+
+### Input Focus Animations
+```css
+.formField {
+  position: relative;
+}
+
+.formInput {
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.formInput:focus {
+  border-color: #3a7ca5;
+  box-shadow: 0 0 0 3px rgba(58, 124, 165, 0.1);
+}
+
+/* Animated underline */
+.underlineInput {
+  border: none;
+  border-bottom: 2px solid #e2e8f0;
+  position: relative;
+}
+
+.underlineInput::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #3a7ca5;
+  transition: width 0.3s ease;
+}
+
+.underlineInput:focus::after {
+  width: 100%;
+}
+```
+
+### Floating Label Animation
+```css
+.floatingLabel {
+  position: relative;
+}
+
+.floatingLabel label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #9ca3af;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  background: white;
+  padding: 0 0.25rem;
+}
+
+.floatingLabel input:focus + label,
+.floatingLabel input:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  left: 0.75rem;
+  font-size: 0.75rem;
+  color: #3a7ca5;
+}
+```
+
+## Navigation Animations
+
+### Nav Link Hover Effects
+```css
+.navLink {
+  position: relative;
+  color: #4a5568;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* Underline effect */
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #3a7ca5;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
+}
+
+/* Slide-up background effect */
+.navLinkBackground {
+  position: relative;
+  overflow: hidden;
+}
+
+.navLinkBackground::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgba(58, 124, 165, 0.1);
+  transition: height 0.3s ease;
+  z-index: -1;
+}
+
+.navLinkBackground:hover::before {
+  height: 100%;
+}
+```
+
+### Mobile Menu Animation
+```css
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100vh;
+  background: white;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.mobileMenu.open {
+  left: 0;
+}
+
+/* Staggered menu items */
+.mobileMenuItem {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+}
+
+.mobileMenu.open .mobileMenuItem {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mobileMenu.open .mobileMenuItem:nth-child(1) { transition-delay: 0.1s; }
+.mobileMenu.open .mobileMenuItem:nth-child(2) { transition-delay: 0.2s; }
+.mobileMenu.open .mobileMenuItem:nth-child(3) { transition-delay: 0.3s; }
+```
+
+## Micro-interactions
+
+### Icon Hover Effects
+```css
+.iconHover {
+  transition: transform 0.2s ease;
+}
+
+.iconHover:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Bounce effect */
+.iconBounce:hover {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+}
+```
+
+### Toggle Switch Animation
+```css
+.toggle {
+  width: 3rem;
+  height: 1.5rem;
+  background: #e2e8f0;
+  border-radius: 1rem;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toggle.active {
+  background: #3a7ca5;
+}
+
+.toggle.active::after {
+  transform: translateX(1.5rem);
+}
+```
+
+## Page Transitions
+
+### Fade Transitions
+```css
+.pageTransition {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.pageTransition.enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+### Staggered Content Reveal
+```css
+.staggerContainer .staggerItem {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.staggerContainer.animate .staggerItem:nth-child(1) { transition-delay: 0.1s; }
+.staggerContainer.animate .staggerItem:nth-child(2) { transition-delay: 0.2s; }
+.staggerContainer.animate .staggerItem:nth-child(3) { transition-delay: 0.3s; }
+
+.staggerContainer.animate .staggerItem {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+## Accessibility & Performance Guidelines
+
+### Respect User Preferences
+```css
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+### Focus Management
+```css
+/* Ensure focus is visible during keyboard navigation */
+.interactive:focus-visible {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+.interactive:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+### Performance Optimization
+```css
+/* Use will-change for elements that will animate */
+.willAnimate {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes */
+.willAnimate.static {
+  will-change: auto;
+}
+
+/* Use containment for isolated animated components */
+.animatedComponent {
+  contain: layout style paint;
+}
+```
+
+## Interaction States
+
+### Universal Interactive States
+```css
+.interactive {
+  /* Base state */
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.interactive:hover {
+  /* Hover state */
+  transform: translateY(-1px);
+}
+
+.interactive:active {
+  /* Active/pressed state */
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.1s;
+}
+
+.interactive:disabled {
+  /* Disabled state */
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+```
+
+## Mandatory Animation Practices
+
+1. **Always include transitions** for interactive elements
+2. **Use transform and opacity** for performance
+3. **Respect prefers-reduced-motion** media query
+4. **Keep animations under 500ms** for micro-interactions
+5. **Use easing functions** for natural motion
+6. **Provide loading states** for async operations
+7. **Include hover and focus states** for all interactive elements
+8. **Test animations on lower-end devices**
+
+## References
+
+- Button Patterns: [components/Button.module.css](mdc:components/Button.module.css)
+- Card Interactions: [components/CardComponent.module.css](mdc:components/CardComponent.module.css)
+- Page Builder: [components/PageBuilder.module.css](mdc:components/PageBuilder.module.css)
+- Form Elements: [styles/globals.css](mdc:styles/globals.css)

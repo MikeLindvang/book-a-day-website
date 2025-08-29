@@ -2,9 +2,15 @@
 
 .card {
   padding: 2rem;
-  border-radius: 0.375rem;
+  border-radius: 0.5rem; /* Slightly larger radius for modern look */
   margin: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.2s ease; /* Faster transitions */
+  cursor: pointer; /* Indicate interactivity */
+}
+
+.card:focus-visible {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
 }
 
 /* Ensure text inside cards inherits the card's color for readability */
@@ -21,8 +27,8 @@
 }
 
 .default:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); /* Reduce hover lift for subtlety */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* More modern shadow */
 }
 
 /* Variant: Primary Color Border */
@@ -33,7 +39,9 @@
 }
 
 .primaryBorder:hover {
-  border-color: #1d3557; /* Darker shade on hover */
+  border-color: #2c5f7a; /* Use consistent brand color */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(58, 124, 165, 0.1);
 }
 
 /* Variant: Accent Color Background */

@@ -1,7 +1,9 @@
 /* components/Button.module.css */
 
 .button {
-  display: inline-block; /* Ensures button doesn't take full width */
+  display: inline-flex; /* Use inline-flex for better icon alignment */
+  align-items: center;
+  gap: 0.5rem;
   background-color: #e63946; /* Accent color */
   color: #ffffff;
   padding: 0.75rem 1.5rem;
@@ -10,8 +12,11 @@
   border-radius: 0.375rem;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.2s ease; /* Smooth all transitions */
+  box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2); /* Subtle shadow */
+  min-height: 44px; /* Ensure minimum touch target */
 }
 
 /* Central Alignment Without Full Width */
@@ -34,14 +39,95 @@
 
 .button:hover {
   background-color: #d62828; /* Darker shade on hover */
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(230, 57, 70, 0.3); /* Enhanced shadow */
 }
 
 .button:active {
   background-color: #b71c1c; /* Even darker on click */
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98); /* Subtle scale effect */
+  transition-duration: 0.1s; /* Faster active transition */
 }
 
+.button:focus-visible {
+  outline: 2px solid #e63946;
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button:disabled:hover {
+  background-color: #e63946;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Remove margin since we're using gap */
 .icon {
-  margin-right: 0.5rem;
+  /* No margin needed with flex gap */
+}
+
+/* Button variants */
+.primary {
+  background: linear-gradient(135deg, #3a7ca5, #2c5f7a);
+  box-shadow: 0 2px 4px rgba(58, 124, 165, 0.2);
+}
+
+.primary:hover {
+  background: linear-gradient(135deg, #2c5f7a, #1d3f52);
+  box-shadow: 0 4px 8px rgba(58, 124, 165, 0.3);
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #3a7ca5;
+  color: #3a7ca5;
+  box-shadow: none;
+}
+
+.secondary:hover {
+  background: #3a7ca5;
+  color: white;
+  box-shadow: 0 2px 4px rgba(58, 124, 165, 0.2);
+}
+
+.ghost {
+  background: transparent;
+  color: #3a7ca5;
+  box-shadow: none;
+}
+
+.ghost:hover {
+  background: rgba(58, 124, 165, 0.1);
+  box-shadow: none;
+}
+
+/* Loading state */
+.loading {
+  position: relative;
+  color: transparent;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

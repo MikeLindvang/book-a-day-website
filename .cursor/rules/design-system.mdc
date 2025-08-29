@@ -1,0 +1,136 @@
+---
+alwaysApply: true
+description: Design system for colors, spacing, typography, and visual consistency
+---
+
+# Design System & Core Theme
+
+This project uses a sophisticated design system with a cohesive color palette and modern aesthetic. **Always maintain these design standards** when creating or modifying styles.
+
+## Color Palette
+
+### Primary Colors
+- **Primary Blue**: `#3a7ca5` - Main brand color, used for navigation, focus states, and primary actions
+- **Accent Red**: `#e63946` - Call-to-action color, used for buttons, links, and highlights
+- **Background Blue**: `#6495ed` - Page background color (cornflower blue)
+
+### Content Colors
+- **Content Background**: `#eee` - Light gray for content areas and cards
+- **Text Primary**: `#333333` - Main text color
+- **Text Secondary**: `#555555` - Secondary text color  
+- **Text Muted**: `#6c757d` - Muted text for less important content
+
+### Semantic Colors
+- **Success**: `#2a9d8f` - Success states and positive actions
+- **Warning**: `#f39c12` - Warning states and attention-grabbing elements
+- **Info**: `#3a7ca5` - Information states (same as primary)
+- **Danger**: `#dc3545` - Error states and destructive actions
+
+### Neutral Grays
+- **White**: `#ffffff` - Pure white for cards and clean backgrounds
+- **Light Gray**: `#f8f9fa` - Very light backgrounds
+- **Border Gray**: `#dee2e6` - Borders and dividers
+- **Medium Gray**: `#adb5bd` - Inactive states
+
+## Typography
+
+### Font Families
+- **Primary**: `'Open Sans', sans-serif` - Body text and UI elements
+- **Headings**: `'Merriweather', serif` - All headings (h1-h6)
+
+### Font Weights
+- **Normal**: `400` - Regular body text
+- **Medium**: `500` - Slightly emphasized text
+- **Semibold**: `600` - Navigation, buttons, and form labels
+- **Bold**: `700` - Main headings and strong emphasis
+
+### Font Sizes (Use rem units)
+- **Small**: `0.75rem` (12px) - Captions, badges
+- **Body**: `1rem` (16px) - Default body text
+- **Large**: `1.2rem` (19px) - Emphasized text
+- **H6**: `1rem` - Smallest heading
+- **H5**: `1.125rem` - 
+- **H4**: `1.25rem` - 
+- **H3**: `1.5rem` - 
+- **H2**: `1.75rem` - 
+- **H1**: `2rem` - Main page titles
+
+## Spacing Scale (Use rem units)
+
+### Consistent Spacing Pattern
+- **xs**: `0.25rem` (4px)
+- **sm**: `0.5rem` (8px) 
+- **md**: `1rem` (16px)
+- **lg**: `1.5rem` (24px)
+- **xl**: `2rem` (32px)
+- **2xl**: `3rem` (48px)
+- **3xl**: `4rem` (64px)
+- **4xl**: `6rem` (96px)
+
+### Common Patterns
+- **Card Padding**: `2rem` for desktop, `1.5rem` for mobile
+- **Section Spacing**: `4rem` between major sections
+- **Element Gaps**: `1rem` for component spacing
+- **Form Elements**: `0.75rem` padding, `1rem` margin-bottom
+
+## Border Radius Standards
+
+- **Small**: `0.375rem` (6px) - Buttons, form inputs
+- **Medium**: `0.5rem` (8px) - Cards, modals
+- **Large**: `0.75rem` (12px) - Hero sections, feature cards
+- **Round**: `50%` - Circular elements, avatars
+
+## Box Shadow System
+
+### Elevation Levels
+```css
+/* Light shadow for subtle elevation */
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+/* Medium shadow for cards and components */  
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+/* Heavy shadow for modals and overlays */
+box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+/* Mega shadow for floating elements */
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+```
+
+### Focus States
+```css
+/* Standard focus outline */
+box-shadow: 0 0 0 3px rgba(58, 124, 165, 0.2);
+
+/* Colored focus for specific elements */
+box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+```
+
+## Layout Constraints
+
+### Content Width
+- **Max Width**: `1200px` for main content areas
+- **Form Max Width**: `600px` for optimal readability
+- **Text Max Width**: `800px` for long-form content
+
+### Responsive Breakpoints
+- **Mobile**: `max-width: 768px`
+- **Tablet**: `769px - 1024px`  
+- **Desktop**: `1025px+`
+
+## Mandatory Practices
+
+1. **Always use the established color palette** - Never introduce arbitrary colors
+2. **Use rem units** for all spacing and typography
+3. **Apply consistent border-radius** values
+4. **Include hover states** with smooth transitions
+5. **Use the shadow system** for elevation hierarchy
+6. **Maintain accessibility** with proper contrast ratios
+7. **Follow responsive patterns** established in [globals.css](mdc:styles/globals.css)
+
+## References
+
+- Global Styles: [styles/globals.css](mdc:styles/globals.css)
+- Component Examples: [components/PageBuilder.module.css](mdc:components/PageBuilder.module.css)
+- Button Patterns: [components/Button.module.css](mdc:components/Button.module.css)
+- Card Variants: [components/CardComponent.module.css](mdc:components/CardComponent.module.css)

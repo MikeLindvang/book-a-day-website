@@ -1,0 +1,325 @@
+---
+globs: *.module.css,*.css
+description: Modern component styling patterns and sleek UI guidelines
+---
+
+# Modern Component Styling
+
+Create **sleek, modern, and professional** components that follow contemporary web design trends while maintaining the established design system.
+
+## Button Patterns
+
+### Modern Button Styles
+Always include these features for buttons:
+
+```css
+.button {
+  /* Modern foundation */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  /* Typography */
+  font-weight: 600;
+  font-size: 0.9rem;
+  
+  /* Spacing */
+  padding: 0.75rem 1.5rem;
+  
+  /* Visual */
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  
+  /* Smooth transitions */
+  transition: all 0.2s ease;
+  
+  /* Modern shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+```
+
+### Gradient Buttons (Premium Feel)
+```css
+.gradientButton {
+  background: linear-gradient(135deg, #3a7ca5, #2c5f7a);
+  color: white;
+}
+
+.gradientButton:hover {
+  background: linear-gradient(135deg, #2c5f7a, #1d3f52);
+}
+```
+
+## Card Components
+
+### Modern Card Foundation
+```css
+.card {
+  /* Modern container */
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  
+  /* Subtle border for depth */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  
+  /* Modern shadow system */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  /* Smooth interactions */
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Glass Morphism Effect (Trendy)
+```css
+.glassCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+```
+
+## Form Elements
+
+### Modern Input Fields
+```css
+.input {
+  /* Clean foundation */
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
+  
+  /* Typography */
+  font-size: 1rem;
+  color: #1a202c;
+  
+  /* Modern transitions */
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3a7ca5;
+  box-shadow: 0 0 0 3px rgba(58, 124, 165, 0.1);
+  background: #fafafa;
+}
+
+.input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+```
+
+### Floating Labels (Modern Pattern)
+```css
+.floatingLabel {
+  position: relative;
+}
+
+.floatingLabel input:focus + label,
+.floatingLabel input:not(:placeholder-shown) + label {
+  transform: translateY(-1.5rem) scale(0.875);
+  color: #3a7ca5;
+}
+
+.floatingLabel label {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+  padding: 0 0.25rem;
+}
+```
+
+## Navigation & Headers
+
+### Modern Navigation
+```css
+.navigation {
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  
+  /* Minimal border */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  
+  /* Sticky behavior */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navLink {
+  /* Modern link styling */
+  position: relative;
+  color: #4a5568;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #3a7ca5;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
+}
+```
+
+## Loading & State Indicators
+
+### Modern Loading States
+```css
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 0.375rem;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+```
+
+### Micro-interactions
+```css
+.interactive {
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.interactive:active {
+  transform: scale(0.98);
+}
+
+.interactive:hover {
+  transform: scale(1.02);
+}
+```
+
+## Layout Components
+
+### Modern Grid Layouts
+```css
+.modernGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.modernFlex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+```
+
+### Container Queries (Future-proof)
+```css
+.responsiveContainer {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .responsiveCard {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+```
+
+## Mandatory Modern Features
+
+### 1. Always Include Smooth Transitions
+```css
+/* Standard transition for interactive elements */
+transition: all 0.2s ease;
+```
+
+### 2. Use Modern Color Functions
+```css
+/* RGB with alpha for better color control */
+background: rgb(58 124 165 / 0.1);
+border-color: hsl(210 20% 90%);
+```
+
+### 3. Implement Proper Focus States
+Every interactive element must have:
+- Visible focus indicators
+- Keyboard navigation support
+- Sufficient color contrast (4.5:1 minimum)
+
+### 4. Mobile-First Responsive Design
+```css
+/* Start with mobile styles */
+.component {
+  padding: 1rem;
+}
+
+/* Enhance for larger screens */
+@media (min-width: 768px) {
+  .component {
+    padding: 2rem;
+  }
+}
+```
+
+### 5. Performance Optimizations
+- Use `transform` and `opacity` for animations
+- Leverage CSS containment when possible
+- Minimize layout thrashing with `will-change`
+
+## Component-Specific Guidelines
+
+### Modals & Overlays
+- Use backdrop blur effects
+- Include smooth entrance/exit animations
+- Implement proper focus trapping
+- Add click-outside-to-close functionality
+
+### Tables & Data Display
+- Use zebra striping with subtle colors
+- Add hover states for row highlighting
+- Implement sticky headers for long tables
+- Include loading states for data fetching
+
+### Forms & Validation
+- Show validation states clearly
+- Use inline validation with smooth animations
+- Include helpful error messages
+- Implement progressive enhancement
+
+## References
+
+- Button Examples: [components/Button.module.css](mdc:components/Button.module.css)
+- Card Patterns: [components/CardComponent.module.css](mdc:components/CardComponent.module.css)  
+- Page Builder: [components/PageBuilder.module.css](mdc:components/PageBuilder.module.css)
+- Global Styles: [styles/globals.css](mdc:styles/globals.css)

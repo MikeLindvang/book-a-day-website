@@ -1,0 +1,495 @@
+---
+globs: *.module.css,*.css,layout.jsx,page.jsx
+description: Responsive layout patterns and modern CSS Grid/Flexbox guidelines
+---
+
+# Responsive Layout & Modern CSS Architecture
+
+Create **fluid, responsive, and accessible** layouts using modern CSS techniques while maintaining visual consistency across all devices.
+
+## Layout Hierarchy
+
+### Page Structure (Follow established pattern)
+```css
+/* Main page wrapper - maintains full height */
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Content area - takes available space */
+.contentWrapper {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Main content - centered with max width */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #eee;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Admin Layout Pattern
+Based on [app/admin/layout.module.css](mdc:app/admin/layout.module.css):
+```css
+.adminContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  flex: 0 0 200px;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+}
+
+.mainArea {
+  flex: 1;
+  margin: 3rem auto 0;
+  padding: 1.5rem;
+  max-width: 1200px;
+  background-color: #eee;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+```
+
+## Modern CSS Grid Layouts
+
+### Dashboard Grids
+```css
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* For complex dashboard layouts */
+.complexGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5rem;
+  min-height: 100vh;
+}
+
+.complexGrid .header {
+  grid-column: 1 / -1;
+}
+
+.complexGrid .footer {
+  grid-column: 1 / -1;
+}
+```
+
+### Card Grids (Product displays, etc.)
+```css
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+/* For uniform card heights */
+.uniformCardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 2rem;
+}
+```
+
+## Flexbox Patterns
+
+### Navigation Layouts
+```css
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .navLinks {
+    width: 100%;
+    justify-content: center;
+  }
+}
+```
+
+### Content Layouts
+```css
+.contentLayout {
+  display: flex;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+}
+
+.mainContent {
+  flex: 1;
+  min-width: 0; /* Prevent flex item overflow */
+}
+
+/* Stack on mobile */
+@media (max-width: 768px) {
+  .contentLayout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    flex: none;
+  }
+}
+```
+
+## Responsive Breakpoint System
+
+### Mobile-First Approach (Always start mobile)
+```css
+/* Base styles (mobile first) */
+.component {
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+/* Tablet enhancement */
+@media (min-width: 769px) {
+  .component {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop enhancement */
+@media (min-width: 1025px) {
+  .component {
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+}
+```
+
+### Standardized Breakpoints
+```css
+/* Mobile: Up to 768px */
+@media (max-width: 768px) {
+  /* Mobile-specific styles */
+}
+
+/* Tablet: 769px to 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet-specific styles */
+}
+
+/* Desktop: 1025px and up */
+@media (min-width: 1025px) {
+  /* Desktop-specific styles */
+}
+
+/* Large screens: 1440px and up */
+@media (min-width: 1440px) {
+  /* Large screen enhancements */
+}
+```
+
+## Container & Spacing Patterns
+
+### Consistent Container Widths
+```css
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.containerSmall {
+  max-width: 800px;
+}
+
+.containerLarge {
+  max-width: 1400px;
+}
+
+/* Responsive container padding */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+```
+
+### Section Spacing
+```css
+.section {
+  padding: 4rem 0;
+}
+
+.sectionCompact {
+  padding: 2rem 0;
+}
+
+.sectionSpacious {
+  padding: 6rem 0;
+}
+
+/* Responsive section spacing */
+@media (max-width: 768px) {
+  .section {
+    padding: 2rem 0;
+  }
+  
+  .sectionCompact {
+    padding: 1.5rem 0;
+  }
+  
+  .sectionSpacious {
+    padding: 3rem 0;
+  }
+}
+```
+
+## Form Layouts
+
+### Modern Form Grid
+```css
+.formGrid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+.formRow {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+/* Two-column form on larger screens */
+@media (min-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .formRowFull {
+    grid-column: 1 / -1;
+  }
+}
+```
+
+### Form Field Patterns
+```css
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+
+.fieldInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+```
+
+## Page Builder Layouts
+
+### Based on [components/PageBuilder.module.css](mdc:components/PageBuilder.module.css)
+```css
+.builderLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.builderContent {
+  display: flex;
+  gap: 2rem;
+}
+
+.palette {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.blocks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Responsive page builder */
+@media (max-width: 768px) {
+  .builderContent {
+    flex-direction: column;
+  }
+  
+  .palette {
+    flex: none;
+    order: 1;
+  }
+  
+  .blocks {
+    order: 2;
+  }
+}
+```
+
+## Accessibility & Performance
+
+### Focus Management
+```css
+/* Ensure proper focus indicators */
+.interactive:focus {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skipLink {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #3a7ca5;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skipLink:focus {
+  top: 6px;
+}
+```
+
+### Performance Optimizations
+```css
+/* Use CSS containment for performance */
+.isolatedComponent {
+  contain: layout style paint;
+}
+
+/* Optimize repaints */
+.animatedElement {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation */
+.animatedElement.static {
+  will-change: auto;
+}
+```
+
+## Layout Utilities
+
+### Common Layout Classes
+```css
+/* Flexbox utilities */
+.flex { display: flex; }
+.flexCol { flex-direction: column; }
+.flexRow { flex-direction: row; }
+.flexWrap { flex-wrap: wrap; }
+.flexNoWrap { flex-wrap: nowrap; }
+
+.justifyStart { justify-content: flex-start; }
+.justifyCenter { justify-content: center; }
+.justifyEnd { justify-content: flex-end; }
+.justifyBetween { justify-content: space-between; }
+.justifyAround { justify-content: space-around; }
+
+.itemsStart { align-items: flex-start; }
+.itemsCenter { align-items: center; }
+.itemsEnd { align-items: flex-end; }
+.itemsStretch { align-items: stretch; }
+
+/* Grid utilities */
+.grid { display: grid; }
+.gridCol1 { grid-template-columns: 1fr; }
+.gridCol2 { grid-template-columns: 1fr 1fr; }
+.gridCol3 { grid-template-columns: 1fr 1fr 1fr; }
+.gridColAuto { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+/* Spacing utilities */
+.gap1 { gap: 0.5rem; }
+.gap2 { gap: 1rem; }
+.gap3 { gap: 1.5rem; }
+.gap4 { gap: 2rem; }
+```
+
+### Responsive Utilities
+```css
+/* Hide/show based on screen size */
+.hideOnMobile {
+  display: block;
+}
+
+.showOnMobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hideOnMobile {
+    display: none;
+  }
+  
+  .showOnMobile {
+    display: block;
+  }
+}
+```
+
+## Mandatory Layout Practices
+
+1. **Always start with mobile-first** responsive design
+2. **Use semantic HTML** with proper landmark roles
+3. **Implement proper focus management** for accessibility
+4. **Test with keyboard navigation** and screen readers
+5. **Maintain consistent spacing** using the established scale
+6. **Use CSS Grid for complex layouts**, Flexbox for component layouts
+7. **Implement proper content hierarchy** with heading levels
+8. **Ensure adequate touch targets** (44px minimum on mobile)
+
+## References
+
+- Admin Layout: [app/admin/layout.module.css](mdc:app/admin/layout.module.css)
+- Page Builder: [components/PageBuilder.module.css](mdc:components/PageBuilder.module.css)
+- Global Layout: [styles/globals.css](mdc:styles/globals.css)
+- Header Component: [components/Header.module.css](mdc:components/Header.module.css)

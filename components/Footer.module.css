@@ -4,8 +4,8 @@
 .footer {
   background-color: #1a1a1a;
   color: #e0e0e0;
-  padding: 20px 0 40px; /* Less padding on top, more at the bottom */
-  font-family: 'Arial', sans-serif;
+  padding: 1.25rem 0 2.5rem; /* Use rem units */
+  font-family: 'Open Sans', sans-serif; /* Use consistent font family */
 }
 
 .stickyFooter {
@@ -18,49 +18,60 @@
 .topBar {
   width: 100%;
   background-color: #1a1a1a;
-  padding: 10px 0;
+  padding: 0.625rem 0;
   text-align: center;
   font-size: 0.9rem;
 }
 
 .topBar a {
-  margin: 0 15px;
+  margin: 0 0.9375rem;
   color: #e0e0e0;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
 }
 
 .topBar a:hover {
-  color: #ffcc00; /* Highlight on hover */
+  color: #3a7ca5; /* Use brand primary color */
+  background: rgba(58, 124, 165, 0.1);
+  transform: translateY(-1px);
+}
+
+.topBar a:focus-visible {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
 }
 
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding-top: 10px; /* This will push down the rest of the footer content slightly */
+  padding-top: 0.625rem;
   text-align: center;
 }
 
 .copyRight {
   font-size: 0.85rem;
-  margin-top: 10px;
+  margin-top: 0.625rem;
   color: #b0b0b0;
 }
 
 /* Cookie consent banner */
 .cookieConsent {
   position: fixed;
-  bottom: 60px; /* Just above the footer links */
+  bottom: 3.75rem; /* Just above the footer links */
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
   color: #fff;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   text-align: center;
   z-index: 1001;
   font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cookieConsent p {
@@ -68,16 +79,25 @@
 }
 
 .acceptButton {
-  background-color: #ffcc00;
-  color: #000;
+  background: linear-gradient(135deg, #3a7ca5, #2c5f7a);
+  color: #fff;
   border: none;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
   font-weight: 600;
-  margin-left: 10px;
+  margin-left: 0.625rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .acceptButton:hover {
-  background-color: #e6b800;
+  background: linear-gradient(135deg, #2c5f7a, #1d3f52);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.acceptButton:focus-visible {
+  outline: 2px solid #3a7ca5;
+  outline-offset: 2px;
 }
