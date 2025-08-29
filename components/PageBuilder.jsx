@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { FaTrash, FaChevronUp, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faList, faLayerGroup, faUpload, faChartLine, faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faLayerGroup, faUpload, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import BlockRenderer from './BlockRenderer';
 import SectionView from './SectionView';
 import BulkImport from './BulkImport';
 import ContentSuggestions from './ContentSuggestions';
-import AICopyGenerator from './AICopyGenerator';
+
 import { ALLOWED_COLORS } from './Heading';
 import styles from './PageBuilder.module.css';
 
@@ -30,56 +30,67 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
     const hasSections = blocks.some(block => block.section);
     return hasSections ? 'sections' : 'blocks';
   });
+
+  // Memoize expensive computations
+  const hasAnyBlocks = useMemo(() => blocks.length > 0, [blocks.length]);
   const [showBulkImport, setShowBulkImport] = useState(false);
   const [showContentSuggestions, setShowContentSuggestions] = useState(false);
-  const [showAICopyGenerator, setShowAICopyGenerator] = useState(false);
 
-  function addBlock(type) {
-    setBlocks([...blocks, { type, data: { collapsed: true } }]);
-  }
 
-  function removeBlock(index) {
-    setBlocks(blocks.filter((_, i) => i !== index));
-  }
+  const addBlock = useCallback((type) => {
+    setBlocks(prev => [...prev, { type, data: { collapsed: true } }]);
+  }, [setBlocks]);
 
-  function moveBlock(index, direction) {
-    const newBlocks = [...blocks];
-    const [moved] = newBlocks.splice(index, 1);
-    newBlocks.splice(index + direction, 0, moved);
-    setBlocks(newBlocks);
-  }
+  const removeBlock = useCallback((index) => {
+    setBlocks(prev => prev.filter((_, i) => i !== index));
+  }, [setBlocks]);
 
-  function updateBlock(index, data) {
-    const newBlocks = [...blocks];
-    newBlocks[index] = { ...newBlocks[index], data };
-    setBlocks(newBlocks);
-  }
+  const moveBlock = useCallback((index, direction) => {
+    setBlocks(prev => {
+      const newBlocks = [...prev];
+      const [moved] = newBlocks.splice(index, 1);
+      newBlocks.splice(index + direction, 0, moved);
+      return newBlocks;
+    });
+  }, [setBlocks]);
+
+  const updateBlock = useCallback((index, data) => {
+    setBlocks(prev => {
+      const newBlocks = [...prev];
+      newBlocks[index] = { ...newBlocks[index], data };
+      return newBlocks;
+    });
+  }, [setBlocks]);
 
   const [menuOpenFor, setMenuOpenFor] = useState(null);
 
-  function insertBlockBelow(index, type) {
-    const newBlocks = [...blocks];
-    newBlocks.splice(index + 1, 0, { type, data: { collapsed: false } });
-    setBlocks(newBlocks);
+  const insertBlockBelow = useCallback((index, type) => {
+    setBlocks(prev => {
+      const newBlocks = [...prev];
+      newBlocks.splice(index + 1, 0, { type, data: { collapsed: false } });
+      if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
+      return newBlocks;
+    });
     setMenuOpenFor(null);
-    if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
-  }
+  }, [setBlocks, onCollapseToggle]);
 
-  function toggleCollapse(index) {
-    const newBlocks = [...blocks];
-    const prev = newBlocks[index].data.collapsed || false;
-    newBlocks[index] = {
-      ...newBlocks[index],
-      data: { ...newBlocks[index].data, collapsed: !prev },
-    };
-    setBlocks(newBlocks);
-    if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
-  }
+  const toggleCollapse = useCallback((index) => {
+    setBlocks(prev => {
+      const newBlocks = [...prev];
+      const currentCollapsed = newBlocks[index].data.collapsed || false;
+      newBlocks[index] = {
+        ...newBlocks[index],
+        data: { ...newBlocks[index].data, collapsed: !currentCollapsed },
+      };
+      if (typeof onCollapseToggle === 'function') onCollapseToggle(newBlocks);
+      return newBlocks;
+    });
+  }, [setBlocks, onCollapseToggle]);
 
   /**
    * Auto-generate a short snippet for collapsed block headers.
    */
-  function getSnippet(block) {
+  const getSnippet = useCallback((block) => {
     const d = block.data || {};
     let text = '';
     switch (block.type) {
@@ -111,17 +122,14 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
     // collapse whitespace and truncate
     const normalized = text.replace(/\s+/g, ' ').trim();
     return normalized.length > 30 ? normalized.slice(0, 30) + '…' : normalized;
-  }
+  }, []);
 
-  function handleBulkImport(importedBlocks) {
-    setBlocks([...blocks, ...importedBlocks]);
+  const handleBulkImport = useCallback((importedBlocks) => {
+    setBlocks(prev => [...prev, ...importedBlocks]);
     setShowBulkImport(false);
-  }
+  }, [setBlocks]);
 
-  function handleAICopyGenerated(generatedBlocks) {
-    setBlocks([...blocks, ...generatedBlocks]);
-    setShowAICopyGenerator(false);
-  }
+
 
   return (
     <div className={styles.builder}>
@@ -132,40 +140,40 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
             <button 
               className={`${styles.toggleBtn} ${viewMode === 'blocks' ? styles.active : ''}`}
               onClick={() => setViewMode('blocks')}
+              aria-pressed={viewMode === 'blocks'}
+              aria-label="Switch to block view"
             >
-              <FontAwesomeIcon icon={faList} />
+              <FontAwesomeIcon icon={faList} aria-hidden="true" />
               Block View
             </button>
             <button 
               className={`${styles.toggleBtn} ${viewMode === 'sections' ? styles.active : ''}`}
               onClick={() => setViewMode('sections')}
+              aria-pressed={viewMode === 'sections'}
+              aria-label="Switch to section view"
             >
-              <FontAwesomeIcon icon={faLayerGroup} />
+              <FontAwesomeIcon icon={faLayerGroup} aria-hidden="true" />
               Section View
             </button>
           </div>
           <button 
             className={styles.bulkImportBtn}
             onClick={() => setShowBulkImport(true)}
+            aria-label="Open bulk import dialog"
           >
-            <FontAwesomeIcon icon={faUpload} />
+            <FontAwesomeIcon icon={faUpload} aria-hidden="true" />
             Bulk Import
           </button>
           <button 
             className={styles.analysisBtn}
             onClick={() => setShowContentSuggestions(true)}
-            disabled={blocks.length === 0}
+            disabled={!hasAnyBlocks}
+            aria-label={!hasAnyBlocks ? "AI Analysis - Add content blocks first" : "Open AI content analysis"}
           >
-            <FontAwesomeIcon icon={faChartLine} />
+            <FontAwesomeIcon icon={faChartLine} aria-hidden="true" />
             AI Analysis
           </button>
-          <button 
-            className={styles.aiCopyBtn}
-            onClick={() => setShowAICopyGenerator(true)}
-          >
-            <FontAwesomeIcon icon={faRobot} />
-            AI Copy Generator
-          </button>
+
         </div>
       </div>
 
@@ -174,13 +182,19 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
       ) : (
         <div className={styles.builderContent}>
           <div className={styles.palette}>
-            <h3>Add Block</h3>
-            {BLOCK_TYPES.map((type) => (
-              <button key={type} onClick={() => addBlock(type)}>
-                <FontAwesomeIcon icon={faPlus} className={styles.icon} />
-                {type}
-              </button>
-            ))}
+            <h3 id="add-block-heading">Add Block</h3>
+            <div role="group" aria-labelledby="add-block-heading">
+              {BLOCK_TYPES.map((type) => (
+                <button 
+                  key={type} 
+                  onClick={() => addBlock(type)}
+                  aria-label={`Add ${type} block`}
+                >
+                  <FontAwesomeIcon icon={faPlus} className={styles.icon} aria-hidden="true" />
+                  {type}
+                </button>
+              ))}
+            </div>
           </div>
           <div className={styles.blocks}>
         {blocks.map((block, i) => {
@@ -205,32 +219,58 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
                   </span>
                 )}
                 <div>
-                  <button onClick={() => moveBlock(i, -1)}><FaChevronUp /></button>
-                  <button onClick={() => moveBlock(i, 1)}><FaChevronDown /></button>
-                  <button onClick={() => removeBlock(i)}><FaTrash /></button>
+                  <button 
+                    onClick={() => moveBlock(i, -1)}
+                    aria-label={`Move ${block.type} block up`}
+                    disabled={i === 0}
+                  >
+                    <FaChevronUp aria-hidden="true" />
+                  </button>
+                  <button 
+                    onClick={() => moveBlock(i, 1)}
+                    aria-label={`Move ${block.type} block down`}
+                    disabled={i === blocks.length - 1}
+                  >
+                    <FaChevronDown aria-hidden="true" />
+                  </button>
+                  <button 
+                    onClick={() => removeBlock(i)}
+                    aria-label={`Delete ${block.type} block`}
+                  >
+                    <FaTrash aria-hidden="true" />
+                  </button>
                   <button
                     onClick={() => toggleCollapse(i)}
                     className={styles.collapseButton}
-                    title={collapsed ? 'Expand block' : 'Collapse block'}
+                    aria-label={collapsed ? `Expand ${block.type} block` : `Collapse ${block.type} block`}
+                    aria-expanded={!collapsed}
                   >
-                    {collapsed ? <FaChevronRight /> : <FaChevronDown />}
+                    {collapsed ? <FaChevronRight aria-hidden="true" /> : <FaChevronDown aria-hidden="true" />}
                   </button>
                   <button
                     onClick={() => setMenuOpenFor(i)}
                     className={styles.insertButton}
+                    aria-label={`Insert new block after ${block.type} block`}
+                    aria-expanded={menuOpenFor === i}
                     title="Insert block below"
                   >
                     <FontAwesomeIcon icon={faPlus} />
                   </button>
                   {menuOpenFor === i && (
-                    <div className={styles.insertMenu}>
+                    <div 
+                      className={styles.insertMenu}
+                      role="menu"
+                      aria-label="Insert block options"
+                    >
                       {BLOCK_TYPES.map((type) => (
                         <button
                           key={type}
                           onClick={() => insertBlockBelow(i, type)}
                           className={styles.insertMenuItem}
+                          role="menuitem"
+                          aria-label={`Insert ${type} block below`}
                         >
-                          <FontAwesomeIcon icon={faPlus} className={styles.icon} />
+                          <FontAwesomeIcon icon={faPlus} className={styles.icon} aria-hidden="true" />
                           {type}
                         </button>
                       ))}
@@ -506,22 +546,7 @@ export default function PageBuilder({ blocks, setBlocks, onCollapseToggle, userI
         />
       )}
       
-      {showAICopyGenerator && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <AICopyGenerator 
-              userId={userId}
-              onDraftGenerated={handleAICopyGenerated}
-            />
-            <button 
-              className={styles.modalCloseBtn}
-              onClick={() => setShowAICopyGenerator(false)}
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }

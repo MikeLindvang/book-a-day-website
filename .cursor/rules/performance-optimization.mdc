@@ -1,0 +1,642 @@
+---
+alwaysApply: true
+---
+
+# Performance Optimization Standards
+
+Core performance principles that ensure fast, responsive experiences across both public sales pages and admin interfaces.
+
+## Core Performance Principles
+
+### ⚡ Performance-First Approach
+- **Lazy load non-critical assets** below the fold
+- **Optimize critical rendering path** for above-the-fold content
+- **Minimize JavaScript bundle size** and avoid oversized libraries
+- **Use efficient CSS animations** that don't trigger layout recalculation
+
+### 📊 Core Web Vitals Focus
+- **Largest Contentful Paint (LCP)**: < 2.5 seconds
+- **First Input Delay (FID)**: < 100 milliseconds  
+- **Cumulative Layout Shift (CLS)**: < 0.1
+- **First Contentful Paint (FCP)**: < 1.8 seconds
+
+## Efficient CSS Animations
+
+### Transform & Opacity Only
+```css
+/* ✅ Performant animations - use transform and opacity */
+.performant-hover {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.performant-hover:hover {
+  transform: translateY(-4px);
+  opacity: 0.9;
+}
+
+.performant-scale {
+  transform: scale(1);
+  transition: transform var(--transition-normal);
+}
+
+.performant-scale:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ Smooth fade animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn var(--transition-slow) ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+```
+
+### Avoid Expensive Properties
+```css
+/* ❌ Avoid animating these properties - they trigger layout/paint */
+.expensive-animation {
+  /* Don't animate: width, height, padding, margin, border-width */
+  /* Don't animate: background-color, color, box-shadow (can be expensive) */
+  /* Don't animate: left, top, right, bottom (use transform instead) */
+}
+
+/* ✅ Use transforms instead */
+.efficient-slide {
+  transform: translateX(-100%);
+  transition: transform var(--transition-normal);
+}
+
+.efficient-slide.active {
+  transform: translateX(0);
+}
+
+/* ✅ Use will-change for complex animations */
+.complex-animation {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.complex-animation.complete {
+  will-change: auto; /* Remove when animation completes */
+}
+```
+
+### Motion Preferences & Performance
+```css
+/* Respect user preferences while maintaining performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  /* Provide instant visual feedback */
+  .hover-feedback:hover {
+    opacity: 0.8;
+    /* No transform needed for reduced motion */
+  }
+}
+
+/* Optimize animations for performance */
+@media (prefers-reduced-motion: no-preference) {
+  .optimized-animation {
+    animation: optimizedSlide 0.3s ease-out;
+  }
+}
+
+@keyframes optimizedSlide {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+```
+
+## Image Optimization
+
+### Responsive & Lazy Loading
+```css
+/* Responsive image containers */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  /* Aspect ratio maintained in HTML with aspect-ratio property */
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* loading="lazy" in HTML for below-the-fold images */
+}
+
+/* Prevent layout shift during image loading */
+.aspect-ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.aspect-ratio-1-1 {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-ratio-3-4 {
+  aspect-ratio: 3 / 4;
+}
+```
+
+### Loading Placeholders
+```css
+/* Skeleton loading for images */
+.image-placeholder {
+  background: linear-gradient(
+    90deg,
+    var(--gray-200) 0%,
+    var(--gray-300) 50%,
+    var(--gray-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Fade in loaded images */
+.lazy-image {
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Blur-up technique for progressive loading */
+.progressive-image {
+  filter: blur(5px);
+  transition: filter var(--transition-slow);
+}
+
+.progressive-image.loaded {
+  filter: blur(0);
+}
+```
+
+### Modern Image Formats
+```css
+/* Support for WebP with fallbacks */
+.webp-image {
+  /* Use <picture> element in HTML for format selection */
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Optimize for retina displays */
+.retina-optimized {
+  /* Use srcset in HTML for density selection */
+  max-width: 100%;
+  height: auto;
+}
+```
+
+## Critical Rendering Path
+
+### Above-the-Fold Optimization
+```css
+/* Critical CSS for above-the-fold content */
+.hero-section {
+  /* Inline critical styles in HTML head */
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background: var(--background);
+  /* contain: layout style; for isolation */
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  /* Critical typography styles inlined */
+}
+
+/* Non-critical styles loaded asynchronously */
+.below-fold {
+  /* Styles loaded via non-blocking CSS */
+  contain: layout;
+}
+```
+
+### Font Loading Optimization
+```css
+/* Optimize font loading */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/open-sans-regular.woff2') format('woff2'),
+       url('/fonts/open-sans-regular.woff') format('woff');
+  font-display: swap; /* Prevent invisible text during font swap */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('/fonts/merriweather-regular.woff2') format('woff2'),
+       url('/fonts/merriweather-regular.woff') format('woff');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Fallback fonts with similar metrics */
+.text-primary {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.heading-primary {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+}
+```
+
+## Layout Stability (CLS)
+
+### Prevent Layout Shift
+```css
+/* Reserve space for dynamic content */
+.dynamic-content {
+  min-height: 200px; /* Prevent shift when content loads */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Stable grid layouts */
+.stable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  /* Grid maintains stable layout during loading */
+}
+
+/* Consistent aspect ratios */
+.card-image {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--gray-200); /* Placeholder color */
+}
+
+/* Stable button sizes */
+.stable-button {
+  min-width: 120px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+### Loading State Dimensions
+```css
+/* Skeleton loading with accurate dimensions */
+.skeleton-text {
+  height: 1rem;
+  background: var(--gray-200);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+}
+
+.skeleton-text.heading {
+  height: 1.5rem;
+  width: 70%;
+}
+
+.skeleton-text.paragraph {
+  height: 1rem;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-button {
+  width: 120px;
+  height: 44px;
+  background: var(--gray-200);
+  border-radius: var(--radius-md);
+}
+
+.skeleton-image {
+  aspect-ratio: 16 / 9;
+  background: var(--gray-200);
+  border-radius: var(--radius-md);
+}
+```
+
+## JavaScript Performance
+
+### Efficient Event Handling
+```css
+/* Support for efficient scroll handling */
+.scroll-optimized {
+  /* Use passive event listeners in JavaScript */
+  /* Avoid expensive scroll calculations */
+}
+
+/* Efficient hover states */
+.hover-optimized {
+  transition: transform var(--transition-fast);
+}
+
+.hover-optimized:hover {
+  transform: translateY(-2px);
+  /* Simple transform is more efficient than complex changes */
+}
+
+/* Debounced resize handling */
+.resize-responsive {
+  /* Use ResizeObserver in JavaScript for efficient resize handling */
+}
+```
+
+### Intersection Observer Support
+```css
+/* Elements ready for intersection observer */
+.observe-intersection {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.observe-intersection.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lazy loading trigger zones */
+.lazy-load-trigger {
+  /* Element becomes visible slightly before it enters viewport */
+  /* Configured in JavaScript with rootMargin */
+}
+```
+
+## CSS Optimization
+
+### Efficient Selectors
+```css
+/* ✅ Efficient selectors */
+.component { }
+.component-element { }
+.component--modifier { }
+
+/* ❌ Avoid expensive selectors */
+/* Avoid: * (universal selector) */
+/* Avoid: [attribute^="value"] (complex attribute selectors) */
+/* Avoid: :nth-child(odd) (structural pseudo-selectors) */
+/* Avoid: deeply nested selectors (.a .b .c .d .e) */
+```
+
+### CSS Containment
+```css
+/* Optimize rendering performance */
+.contained-layout {
+  contain: layout; /* Element's internal layout doesn't affect parent */
+}
+
+.contained-style {
+  contain: style; /* Style changes don't affect parent */
+}
+
+.contained-paint {
+  contain: paint; /* Element doesn't paint outside its bounds */
+}
+
+.contained-strict {
+  contain: strict; /* Maximum containment for isolated components */
+}
+
+/* Use containment for independent components */
+.card-component {
+  contain: layout style;
+}
+
+.modal-content {
+  contain: layout paint;
+}
+```
+
+### Minimizing Reflows
+```css
+/* Avoid properties that trigger layout recalculation */
+.no-reflow {
+  /* Use transform instead of changing position */
+  transform: translateX(0);
+  transition: transform var(--transition-normal);
+}
+
+.no-reflow.moved {
+  transform: translateX(100px);
+  /* No layout recalculation needed */
+}
+
+/* Batch DOM changes */
+.batch-updates {
+  /* Make multiple changes in single animation frame */
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  transition: all var(--transition-normal);
+}
+
+.batch-updates.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+```
+
+## Resource Loading
+
+### Critical Resource Hints
+```css
+/* Preload critical fonts */
+/* <link rel="preload" href="/fonts/open-sans.woff2" as="font" type="font/woff2" crossorigin> */
+
+/* DNS prefetch for external resources */
+/* <link rel="dns-prefetch" href="//fonts.googleapis.com"> */
+/* <link rel="dns-prefetch" href="//images.unsplash.com"> */
+
+/* Preconnect to critical origins */
+/* <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> */
+```
+
+### Lazy Loading CSS
+```css
+/* Non-critical CSS loaded conditionally */
+.below-fold-content {
+  /* Loaded via media query or IntersectionObserver */
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.below-fold-content.loaded {
+  opacity: 1;
+}
+
+/* Print styles loaded only when needed */
+@media print {
+  .print-optimized {
+    /* Print-specific styles */
+    color: black !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+}
+```
+
+## Mobile Performance
+
+### Touch Optimization
+```css
+/* Optimize touch responsiveness */
+.touch-optimized {
+  touch-action: manipulation; /* Removes 300ms click delay */
+  -webkit-tap-highlight-color: rgba(58, 124, 165, 0.2);
+  user-select: none; /* Prevent text selection on touch */
+}
+
+/* Efficient mobile hover alternatives */
+@media (hover: none) {
+  .hover-alternative:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+/* Smooth scrolling on mobile */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+```
+
+### Viewport Optimization
+```css
+/* Optimize for mobile viewports */
+.mobile-optimized {
+  /* Use viewport units carefully to avoid layout issues */
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height when supported */
+}
+
+/* Handle safe areas on mobile */
+.safe-area-optimized {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+```
+
+## Monitoring & Debugging
+
+### Performance Debugging
+```css
+/* Debug mode for performance issues */
+.perf-debug * {
+  outline: 1px solid rgba(255, 0, 0, 0.3) !important;
+}
+
+/* Highlight expensive reflows */
+.perf-debug .layout-trigger {
+  background: rgba(255, 255, 0, 0.3) !important;
+}
+
+/* Show paint areas */
+.perf-debug .paint-trigger {
+  background: rgba(0, 255, 0, 0.3) !important;
+}
+```
+
+### Performance Metrics Support
+```css
+/* Elements for performance measurement */
+.lcp-candidate {
+  /* Largest Contentful Paint candidate */
+  /* Optimize loading and rendering */
+}
+
+.fid-interactive {
+  /* First Input Delay measurement target */
+  /* Ensure quick responsiveness */
+}
+
+.cls-stable {
+  /* Cumulative Layout Shift stable element */
+  /* Maintain consistent dimensions */
+}
+```
+
+## Implementation Guidelines
+
+### Performance Budget
+- **CSS Bundle Size**: < 50KB (gzipped)
+- **Critical CSS**: < 14KB (above-the-fold inline)
+- **Animation Frame Rate**: 60fps (16.67ms per frame)
+- **Paint Complexity**: < 16ms per paint
+- **Layout Thrashing**: Zero forced reflows
+
+### Optimization Checklist
+
+#### ✅ CSS Performance
+- [ ] Use transform and opacity for animations
+- [ ] Implement CSS containment for isolated components
+- [ ] Optimize selectors for efficiency
+- [ ] Minimize use of expensive properties
+- [ ] Respect prefers-reduced-motion preferences
+
+#### ✅ Asset Loading
+- [ ] Lazy load below-the-fold images
+- [ ] Use responsive images with srcset
+- [ ] Implement proper aspect ratios to prevent CLS
+- [ ] Optimize font loading with font-display: swap
+- [ ] Preload critical resources
+
+#### ✅ Layout Stability
+- [ ] Reserve space for dynamic content
+- [ ] Use consistent dimensions for loading states
+- [ ] Implement stable grid and flex layouts
+- [ ] Avoid layout-triggering animations
+- [ ] Test for cumulative layout shift
+
+#### ✅ Mobile Optimization
+- [ ] Enable touch-action: manipulation
+- [ ] Optimize touch target sizes
+- [ ] Handle safe areas on mobile devices
+- [ ] Test performance on low-end devices
+- [ ] Minimize JavaScript execution
+
+### Tools & Testing
+- **Lighthouse**: Performance auditing
+- **Web Vitals**: Core metrics measurement
+- **Chrome DevTools**: Performance profiling
+- **WebPageTest**: Real-world performance testing
+- **Bundle analyzers**: CSS and JavaScript size analysis
+
+Remember: **Performance is a feature**. Fast-loading, smooth interactions create better user experiences and improve conversion rates. Every optimization matters, especially on mobile devices and slower connections.

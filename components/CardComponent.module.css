@@ -1,16 +1,47 @@
 /* components/CardComponent.module.css */
 
+/* Base Card Structure */
 .card {
-  padding: 2rem;
-  border-radius: 0.5rem; /* Slightly larger radius for modern look */
-  margin: 2rem;
-  transition: all 0.2s ease; /* Faster transitions */
-  cursor: pointer; /* Indicate interactivity */
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  position: relative;
+  padding: var(--space-6);
+  margin: var(--space-6);
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .card:focus-visible {
-  outline: 2px solid #3a7ca5;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* Surface-Specific Card Variants */
+.card[data-surface="public"] {
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.card[data-surface="public"]:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card[data-surface="admin"] {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.card[data-surface="admin"]:hover {
+  border-color: var(--gray-300);
+  transform: none;
 }
 
 /* Ensure text inside cards inherits the card's color for readability */
@@ -20,141 +51,228 @@
   color: inherit;
 }
 
+/* Card Layout Components */
+.cardHeader {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--gray-50);
+  margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-6);
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cardSubtitle {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.cardBody {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cardFooter {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--gray-100);
+  background: var(--gray-50);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin: var(--space-6) calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+}
+
 /* Default Variant */
 .default {
-  background-color: #f8f9fa; /* Light gray background */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background-color: var(--gray-50);
+  box-shadow: var(--shadow-sm);
 }
 
 .default:hover {
-  transform: translateY(-2px); /* Reduce hover lift for subtlety */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* More modern shadow */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Variant: Primary Color Border */
 .primaryBorder {
-  background-color: #ffffff; /* White background */
-  border: 1px solid #3a7ca5; /* Primary color border */
+  background-color: var(--white);
+  border: 1px solid var(--primary);
   box-shadow: none;
 }
 
 .primaryBorder:hover {
-  border-color: #2c5f7a; /* Use consistent brand color */
+  border-color: #2c5f7a;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(58, 124, 165, 0.1);
 }
 
 /* Variant: Accent Color Background */
 .accentBackground {
-  background-color: #e63946; /* Accent color */
-  color: #ffffff; /* White text */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--accent);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
 }
 
 .accentBackground a {
-  color: #ffffff; /* Links inside the card */
+  color: var(--white);
 }
 
 .accentBackground:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* Variant: Outline */
 .outline {
   background-color: transparent;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--gray-300);
   box-shadow: none;
 }
 
 .outline:hover {
-  border-color: #aaaaaa;
+  border-color: var(--gray-400);
 }
 
 /* Variant: Shadow Emphasis */
 .shadow {
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+  background-color: var(--white);
+  box-shadow: var(--shadow-lg);
 }
 
 .shadow:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Card Variants */
+.featured {
+  border: 2px solid var(--accent);
+  position: relative;
+}
+
+.featured::before {
+  content: 'Featured';
+  position: absolute;
+  top: -1px;
+  right: var(--space-6);
+  background: var(--accent);
+  color: var(--white);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.empty {
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.emptyIcon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--space-4);
+  opacity: 0.5;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card {
-    padding: 1.5rem;
-    margin: 1.5rem 0;
+    padding: var(--space-5);
+    margin: var(--space-4) 0;
+  }
+  
+  .cardHeader {
+    padding: var(--space-4);
+    margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+  }
+  
+  .cardFooter {
+    padding: var(--space-3) var(--space-4);
+    margin: var(--space-4) calc(-1 * var(--space-5)) calc(-1 * var(--space-5));
   }
 }
 /* Variant: Product Card */
 .productCard {
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
 }
 
 .productCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* New variants: light, dark, accent, info, success */
-
-/* light card */
+/* Semantic Color Variants */
 .light {
-  background-color: #ffffff;
-  color: #333333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
 }
 .light:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* dark card */
 .dark {
-  background-color: #333333;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--gray-800);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
 }
 .dark:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* accent card (alias for existing accentBackground) */
-.accent,
-.accentBackground {
-  background-color: #e63946;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.accent {
+  background-color: var(--accent);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
 }
-.accent:hover,
-.accentBackground:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.accent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* info card */
 .info {
-  background-color: #3a7ca5;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--info);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
 }
 .info:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* success card */
 .success {
-  background-color: #2a9d8f;
-  color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--success);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
 }
 .success:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
 }

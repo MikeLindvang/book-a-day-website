@@ -1,0 +1,383 @@
+---
+alwaysApply: true
+---
+
+# Design Foundations
+
+Core design tokens and principles that apply universally across both public sales pages and admin panels.
+
+## Spacing Scale (4/8px Rhythm)
+
+### Base Units
+```css
+/* CSS Custom Properties */
+:root {
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+}
+```
+
+### Usage Patterns
+```css
+/* Component spacing examples */
+.card {
+  padding: var(--space-6);           /* 24px */
+  margin-bottom: var(--space-8);     /* 32px */
+  gap: var(--space-4);               /* 16px */
+}
+
+.form-field {
+  margin-bottom: var(--space-5);     /* 20px */
+}
+
+.section {
+  padding: var(--space-16) 0;       /* 64px vertical */
+}
+```
+
+## Border Radius System
+
+### Consistent Rounded Corners
+```css
+:root {
+  --radius-sm: 0.25rem;   /* 4px - badges, small elements */
+  --radius-md: 0.375rem;  /* 6px - buttons, inputs */
+  --radius-lg: 0.5rem;    /* 8px - cards, panels */
+  --radius-xl: 0.75rem;   /* 12px - large cards, modals */
+  --radius-2xl: 1rem;     /* 16px - hero sections */
+  --radius-full: 50%;     /* circular elements */
+}
+```
+
+### Application Guidelines
+- **Small Elements**: badges, tags, pills → `--radius-sm`
+- **Interactive Elements**: buttons, inputs, selects → `--radius-md`  
+- **Content Containers**: cards, panels → `--radius-lg`
+- **Modal/Dialog**: overlays, large containers → `--radius-xl`
+- **Hero Sections**: featured content → `--radius-2xl`
+
+## Shadow System
+
+### Subtle Elevation Hierarchy
+```css
+:root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+```
+
+### Elevation Mapping
+- **Flat Elements**: buttons, inputs → `--shadow-sm`
+- **Raised Elements**: cards, dropdowns → `--shadow-md`
+- **Floating Elements**: modals, tooltips → `--shadow-lg`
+- **Hero Elements**: featured cards → `--shadow-xl`
+- **Overlay Elements**: full-screen modals → `--shadow-2xl`
+
+## Typography Hierarchy
+
+### Font Families
+```css
+:root {
+  --font-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+```
+
+### Type Scale
+```css
+:root {
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+}
+```
+
+### Semantic Text Styles
+```css
+.heading-1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.heading-2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.body-text {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1.4;
+}
+```
+
+## Color Foundations
+
+### Core Palette
+```css
+:root {
+  /* Brand Colors */
+  --primary: #3a7ca5;
+  --accent: #e63946;
+  --background: #6495ed;
+  
+  /* Content Colors */
+  --content-bg: #eeeeee;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-muted: #6c757d;
+  
+  /* Semantic Colors */
+  --success: #2a9d8f;
+  --warning: #f39c12;
+  --danger: #dc3545;
+  --info: var(--primary);
+  
+  /* Neutral Grays */
+  --white: #ffffff;
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f4;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+}
+```
+
+## Transitions & Motion
+
+### Standard Timing
+```css
+:root {
+  --transition-fast: 0.15s ease;      /* Quick feedback */
+  --transition-normal: 0.2s ease;     /* Standard interactions */
+  --transition-slow: 0.3s ease;       /* Layout changes */
+  --transition-enter: 0.2s ease-out;  /* Entrance animations */
+  --transition-exit: 0.15s ease-in;   /* Exit animations */
+}
+```
+
+### Motion Preferences
+```css
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+```
+
+### Common Transition Patterns
+```css
+/* Smooth hover effects */
+.interactive {
+  transition: all var(--transition-normal);
+}
+
+/* Transform-based animations (performant) */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  transition: transform var(--transition-normal);
+}
+
+/* Opacity fades */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn var(--transition-enter) forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+```
+
+## Accessibility Foundations
+
+### Focus Management
+```css
+/* Consistent focus styles */
+.focusable:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+/* Remove focus for mouse users */
+.focusable:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+### Color Contrast
+All color combinations must meet **WCAG AA standards**:
+- Normal text: 4.5:1 contrast ratio minimum
+- Large text: 3:1 contrast ratio minimum
+- UI components: 3:1 contrast ratio minimum
+
+### Touch Targets
+```css
+/* Minimum 44px touch targets */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+## Responsive Foundations
+
+### Breakpoint System
+```css
+:root {
+  --bp-sm: 640px;   /* Small tablets */
+  --bp-md: 768px;   /* Tablets */
+  --bp-lg: 1024px;  /* Small laptops */
+  --bp-xl: 1280px;  /* Laptops */
+  --bp-2xl: 1536px; /* Large screens */
+}
+
+/* Mobile-first media queries */
+@media (min-width: 768px) {
+  /* Tablet and up */
+}
+
+@media (min-width: 1024px) {
+  /* Desktop and up */
+}
+```
+
+### Container Constraints
+```css
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.text-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+```
+
+## Performance Foundations
+
+### Efficient Animations
+```css
+/* Use transform and opacity for smooth animations */
+.performant-animation {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Avoid animating expensive properties */
+.avoid {
+  /* Don't animate: width, height, background-color, border-width */
+}
+```
+
+### Loading States
+```css
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--gray-300);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+```
+
+## Implementation Guidelines
+
+### CSS Organization
+```css
+/* Foundation styles should be imported first */
+@import 'foundations/tokens.css';
+@import 'foundations/reset.css';
+@import 'foundations/typography.css';
+@import 'foundations/layout.css';
+
+/* Then component styles */
+@import 'components/button.css';
+@import 'components/card.css';
+```
+
+### Token Usage
+- **Always use CSS custom properties** instead of hardcoded values
+- **Apply tokens consistently** across components
+- **Document deviations** when foundation tokens don't meet specific needs
+- **Test at multiple viewport sizes** to ensure responsive behavior
+
+### Quality Checklist
+- [ ] Uses design tokens instead of hardcoded values
+- [ ] Maintains 4/8px spacing rhythm
+- [ ] Applies appropriate border radius for element type
+- [ ] Uses shadow system for elevation hierarchy
+- [ ] Implements smooth transitions with motion preferences
+- [ ] Meets accessibility contrast requirements
+- [ ] Follows mobile-first responsive patterns
+
+Remember: **Foundations create consistency**. Every component should build upon these established patterns rather than reinventing basic design decisions.

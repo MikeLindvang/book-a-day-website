@@ -3,7 +3,7 @@
 .main {
   max-width: 1200px; /* Increase max-width for modern standards */
   margin: 4rem auto;
-  padding: 2rem; /* More reasonable padding */
+  padding: 3rem; /* Enhanced padding for public sales pages */
   background-color: #eee;
   border: 1px solid #e5e7eb; /* Softer border color */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Modern shadow */
@@ -16,10 +16,17 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Elevated shadow on hover */
 }
 
-@media (max-width: 768px) {
+/* Enhanced responsive spacing for better mobile reading experience */
+@media (min-width: 768px) {
+  .main {
+    padding: 3.5rem 3rem; /* Extra generous padding on larger screens */
+  }
+}
+
+@media (max-width: 767px) {
   .main {
     margin: 1.25rem auto;
-    padding: 1rem;
+    padding: 1.5rem; /* More generous mobile padding */
     max-width: 95%; /* Ensure proper mobile sizing */
   }
 }

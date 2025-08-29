@@ -1,0 +1,683 @@
+---
+globs: app/[slug]/**,app/about/**,app/contact/**,app/get-started/**,app/kindle-short-reads/**,app/listsunlimited/**,app/problembuster/**,app/products/**,app/rapidnonfictionformula/**,app/templatetorrent/**,components/SalesPagePreview.*,public/**
+---
+
+# Public Sales Page UX Patterns
+
+Design patterns specifically for **public-facing sales pages** that prioritize conversion, persuasion, and brand engagement.
+
+## Core Principles
+
+### 🎯 Conversion-First Design
+- **Bold hero sections** with compelling headlines and clear CTAs
+- **Visual hierarchy** that guides users toward desired actions  
+- **Social proof integration** through testimonials and trust indicators
+- **Scannable content** with short paragraphs and benefit-focused lists
+
+### 🎨 Brand-Forward Aesthetics
+- **Visual storytelling** with strategic use of images and graphics
+- **Generous whitespace** to create breathing room and focus
+- **Premium feel** through quality typography and polished interactions
+- **Emotional design** that connects with user aspirations
+
+## Hero Section Patterns
+
+### Compelling Headlines
+```css
+.hero-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+}
+
+.hero-subheadline {
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+}
+```
+
+### Strong Call-to-Actions
+```css
+.cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  background: linear-gradient(135deg, var(--accent), #d32f2f);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  transform: translateY(0);
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(230, 57, 70, 0.3);
+  filter: brightness(1.05);
+}
+
+.cta-primary:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+```
+
+### Hero Layout Structure
+```css
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-16) 0;
+  background: linear-gradient(135deg, var(--background) 0%, #5a7bc8 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 1;
+}
+```
+
+## Content Scanning Patterns
+
+### Short, Digestible Paragraphs
+```css
+.sales-copy p {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  margin-bottom: var(--space-5);
+  max-width: 65ch; /* Optimal reading length */
+}
+
+.sales-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* Highlight key phrases */
+.sales-copy .highlight {
+  background: linear-gradient(120deg, transparent 0%, rgba(230, 57, 70, 0.1) 50%, transparent 100%);
+  padding: 0 var(--space-1);
+  font-weight: 600;
+}
+```
+
+### Benefit-Focused Lists
+```css
+.benefit-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-8) 0;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.benefit-item:last-child {
+  border-bottom: none;
+}
+
+.benefit-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--success);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+.benefit-content {
+  flex: 1;
+}
+
+.benefit-title {
+  font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.benefit-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+```
+
+### Scannable Headings
+```css
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin: var(--space-16) 0 var(--space-8);
+  position: relative;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+/* Subsection headings */
+.subsection-heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: var(--space-10) 0 var(--space-4);
+}
+```
+
+## Visual Trust Indicators
+
+### Testimonial Cards
+```css
+.testimonial-card {
+  background: var(--white);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  margin: var(--space-6);
+  transition: transform var(--transition-normal);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.testimonial-quote {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--accent);
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  font-family: Georgia, serif;
+  opacity: 0.3;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gray-200);
+}
+
+.testimonial-info {
+  flex: 1;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.testimonial-title {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+```
+
+### Pricing Tables
+```css
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+  margin: var(--space-12) 0;
+}
+
+.pricing-card {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  text-align: center;
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.pricing-card.featured {
+  border-color: var(--accent);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+.pricing-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.pricing-title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+.pricing-amount {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+}
+
+.pricing-period {
+  color: var(--text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-6) 0;
+  text-align: left;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.pricing-feature-icon {
+  color: var(--success);
+  font-weight: bold;
+}
+```
+
+## Generous Whitespace Strategy
+
+### Section Spacing
+```css
+.sales-section {
+  padding: var(--space-16) 0;
+  position: relative;
+}
+
+.sales-section + .sales-section {
+  border-top: 1px solid var(--gray-200);
+}
+
+.sales-section.hero {
+  padding: var(--space-20) 0;
+}
+
+.sales-section.large {
+  padding: var(--space-24) 0;
+}
+
+/* Alternating background colors for visual separation */
+.sales-section:nth-child(even) {
+  background: var(--gray-50);
+}
+```
+
+### Content Spacing
+```css
+.sales-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.sales-content > * + * {
+  margin-top: var(--space-6);
+}
+
+.sales-content > .large-gap + * {
+  margin-top: var(--space-12);
+}
+
+/* Breathing room around important elements */
+.cta-section {
+  margin: var(--space-16) 0;
+  text-align: center;
+}
+
+.feature-showcase {
+  margin: var(--space-20) 0;
+}
+```
+
+## Image and Media Integration
+
+### Hero Images
+```css
+.hero-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  margin: var(--space-8) auto 0;
+  display: block;
+}
+
+/* Responsive image container */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  transition: transform var(--transition-slow);
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
+```
+
+### Feature Images
+```css
+.feature-image {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+  margin: var(--space-12) 0;
+}
+```
+
+## Mobile Optimization
+
+### Touch-Friendly Interactions
+```css
+@media (max-width: 768px) {
+  .cta-primary {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--text-base);
+    min-height: 48px; /* Minimum touch target */
+  }
+  
+  .hero-headline {
+    font-size: var(--text-3xl);
+    line-height: 1.2;
+  }
+  
+  .hero-section {
+    min-height: 60vh;
+    padding: var(--space-12) 0;
+  }
+  
+  .sales-section {
+    padding: var(--space-12) 0;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  
+  .testimonial-card {
+    margin: var(--space-4);
+    padding: var(--space-6);
+  }
+}
+```
+
+## Conversion Optimization
+
+### Urgency and Scarcity
+```css
+.urgency-banner {
+  background: linear-gradient(90deg, var(--accent), #ff6b6b);
+  color: white;
+  padding: var(--space-3) var(--space-6);
+  text-align: center;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.scarcity-indicator {
+  background: var(--warning);
+  color: var(--gray-900);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.countdown-timer {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  margin: var(--space-6) 0;
+}
+
+.countdown-unit {
+  text-align: center;
+  background: var(--white);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  min-width: 80px;
+}
+
+.countdown-number {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.countdown-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+```
+
+### Social Proof Indicators
+```css
+.social-proof {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+  padding: var(--space-6);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.social-stat {
+  text-align: center;
+}
+
+.social-number {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.social-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+.trust-badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+  opacity: 0.7;
+}
+
+.trust-badge {
+  height: 40px;
+  width: auto;
+  filter: grayscale(100%);
+  transition: filter var(--transition-normal);
+}
+
+.trust-badge:hover {
+  filter: grayscale(0%);
+}
+```
+
+## Performance Optimization
+
+### Image Loading
+```css
+.lazy-image {
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+.image-placeholder {
+  background: linear-gradient(90deg, var(--gray-200) 0%, var(--gray-300) 50%, var(--gray-200) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+```
+
+### Critical Above-the-Fold
+```css
+/* Prioritize hero section loading */
+.hero-section {
+  contain: layout style;
+}
+
+/* Defer below-the-fold content */
+.below-fold {
+  contain: layout;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Open Sans';
+  font-display: swap; /* Prevent invisible text during font swap */
+}
+```
+
+## Quality Checklist
+
+### ✅ Every Sales Page Should:
+- [ ] Have a compelling hero section with clear value proposition
+- [ ] Include prominent, action-oriented CTAs throughout
+- [ ] Use scannable content with short paragraphs and bullet lists
+- [ ] Display social proof and trust indicators
+- [ ] Implement generous whitespace for visual breathing room
+- [ ] Be optimized for mobile conversion
+- [ ] Load quickly with optimized images and assets
+- [ ] Test well on various devices and browsers
+
+### ✅ Conversion Elements Should:
+- [ ] Stand out visually from surrounding content
+- [ ] Use action-oriented language ("Get Started", "Claim Your Copy")
+- [ ] Create urgency without being manipulative
+- [ ] Be accessible via keyboard navigation
+- [ ] Provide clear feedback on interaction
+- [ ] Lead to a smooth checkout or signup flow
+
+Remember: **Sales pages sell dreams and solve problems**. Every design decision should either build trust, communicate value, or guide toward conversion.

@@ -1,0 +1,144 @@
+---
+alwaysApply: true
+---
+
+# Two-Surface Design System
+
+This project implements a **dual-surface design philosophy** that adapts styling and UX patterns based on the target audience and use case.
+
+## Core Philosophy
+
+### 🎯 Public Sales Pages
+**Brand-forward, persuasive, visually engaging, optimized for conversion**
+- Bold hero sections with strong headlines and clear CTAs
+- Generous whitespace to avoid dense UI
+- Visual storytelling with images, testimonials, pricing tables
+- Scannable copy with short paragraphs and benefit lists
+
+### 🛠️ Admin Panel  
+**Clean, calm, minimal, productivity-first, optimized for clarity and efficiency**
+- Functional, minimal UI with clear panels and cards
+- Helpful microcopy and simple icons
+- Form-focused design with inline help and clear errors
+- Non-blocking feedback systems
+
+## Surface Detection
+
+Use these patterns to determine which surface styling to apply:
+
+```javascript
+// Route-based surface detection
+const isAdminSurface = pathname.startsWith('/admin')
+const isPublicSurface = !isAdminSurface
+
+// Component-level surface props
+<Component surface="public" />
+<Component surface="admin" />
+```
+
+## Implementation Guidelines
+
+### CSS Organization
+```css
+/* Base styles apply to both surfaces */
+.component {
+  /* Universal properties */
+}
+
+/* Surface-specific modifiers */
+.component[data-surface="public"] {
+  /* Public sales page styling */
+}
+
+.component[data-surface="admin"] {
+  /* Admin panel styling */
+}
+```
+
+### Component Patterns
+- **Shared Components**: Use surface props to adapt styling
+- **Surface-Specific Components**: Create separate variants when behavior differs significantly
+- **Layout Containers**: Apply surface context to child components
+
+### File Organization
+```
+components/
+  shared/           # Universal components
+  public/          # Sales page specific
+  admin/           # Admin panel specific
+  
+styles/
+  surfaces/
+    public.css     # Public surface overrides
+    admin.css      # Admin surface overrides
+```
+
+## Quality Checklist
+
+### ✅ Every Component Should:
+- [ ] Detect or receive surface context
+- [ ] Apply appropriate styling based on surface
+- [ ] Maintain accessibility across both surfaces
+- [ ] Follow responsive patterns for each surface
+- [ ] Implement proper focus management
+
+### ✅ Public Sales Pages Should:
+- [ ] Use bold, conversion-focused design language
+- [ ] Include clear calls-to-action
+- [ ] Optimize for scanning and visual hierarchy
+- [ ] Support social proof and trust indicators
+
+### ✅ Admin Panel Should:
+- [ ] Prioritize functionality over aesthetics
+- [ ] Provide clear feedback and error states
+- [ ] Use consistent form patterns
+- [ ] Support efficient workflows
+
+## Related Rules
+
+Reference these complementary rules:
+- [foundations.mdc](mdc:foundations.mdc) - Base design tokens
+- [public-sales-ux.mdc](mdc:public-sales-ux.mdc) - Sales page patterns
+- [admin-panel-ux.mdc](mdc:admin-panel-ux.mdc) - Admin interface patterns
+- [accessibility-standards.mdc](mdc:accessibility-standards.mdc) - Universal accessibility
+
+## Examples
+
+### Public Surface Button
+```css
+.button[data-surface="public"] {
+  background: linear-gradient(135deg, #e63946, #d32f2f);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 14px rgba(230, 57, 70, 0.3);
+  transform: translateY(0);
+  transition: all 0.2s ease;
+}
+
+.button[data-surface="public"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+}
+```
+
+### Admin Surface Button
+```css
+.button[data-surface="admin"] {
+  background: #3a7ca5;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.button[data-surface="admin"]:hover {
+  background: #2c5f7a;
+  border-color: #1e3a45;
+}
+```
+
+Remember: **The surface determines the personality**. Public = persuasive and bold. Admin = supportive and efficient.

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Button from '../../../components/Button';
 import PageBuilder from '../../../components/PageBuilder';
 import TemplateSelector from '../../../components/TemplateSelector';
-import GenerateDraftPanel from '../../../components/GenerateDraftPanel';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './page.module.css';
 
@@ -18,9 +18,7 @@ import {
   faFileAlt,
   faLayerGroup,
   faQuestionCircle,
-  faLightbulb,
-  faRobot,
-  faWandMagicSparkles
+  faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
 
 export default function NewPage() {
@@ -34,12 +32,10 @@ export default function NewPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [showTemplateSelector, setShowTemplateSelector] = useState(true);
-  const [showDraftGenerator, setShowDraftGenerator] = useState(false);
+
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [activeTab, setActiveTab] = useState('info');
-  const [userId] = useState('user-demo'); // TODO: Get from auth context
-  const [projectId] = useState('project-demo'); // TODO: Get from project context
-  const [insightSheet] = useState(null); // TODO: Load actual insight sheet
+
   const channelRef = useRef(null);
 
   async function handleSubmit(e) {
@@ -106,31 +102,6 @@ export default function NewPage() {
 
   function changeTemplate() {
     setShowTemplateSelector(true);
-    setShowDraftGenerator(false);
-  }
-
-  function handleShowDraftGenerator() {
-    setShowTemplateSelector(false);
-    setShowDraftGenerator(true);
-  }
-
-  function handleDraftGenerated(draftBlocks, draftMetadata) {
-    setBlocks(draftBlocks);
-    setShowDraftGenerator(false);
-    
-    // Auto-populate fields from draft metadata
-    if (draftMetadata?.templateName && !title) {
-      setTitle(`AI Generated ${draftMetadata.templateName} Sales Page`);
-    }
-    if (!description) {
-      setDescription(`AI-generated sales page using ${draftMetadata?.templateName || 'custom template'} with ${draftMetadata?.tone || 'professional'} tone`);
-    }
-    
-    // Set active tab to content to show generated blocks
-    setActiveTab('content');
-    
-    // Show success message
-    setSuccess(`🎉 AI draft generated successfully! ${draftBlocks.length} sections created.`);
   }
 
   // Ctrl+S to save (prevent browser save dialog)
@@ -151,14 +122,6 @@ export default function NewPage() {
       <>
         <div className={styles.header}>
           <h1 className={styles.title}>Create New Sales Page</h1>
-          <div className={styles.headerActions}>
-            <Button 
-              onClick={handleShowDraftGenerator}
-              icon={faWandMagicSparkles}
-              label="AI Generate"
-              className={styles.aiButton}
-            />
-          </div>
           <Button href="/admin" icon={faArrowLeft} label="Back to List" />
         </div>
         <TemplateSelector 
@@ -169,37 +132,7 @@ export default function NewPage() {
     );
   }
 
-  // Show AI draft generator
-  if (showDraftGenerator) {
-    return (
-      <>
-        <div className={styles.header}>
-          <h1 className={styles.title}>AI Sales Copy Generator</h1>
-          <div className={styles.headerActions}>
-            <Button 
-              onClick={() => setShowTemplateSelector(true)}
-              icon={faFileAlt}
-              label="Templates"
-            />
-          </div>
-          <Button 
-            onClick={() => {
-              setShowDraftGenerator(false);
-              setShowTemplateSelector(true);
-            }}
-            icon={faArrowLeft} 
-            label="Back" 
-          />
-        </div>
-        <GenerateDraftPanel
-          userId={userId}
-          projectId={projectId}
-          insightSheet={insightSheet}
-          onDraftGenerated={handleDraftGenerated}
-        />
-      </>
-    );
-  }
+
 
   // Show page builder after template selection
   return (

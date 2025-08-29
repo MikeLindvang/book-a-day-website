@@ -1,46 +1,9 @@
-/* Two-Column Layout for Admin Dashboard */
+/* Single-Column Layout for Admin Dashboard */
 .adminContainer {
-  display: grid;
-  grid-template-columns: 1fr 400px;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   height: 100%;
-  align-items: start;
-}
-
-.leftColumn {
-  min-width: 0; /* Prevents grid blowout */
-}
-
-.rightColumn {
-  position: sticky;
-  top: 1rem;
-  max-height: calc(100vh - 2rem);
-  overflow-y: auto;
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
-}
-
-/* Responsive Layout */
-@media (max-width: 1200px) {
-  .adminContainer {
-    grid-template-columns: 1fr 350px;
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .adminContainer {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .rightColumn {
-    position: static;
-    max-height: none;
-    order: -1; /* Show AI panel at top on mobile */
-  }
 }
 
 /* Modern Admin Page Header */

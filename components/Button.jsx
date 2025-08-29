@@ -14,6 +14,12 @@ export default function Button({
   href,
   className = '',
   align = 'center',
+  surface = 'admin', // Default to admin surface
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  disabled = false,
+  ...props
 }) {
   const containerClasses = classNames({
     [styles.center]: align === 'center',
@@ -21,14 +27,35 @@ export default function Button({
     [styles.right]: align === 'right',
   });
 
-  const buttonClasses = classNames(styles.button, className);
+  const buttonClasses = classNames(
+    styles.button,
+    {
+      [styles[variant]]: variant,
+      [styles[size]]: size,
+      [styles.loading]: loading,
+    },
+    className
+  );
+
+  const buttonProps = {
+    className: buttonClasses,
+    'data-surface': surface,
+    disabled: disabled || loading,
+    ...props
+  };
 
   if (href) {
     return (
       <div className={containerClasses}>
-        <a href={href} className={buttonClasses}>
-          {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-          {label}
+        <a href={href} {...buttonProps}>
+          {loading ? (
+            <span className={styles.spinner} aria-label="Loading" />
+          ) : (
+            <>
+              {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+              {label}
+            </>
+          )}
         </a>
       </div>
     );
@@ -36,9 +63,15 @@ export default function Button({
 
   return (
     <span className={containerClasses}>
-      <button type={type} onClick={onClick} className={buttonClasses}>
-        {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
-        {label}
+      <button type={type} onClick={onClick} {...buttonProps}>
+        {loading ? (
+          <span className={styles.spinner} aria-label="Loading" />
+        ) : (
+          <>
+            {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
+            {label}
+          </>
+        )}
       </button>
     </span>
   );
@@ -51,4 +84,10 @@ Button.propTypes = {
   href: PropTypes.string,
   className: PropTypes.string,
   align: PropTypes.oneOf(['center', 'left', 'right']),
+  surface: PropTypes.oneOf(['public', 'admin']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'danger']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  icon: PropTypes.object,
 };

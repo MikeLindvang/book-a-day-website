@@ -29,7 +29,9 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        {children}
+        <div data-surface="public">
+          {children}
+        </div>
         <Footer />
       </body>
     </html>

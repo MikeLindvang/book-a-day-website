@@ -71,7 +71,11 @@ export default function AdminLayout({ children }) {
             </div>
           </div>
         </div>
-        <div className={styles.children}>{children}</div>
+        <div className={styles.children}>
+          <div className={styles.contentContainer} data-surface="admin">
+            {children}
+          </div>
+        </div>
       </div>
     </>
   );

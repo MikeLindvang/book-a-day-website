@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Table from '../../components/Table';
 import Button from '../../components/Button';
-import GenerateDraftPanel from '../../components/GenerateDraftPanel';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPencilAlt, faTrash, faPlus, faFileAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import styles from './page.module.css';
@@ -47,25 +47,13 @@ export default function AdminPageList() {
   if (loading) {
     return (
       <div className={styles.adminContainer}>
-        <div className={styles.leftColumn}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Pages</h1>
-            <Button href="/admin/new" icon={faPlus} label="New Page" />
-          </div>
-          <div className={styles.loadingContainer}>
-            <FontAwesomeIcon icon={faSpinner} className={styles.spinner} />
-            <p className={styles.loadingText}>Loading pages...</p>
-          </div>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Pages</h1>
+          <Button href="/admin/new" icon={faPlus} label="New Page" />
         </div>
-        <div className={styles.rightColumn}>
-          <GenerateDraftPanel 
-            projectId="demo" 
-            mode="server"
-            onDraftGenerated={(blocks, metadata) => {
-              console.log('Draft generated:', { blocks, metadata });
-              // TODO: Handle draft generation - could redirect to new page or show success message
-            }}
-          />
+        <div className={styles.loadingContainer}>
+          <FontAwesomeIcon icon={faSpinner} className={styles.spinner} />
+          <p className={styles.loadingText}>Loading pages...</p>
         </div>
       </div>
     );
@@ -75,28 +63,16 @@ export default function AdminPageList() {
   if (error) {
     return (
       <div className={styles.adminContainer}>
-        <div className={styles.leftColumn}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Pages</h1>
-            <Button href="/admin/new" icon={faPlus} label="New Page" />
-          </div>
-          <div className={styles.errorContainer}>
-            <p className={styles.errorText}>Error: {error}</p>
-            <Button 
-              label="Retry" 
-              onClick={() => window.location.reload()} 
-              className={styles.retryButton}
-            />
-          </div>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Pages</h1>
+          <Button href="/admin/new" icon={faPlus} label="New Page" />
         </div>
-        <div className={styles.rightColumn}>
-          <GenerateDraftPanel 
-            projectId="demo" 
-            mode="server"
-            onDraftGenerated={(blocks, metadata) => {
-              console.log('Draft generated:', { blocks, metadata });
-              // TODO: Handle draft generation - could redirect to new page or show success message
-            }}
+        <div className={styles.errorContainer}>
+          <p className={styles.errorText}>Error: {error}</p>
+          <Button 
+            label="Retry" 
+            onClick={() => window.location.reload()} 
+            className={styles.retryButton}
           />
         </div>
       </div>
@@ -107,27 +83,15 @@ export default function AdminPageList() {
   if (pages.length === 0) {
     return (
       <div className={styles.adminContainer}>
-        <div className={styles.leftColumn}>
-          <div className={styles.header}>
-            <h1 className={styles.title}>Pages</h1>
-            <Button href="/admin/new" icon={faPlus} label="New Page" />
-          </div>
-          <div className={styles.emptyContainer}>
-            <FontAwesomeIcon icon={faFileAlt} className={styles.emptyIcon} />
-            <h3 className={styles.emptyTitle}>No pages found</h3>
-            <p className={styles.emptyText}>Get started by creating your first sales page.</p>
-            <Button href="/admin/new" icon={faPlus} label="Create Your First Page" />
-          </div>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Pages</h1>
+          <Button href="/admin/new" icon={faPlus} label="New Page" />
         </div>
-        <div className={styles.rightColumn}>
-          <GenerateDraftPanel 
-            projectId="demo" 
-            mode="server"
-            onDraftGenerated={(blocks, metadata) => {
-              console.log('Draft generated:', { blocks, metadata });
-              // TODO: Handle draft generation - could redirect to new page or show success message
-            }}
-          />
+        <div className={styles.emptyContainer}>
+          <FontAwesomeIcon icon={faFileAlt} className={styles.emptyIcon} />
+          <h3 className={styles.emptyTitle}>No pages found</h3>
+          <p className={styles.emptyText}>Get started by creating your first sales page.</p>
+          <Button href="/admin/new" icon={faPlus} label="Create Your First Page" />
         </div>
       </div>
     );
@@ -161,23 +125,11 @@ export default function AdminPageList() {
 
   return (
     <div className={styles.adminContainer}>
-      <div className={styles.leftColumn}>
-        <div className={styles.header}>
-          <h1 className={styles.title}>Pages</h1>
-          <Button href="/admin/new" icon={faPlus} label="New Page" />
-        </div>
-        <Table headers={['Slug', 'Title', 'Status', 'Actions']} rows={rows} />
+      <div className={styles.header}>
+        <h1 className={styles.title}>Pages</h1>
+        <Button href="/admin/new" icon={faPlus} label="New Page" />
       </div>
-      <div className={styles.rightColumn}>
-        <GenerateDraftPanel 
-          projectId="demo" 
-          mode="server"
-          onDraftGenerated={(blocks, metadata) => {
-            console.log('Draft generated:', { blocks, metadata });
-            // TODO: Handle draft generation - could redirect to new page or show success message
-          }}
-        />
-      </div>
+      <Table headers={['Slug', 'Title', 'Status', 'Actions']} rows={rows} />
     </div>
   );
 }

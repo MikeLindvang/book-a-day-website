@@ -3,10 +3,26 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+/* Enhanced spacing for better reading experience on public sales pages */
+@media (min-width: 768px) {
+  .container {
+    padding: 3rem 2.5rem;
+    gap: 2rem;
+  }
+}
+
+/* Mobile optimization - still generous but appropriate for smaller screens */
+@media (max-width: 767px) {
+  .container {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
 }
 
 .heroImage {
